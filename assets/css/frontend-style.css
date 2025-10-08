@@ -1,0 +1,273 @@
+/**** Spin Wheel Modal *****/
+
+.srwc-wheel-modal{
+    position:fixed;
+    left:0;
+    top:0;  
+    right:0;
+    bottom:0;
+    background:rgba(0,0,0,0.6);
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    z-index:99999
+}
+
+.srwc-wheel-container{
+    width: 55vw;
+    height:100vh;
+    padding:40px;
+    box-sizing:border-box;
+    display:flex;
+    gap:30px;
+    border-radius:0;
+    transform:translateX(-100%);
+    transition:transform 0.8s ease-out;
+}
+
+.srwc-wheel-container.slide-in{
+    transform:translateX(0)
+}
+
+.srwc-wheel-container.slide-out{
+    transform:translateX(-100%)
+}
+
+.srwc-wheel-left{
+    flex:0 0 50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.srwc-wheel{
+    border-radius:100%;
+    background:#fff;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.3);
+}
+
+.srwc-wheel .wheel-inner{
+    width:100%;
+    height:100%;
+    transform-origin:50% 50%;
+    transition:transform 4s cubic-bezier(0.33,1,0.68,1);
+    position:relative;
+    overflow:hidden;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/**** Loader ****/
+
+.srwc-loader {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #fff;     
+    border-top-color: #ff4444;         
+    border-radius: 50%;
+    animation: srwc-spin 0.8s linear infinite;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+@keyframes srwc-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/**** End Loader ****/
+
+/**** Wheel Pointer ****/
+
+.srwc-pointer {
+    position: absolute;
+    top: 49%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    pointer-events: none;
+    z-index: 20;
+}
+
+.srwc-pointer::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+}
+
+.srwc-pointer::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    width: 80px;
+    height: 80px;
+    background: #ff4444;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-135deg);
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+}
+
+.srwc-pointer .srwc-pointer-cutout {
+    position: absolute;
+    top: 33px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    border-radius: 50%;
+    z-index: 21;
+}
+
+/**** End Wheel Pointer ****/
+
+.srwc-wheel-right{
+    flex:1 1 auto;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.srwc-input{
+    width:100%;
+    padding:15px;
+    border-radius:5px;
+    border:none;
+    font-size:16px;
+    box-sizing:border-box;
+    background:#fff;
+    color:#333;
+}
+
+.srwc-input::placeholder{
+    color:#999;
+}
+
+.srwc-spin-btn{
+    padding:15px 25px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+    text-transform:uppercase;
+    transition:background 0.3s ease;
+}
+
+.srwc-spin-btn:disabled{
+    background:#ccc;
+    cursor:not-allowed;
+}
+
+.srwc-win-text{
+    font-size:20px;
+    line-height:1.5;
+    margin-bottom:20px;
+    color:#f5f3f3;
+}
+
+.srwc-close{
+    position:absolute;
+    right:18px;
+    top:0;
+    color:#fff;
+    font-size:50px;
+    cursor: pointer;
+}
+
+.srwc-hidden{
+    display:none
+}
+
+.srwc-wheel-right h2{
+    font-size:28px;
+    text-transform:uppercase;
+    margin:0 0 30px 0;
+    line-height:1.2;
+    text-align:left;
+}
+
+.srwc-wheel-controls{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.srwc-wheel-right p{
+    font-size:13px;
+    opacity:0.8;
+    margin:0;
+    text-align:left;
+}
+
+/***** Mini Spin Wheel *****/
+
+.srwc-floating-btn{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    width:65px;
+    height:60px;
+    padding:0;
+    background:transparent;
+    color:#fff;
+    border:none;
+    border-radius:50%;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all 0.3s ease;
+    box-shadow:0 2px 10px rgba(0,0,0,0.15);
+}
+
+.srwc-mini-wheel{
+    width:90%;
+    height:90%;
+    border-radius:50%;
+    background:#fff;
+    position:relative;
+    overflow:hidden;
+    margin:0 auto;
+    border:2px solid #fff;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.1);
+}
+
+.srwc-mini-wheel-inner{
+    width:100%;
+    height:100%;
+    background:conic-gradient(
+        #d2691e 0deg 60deg,      
+        #5589e9 60deg 120deg,   
+        #ff8c00 120deg 180deg,   
+        #f1608b 180deg 240deg, 
+        #875ceb 240deg 300deg,   
+        #68cce6 300deg 360deg    
+    );
+    border-radius:50%;
+}
+
+.srwc-mini-wheel-inner::after{
+    content:'';
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    width:8px;
+    height:8px;
+    background:#fff;
+    border-radius:50%;
+    z-index:1;
+}
+
+/***** End Mini Spin Wheel *****/

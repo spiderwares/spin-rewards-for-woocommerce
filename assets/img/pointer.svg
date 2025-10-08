@@ -1,0 +1,17 @@
+<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.3)"/>
+    </filter>
+  </defs>
+  
+  <!-- Pointer Triangle -->
+  <path d="M20 5 L35 30 L20 25 L5 30 Z" 
+        fill="#dc3545" 
+        stroke="#fff" 
+        stroke-width="2" 
+        filter="url(#shadow)"/>
+  
+  <!-- Center Circle -->
+  <circle cx="20" cy="20" r="3" fill="#fff" stroke="#dc3545" stroke-width="1"/>
+</svg>

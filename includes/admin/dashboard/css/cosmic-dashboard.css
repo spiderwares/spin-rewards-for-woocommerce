@@ -1,0 +1,273 @@
+.cosmic_page .card {
+    border-color: #eee;
+    max-width: 100%;
+}
+
+.cosmic_settings_page .cosmic_settings_page_nav .nav-tab-wrapper {
+    border-color: #eee;
+    border-left: 1px solid #dee2e6;
+}
+
+.cosmic_settings_page .cosmic_settings_page_nav .nav-tab-wrapper a.nav-tab-active,
+.cosmic_settings_page .cosmic_settings_page_nav .nav-tab-wrapper a:hover {
+    background-color: #eceafb;
+    border-bottom-color: #eceafb;
+    color: #444242 !important;
+}
+
+.cosmic_settings_page .cosmic_settings_page_nav .nav-tab-wrapper a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 0;
+    margin-right: 0;
+    outline: none;
+    box-shadow: none;
+    border-width: 1px 1px 1px 0px;
+    border-style: solid;
+    border-image: initial;
+    border-color: #dee2e6;
+    padding: 10px 20px;
+    background-color: #ffffff;
+}
+
+.cosmic_settings_page .cosmic_settings_page_content {
+    border-width: 0 1px 1px 1px;
+    border-style: solid;
+    border-color: #eee;
+    background-color: #fff;
+    display: inline-block;
+    width: 100%;
+    margin: 0;
+}
+
+.cosmic_settings_page .cosmic_settings_page_content table tr.heading {
+    border-bottom: 1px dashed #eeeeee;
+}
+
+.cosmic_settings_page .cosmic_settings_page_content table {
+    margin: 0;
+    padding: 0;
+    border-spacing: 0;
+    border-collapse: unset;
+}
+
+.cosmic_settings_page .cosmic_settings_page_content table tr th,
+.cosmic_settings_page .cosmic_settings_page_content table tr td {
+    padding: 15px 20px;
+    border-bottom: 1px dashed #eee;
+}
+
+.cosmic_settings_page .cosmic_settings_page_content table tr th,
+.cosmic_settings_page .cosmic_settings_page_content table tr td {
+    padding: 15px 20px;
+    border-bottom: 1px dashed #eee;
+}
+
+.cosmic_settings_page .cosmic_settings_page_content table tr.submit p {
+    margin: 0;
+    padding: 0;
+}
+
+
+/*--------------------------- End Switch Field ------------------------------*/
+.cosmic_settings_page .cosmic_settings_page_content table .srwc-select select,
+.cosmic_settings_page .cosmic_settings_page_content table .srwc-text-field input[type="text"],
+.cosmic_settings_page .cosmic_settings_page_content table .srwc-number-field input[type="number"] {
+    min-width: 350px;
+    padding: 3px 10px;
+    border-radius: 2px;
+}
+
+.cosmic_settings_page .cosmic_settings_page_content table .jpwc_rep_wrapper input[type="text"],
+.cosmic_settings_page .cosmic_settings_page_content table .jpwc_rep_wrapper input[type="number"] {
+    min-width: 200px;
+    padding: 3px 10px;
+    border-radius: 2px;
+}
+
+.cosmic_settings_page .cosmic_settings_page_content table .heading th {
+    border-left: 4px solid black;
+    font-size: 16px;
+    padding: 12px 20px;
+    background-color: #eceafb;
+}
+
+/***** Switch Field Styling *****/
+
+.srwc-switch-field {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    width: 44px;
+    height: 24px;
+}
+  
+.srwc-switch-field input[type="checkbox"] {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+  
+.srwc-switch-field label {
+    background-color: #e2e8f0;
+    border-radius: 30px;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+}
+  
+.srwc-switch-icon {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: left 0.3s ease;
+    z-index: 2;
+}
+  
+.srwc-switch-icon svg {
+    width: 12px;
+    height: 12px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+  
+.srwc-switch-icon .srwc-icon-on {
+    display: none;
+}
+  
+.srwc-switch-icon .srwc-icon-off {
+    display: block;
+    fill: #64748b;
+    stroke-width: 2px;
+    stroke: #64748b;
+}
+  
+.srwc-switch-field input[type="checkbox"]:checked+label {
+    background-color: #570fdc;
+}
+  
+.srwc-switch-field input[type="checkbox"]:checked+label .srwc-switch-icon {
+    left: 22px;
+}
+  
+.srwc-switch-field input[type="checkbox"]:checked+label .srwc-icon-on {
+    display: block;
+    fill: #570fdc;
+    stroke-width: 2px;
+    stroke: #570fdc;
+}
+  
+.srwc-switch-field input[type="checkbox"]:checked+label .srwc-icon-off {
+    display: none;
+}
+  
+/***** End Switch Field Styling *****/
+
+/***** Number Field Styling *****/
+.srwc-number-field {
+    display: flex;
+}
+  
+.srwc-input-with-unit select:disabled {
+    background-color: #f3f4f6;
+    color: #9ca3af;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+  
+.srwc-unit-text {
+    background-color: #f3f4f6;
+    color: #6b7280;
+    padding: 8px 12px;
+    border-left: 1px solid #d1d5db;
+    font-size: 14px;
+    display: inline-block;
+    min-width: 80px;
+    text-align: center;
+    font-weight: 700;
+  
+} 
+
+/***** End Number Field Styling *****/
+
+/***** Pro Version *****/
+
+.srwc-pro-message {
+    color: #c9356e;
+}
+  
+/***** End Pro Version *****/
+
+
+/* .srwc-switch-group {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+  }
+  
+  .srwc-switch-option {
+    display: flex;
+    flex-direction: column;
+    min-width: 400px;
+  }
+  
+  .srwc-switch-option .srwc-switch-field {
+    margin-bottom: 8px;
+  }
+  
+  .srwc-switch-label {
+    margin-bottom: 5px;
+  }
+  
+  .srwc-switch-label strong {
+    font-size: 14px;
+    color: #374151;
+    font-weight: 600;
+  }
+  
+  .srwc-switch-desc {
+    max-width: 600px;
+  }
+  
+  .srwc-switch-desc small {
+    font-size: 12px;
+    color: #6b7280;
+    line-height: 1.4;
+  }
+  
+  .srwc-switch-group input[type="radio"] {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
+  
+  .srwc-switch-group input[type="radio"]:checked + label {
+    background-color: #570fdc;
+  }
+  
+  .srwc-switch-group input[type="radio"]:checked + label .srwc-switch-icon {
+    left: 22px;
+  }
+  
+  .srwc-switch-group input[type="radio"]:checked + label .srwc-icon-on {
+    display: block;
+    fill: #570fdc;
+    stroke-width: 2px;
+    stroke: #570fdc;
+  }
+  
+  .srwc-switch-group input[type="radio"]:checked + label .srwc-icon-off {
+      display: none;
+  } */

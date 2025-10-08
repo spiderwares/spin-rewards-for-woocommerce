@@ -1,0 +1,92 @@
+/***** Media Field *****/
+
+.srwc-media {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.srwc-media-preview {
+  margin-top: 10px;
+}
+
+.srwc-media-preview img {
+  max-width: 250px;
+  max-height: 250px;
+}
+
+.srwc-media-upload,
+.srwc-media-remove {
+  align-self: flex-start;
+  margin-right: 10px;
+}
+
+.srwc-media-buttons .srwc-media-upload,
+.srwc-media-buttons .srwc-media-upload:hover {
+  background-color: rgb(15, 162, 220);
+  color: #fff;
+  border: 1px solid rgb(15, 162, 220);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 15px;
+}
+
+.srwc-media-buttons .srwc-media-remove,
+.srwc-media-buttons .srwc-media-remove:hover {
+  background-color: rgb(220, 15, 15);
+  color: #fff;
+  border: 1px solid rgb(220, 39, 15);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 15px;
+}
+
+.srwc-media-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/***** End Media Field *****/
+
+/***** Repeater Row *****/
+
+.srwc-add-repeater-row {
+  background: #0073aa;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.srwc-add-repeater-row:hover {
+  background: #005a87;
+}
+
+/***** End Repeater Row *****/
+
+/* .srwc-slide-footer {
+  display: flex;
+} */
+
+.srwc-remove-repeater-row {
+  border: none;
+  background: #e7e7e7;
+  cursor: pointer;
+}
+
+.srwc-coupon-type, .srwc-slide-label, .srwc-slide-value{
+  width: 200px;
+}
+
+.srwc-slide-probability {
+  width: 100px;
+}
+
+.srwc-slides-table .srwc-index {
+  width: 50px;
+  margin-left: 10px;
+} 
