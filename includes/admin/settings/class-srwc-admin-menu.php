@@ -52,10 +52,7 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
         public function register_settings() {
             register_setting(
                 'srwc_settings',
-                'srwc_settings',
-                [
-                    'sanitize_callback' => [ $this, 'sanitize_settings' ],
-                ]
+                'srwc_settings',[ 'sanitize_callback' => [ $this, 'sanitize_settings' ], ]
             );
         }
 
@@ -84,6 +81,27 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
                 'cosmic-srwc', 
                 [ $this,'admin_menu_content' ] 
             );
+
+            // Add Spin Records submenu
+            add_menu_page(
+                esc_html__( 'Spin Records', 'spin-rewards-for-woocommerce' ), // Page title
+                esc_html__( 'Spin Records', 'spin-rewards-for-woocommerce' ), // Menu title
+                'manage_options',                                             // Capability
+                'edit.php?post_type=srwc_spin_record',                        // Menu slug
+                '',                                                           // Callback not needed
+                'dashicons-awards',                                           // Trophy Icon for Rewards
+                30                                                            // Position (optional)
+            );
+
+            // Add Reports submenu
+            add_submenu_page(
+                'edit.php?post_type=srwc_spin_record',                        // Parent slug
+                esc_html__( 'Reports', 'spin-rewards-for-woocommerce' ),      // Page title
+                esc_html__( 'Reports', 'spin-rewards-for-woocommerce' ),      // Menu title
+                'manage_options',                                             // Capability
+                'srwc-reports',                                               // Menu slug
+                [ $this, 'reports_page_content' ]                             // Callback
+            );
         }
         
         /**
@@ -94,7 +112,7 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
             wp_enqueue_style( 'wp-color-picker' );
             wp_enqueue_script( 'wp-color-picker' );
             
-            // Enqueue WordPress media scripts for media uploader
+            // Enqueue WordPress media
             wp_enqueue_media();
 
             wp_enqueue_style( 
@@ -118,11 +136,12 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
                 array(), 
                 SRWC_VERSION 
             );
+            wp_enqueue_style( 'woocommerce_admin_styles' );
 
             wp_enqueue_script( 
                 'srwc-admin', 
                 SRWC_URL . 'assets/js/srwc-admin.js', 
-                array('jquery', 'wp-color-picker', 'media-upload', 'media-views'), 
+                array('jquery', 'wp-color-picker', 'media-upload', 'media-views' ), 
                 SRWC_VERSION,
                 true
             );
@@ -145,6 +164,10 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
 
             $active_tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'general';
             require_once SRWC_PATH . 'includes/admin/settings/views/rewards-menu.php';
+        }
+
+        public function reports_page_content() {
+            require_once SRWC_PATH . 'includes/admin/settings/views/reports.php';
         }
 
         public function filter_data_before_update( $value, $old_value, $option ) {
@@ -180,6 +203,7 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
             $data = array_merge( $old_value, $value );
             return $data;
         }
+
 
     }
 

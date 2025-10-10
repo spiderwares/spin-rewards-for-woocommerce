@@ -6,29 +6,38 @@
 .cosmic_settings_page .cosmic_settings_page_nav .nav-tab-wrapper {
     border-color: #eee;
     border-left: 1px solid #dee2e6;
+    /* border-bottom: 2px solid #7f54b3 !important; */
 }
 
-.cosmic_settings_page .cosmic_settings_page_nav .nav-tab-wrapper a.nav-tab-active,
-.cosmic_settings_page .cosmic_settings_page_nav .nav-tab-wrapper a:hover {
-    background-color: #eceafb;
-    border-bottom-color: #eceafb;
-    color: #444242 !important;
+.cosmic_settings_page .cosmic_settings_page_nav .nav-tab-wrapper a.nav-tab-active{
+    border-color: #7f54b3;
+    border-bottom-color: #ffffff;
+    color: #000000 !important;
+    border-width: 2px 2px 0px 2px !important;
+    border-radius: 5px 5px 0px 0px;
+    /* margin-bottom: -2px; */
+}
+
+.cosmic_settings_page_nav .nav-tab-wrapper {
+    border-bottom: 0 !important;
 }
 
 .cosmic_settings_page .cosmic_settings_page_nav .nav-tab-wrapper a {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-left: 0;
-    margin-right: 0;
+    margin-left: 0px;
+    margin-right: 5px;
     outline: none;
     box-shadow: none;
-    border-width: 1px 1px 1px 0px;
+    border-bottom: 2px;
     border-style: solid;
     border-image: initial;
-    border-color: #dee2e6;
     padding: 10px 20px;
     background-color: #ffffff;
+    /* border-color: #7f54b3; */
+    /* border: none; */
+    border-width: 0px;
 }
 
 .cosmic_settings_page .cosmic_settings_page_content {
@@ -69,7 +78,6 @@
     padding: 0;
 }
 
-
 /*--------------------------- End Switch Field ------------------------------*/
 .cosmic_settings_page .cosmic_settings_page_content table .srwc-select select,
 .cosmic_settings_page .cosmic_settings_page_content table .srwc-text-field input[type="text"],
@@ -87,10 +95,10 @@
 }
 
 .cosmic_settings_page .cosmic_settings_page_content table .heading th {
-    border-left: 4px solid black;
+    border-left: 2px solid black;
     font-size: 16px;
     padding: 12px 20px;
-    background-color: #eceafb;
+    /* background-color: #eceafb; */
 }
 
 /***** Switch Field Styling *****/
@@ -196,6 +204,7 @@
     min-width: 80px;
     text-align: center;
     font-weight: 700;
+    border-radius: 0 5px 5px 0;
   
 } 
 
@@ -208,66 +217,3 @@
 }
   
 /***** End Pro Version *****/
-
-
-/* .srwc-switch-group {
-    display: flex;
-    gap: 30px;
-    align-items: flex-start;
-  }
-  
-  .srwc-switch-option {
-    display: flex;
-    flex-direction: column;
-    min-width: 400px;
-  }
-  
-  .srwc-switch-option .srwc-switch-field {
-    margin-bottom: 8px;
-  }
-  
-  .srwc-switch-label {
-    margin-bottom: 5px;
-  }
-  
-  .srwc-switch-label strong {
-    font-size: 14px;
-    color: #374151;
-    font-weight: 600;
-  }
-  
-  .srwc-switch-desc {
-    max-width: 600px;
-  }
-  
-  .srwc-switch-desc small {
-    font-size: 12px;
-    color: #6b7280;
-    line-height: 1.4;
-  }
-  
-  .srwc-switch-group input[type="radio"] {
-    opacity: 0;
-    width: 0;
-    height: 0;
-    position: absolute;
-  }
-  
-  .srwc-switch-group input[type="radio"]:checked + label {
-    background-color: #570fdc;
-  }
-  
-  .srwc-switch-group input[type="radio"]:checked + label .srwc-switch-icon {
-    left: 22px;
-  }
-  
-  .srwc-switch-group input[type="radio"]:checked + label .srwc-icon-on {
-    display: block;
-    fill: #570fdc;
-    stroke-width: 2px;
-    stroke: #570fdc;
-  }
-  
-  .srwc-switch-group input[type="radio"]:checked + label .srwc-icon-off {
-      display: none;
-  } */

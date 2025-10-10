@@ -67,6 +67,12 @@ defined( 'ABSPATH' ) || exit;
                 <?php esc_html_e( 'Email API', 'spin-rewards-for-woocommerce' ); ?>
             </a>
 
+            <!-- Localization settings tab -->
+            <a href="<?php echo esc_url( admin_url( 'admin.php?page=cosmic-srwc&tab=localization' ) ); ?>" 
+               class="<?php echo esc_attr( $active_tab === 'localization' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">
+                <img src="<?php echo esc_url( SRWC_URL . 'assets/img/localization.svg'); ?>" />
+                <?php esc_html_e( 'Localization', 'spin-rewards-for-woocommerce' ); ?>
+            </a>
 
         </h2>
     </div>

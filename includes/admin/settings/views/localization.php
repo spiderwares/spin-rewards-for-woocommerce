@@ -1,7 +1,7 @@
 <?php
 /**
- * Settings Tab: Popup
- * Loads the Popup settings section in the plugin settings page.
+ * Settings Tab: Localization
+ * Loads the Localization settings section in the plugin settings page.
  * 
  * @package Spin_Rewards_For_WooCommerce
  */
@@ -10,11 +10,11 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Retrieve the popup settings fields from the SRWC_Rewards_Fields class.
- * @var array $fields Array of popup settings fields.
+ * Retrieve the localization settings fields from the SRWC_Rewards_Fields class.
+ * @var array $fields Array of localization settings fields.
  * 
  */
-$fields = SRWC_Rewards_Fields::popup_field();
+$fields = SRWC_Rewards_Fields::localization_field();
 
 /**
  * Fetch the saved settings from the WordPress options table.
@@ -24,12 +24,12 @@ $fields = SRWC_Rewards_Fields::popup_field();
 $options = get_option( 'srwc_settings', true );
 
 /**
- * Load the settings form template for the Popup settings tab.
+ * Load the settings form template for the Localization settings tab.
  */
 wc_get_template(
 	'fields/setting-forms.php',
 	array(
-		'title'   => 'Popup Timer Action',         // Section title.
+		'title'   => 'Localization',         // Section title.
 		'metaKey' => 'srwc_settings',   // Option meta key.
 		'fields'  => $fields,           // Field definitions.
 		'options' => $options,          // Saved option values.

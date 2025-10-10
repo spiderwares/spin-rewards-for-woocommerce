@@ -32,36 +32,6 @@ if ( ! class_exists( 'SRWC_Install' ) ) :
             if ( ! is_blog_installed() ) :
                 return;
             endif;
-
-            self::create_tables();
-        }
-
-        /**
-         * Create database tables.
-         */
-        private static function create_tables() {
-            global $wpdb;
-
-            $charset_collate = $wpdb->get_charset_collate();
-
-            // Create spin logs table
-            $table_name = $wpdb->prefix . 'srwc_spin_logs';
-            
-            $sql = "CREATE TABLE $table_name (
-                id mediumint(9) NOT NULL AUTO_INCREMENT,
-                email varchar(100) NOT NULL,
-                name varchar(100) DEFAULT '',
-                result text DEFAULT '',
-                ip_address varchar(45) DEFAULT '',
-                user_agent text DEFAULT '',
-                created_at datetime DEFAULT CURRENT_TIMESTAMP,
-                PRIMARY KEY (id),
-                KEY email (email),
-                KEY created_at (created_at)
-            ) $charset_collate;";
-
-            require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-            dbDelta( $sql );
         }
 
         /**

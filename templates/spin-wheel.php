@@ -6,14 +6,13 @@
 if ( ! defined( 'ABSPATH' ) ) exit;  
 ?>
 
-<div class="srwc-wheel-modal" style="display:none;">
+<div class="srwc-wheel-modal">
   <div class="srwc-wheel-container">
     
     <!-- Left Side: Wheel -->
     <div class="srwc-wheel-left">
       <div class="srwc-wheel">
         <div class="wheel-inner">
-          <!-- Canvas wheel -->
           <canvas id="srwc_wheel_canvas"></canvas>
         </div>
         <!-- Pointer -->
@@ -38,26 +37,21 @@ if ( ! defined( 'ABSPATH' ) ) exit;
       <!-- Form -->
       <div class="srwc-wheel-controls">
         <?php if (!empty($settings['user_name']) && $settings['user_name'] === 'yes') : ?>
-          <input type="text" class="srwc-input srwc-name" placeholder="<?php esc_attr_e( 'Please enter your name', 'spin-rewards-for-woocommerce' ); ?>" required/>
+            <input type="text" class="srwc-input srwc-name" placeholder="<?php esc_attr_e( 'Please enter your name', 'spin-rewards-for-woocommerce' ); ?>" required/>
+            <div class="srwc-error srwc-name-error"></div>
         <?php endif; ?>
 
         <input type="email" class="srwc-input srwc-email" placeholder="<?php esc_attr_e( 'Please enter your email', 'spin-rewards-for-woocommerce' ); ?>" required/>
+        <div class="srwc-error srwc-email-error"></div>
 
-        <!-- Spin limit info -->
-        <div class="srwc-spin-info" style="display: none;">
-          <span class="srwc-spin-count"></span>
-        </div>
-
-        <?php 
-          $btn_text = !empty($settings['spin_button_text']) ? $settings['spin_button_text'] : 'Spin Now'; 
-        ?>
+        <?php $btn_text = !empty($settings['spin_button_text']) ? $settings['spin_button_text'] : 'Spin Now'; ?>
         <button class="srwc-spin-btn">
           <?php echo esc_html($btn_text); ?>
         </button>
       </div>
 
       <!-- Win/Loss Message -->
-      <div class="srwc-win-message" style="display: none;">
+      <div class="srwc-win-message">
         <div class="srwc-win-text"></div>
       </div>
     </div>

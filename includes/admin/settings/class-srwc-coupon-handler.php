@@ -23,7 +23,7 @@ if ( ! class_exists( 'SRWC_Coupon_Handler' ) ) :
         /**
          * Initialize hooks and filters.
          */
-        private function event_handler() {
+        public function event_handler() {
             add_action( 'wp_ajax_srwc_get_coupons', [ $this, 'get_coupons_ajax' ] );    
             add_action( 'wp_ajax_nopriv_srwc_get_coupons', [ $this, 'get_coupons_ajax' ] );
         }
@@ -55,7 +55,7 @@ if ( ! class_exists( 'SRWC_Coupon_Handler' ) ) :
                 
                 if ( $coupon->is_valid() ) {
                     $coupons[] = array(
-                        'code'        => $coupon->get_code(),
+                        'code'        => strtoupper( $coupon->get_code() ),
                         'description' => $coupon->get_description() ? $coupon->get_description() : $coupon->get_code(),
                         'amount'      => $coupon->get_amount(),
                         'type'        => $coupon->get_discount_type()

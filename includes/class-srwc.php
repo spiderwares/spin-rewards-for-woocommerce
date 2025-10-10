@@ -118,6 +118,8 @@ if ( ! class_exists( 'SRWC' ) ) :
                 $this->includes_public();
             endif;
             require_once SRWC_PATH . 'includes/public/class-srwc-coupon.php';
+            require_once SRWC_PATH . 'includes/email/class-srwc-email.php';
+            require_once SRWC_PATH . 'includes/public/class-srwc-spin-loss-records.php';
         }
 
         /**
@@ -127,6 +129,10 @@ if ( ! class_exists( 'SRWC' ) ) :
             require_once SRWC_PATH . 'includes/class-srwc-install.php';
             require_once SRWC_PATH . 'includes/admin/dashboard/class-cosmic-dashboard.php';
             require_once SRWC_PATH . 'includes/admin/settings/class-srwc-options.php';
+            require_once SRWC_PATH . 'includes/admin/settings/class-spin-wheel-record-cpt.php';
+            require_once SRWC_PATH . 'includes/admin/settings/class-srwc-spin-wheel-metabox.php';
+            require_once SRWC_PATH . 'includes/admin/settings/class-srwc-spin-wheel-records.php';
+            require_once SRWC_PATH . 'includes/admin/settings/class-srwc-spin-wheel-reports.php';
             require_once SRWC_PATH . 'includes/admin/settings/class-srwc-admin-menu.php';
             require_once SRWC_PATH . 'includes/admin/settings/class-srwc-setting-fields.php';
             require_once SRWC_PATH . 'includes/admin/settings/class-srwc-coupon-handler.php';
@@ -137,6 +143,7 @@ if ( ! class_exists( 'SRWC' ) ) :
          */
         public function includes_public() {
             require_once SRWC_PATH . 'includes/public/class-srwc-public.php';
+            require_once SRWC_PATH . 'includes/public/class-srwc-helpers.php';
         }
     }
 
