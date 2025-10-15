@@ -97,9 +97,11 @@ if ( ! class_exists( 'SRWC' ) ) :
             
             // Save default options on first activation
             $default = include_once SRWC_PATH . 'includes/static/srwc-default-option.php';
+            error_log(print_r($default, true));
 
             foreach ( $default as $optionKey => $option ) :
                 $existingOption = get_option( $optionKey );
+
 
                 // If the option is not set, update it with the default value
                 if ( ! $existingOption ) :
@@ -128,14 +130,16 @@ if ( ! class_exists( 'SRWC' ) ) :
         public function includes_admin() {
             require_once SRWC_PATH . 'includes/class-srwc-install.php';
             require_once SRWC_PATH . 'includes/admin/dashboard/class-cosmic-dashboard.php';
-            require_once SRWC_PATH . 'includes/admin/settings/class-srwc-options.php';
-            require_once SRWC_PATH . 'includes/admin/settings/class-spin-wheel-record-cpt.php';
-            require_once SRWC_PATH . 'includes/admin/settings/class-srwc-spin-wheel-metabox.php';
-            require_once SRWC_PATH . 'includes/admin/settings/class-srwc-spin-wheel-records.php';
-            require_once SRWC_PATH . 'includes/admin/settings/class-srwc-spin-wheel-reports.php';
             require_once SRWC_PATH . 'includes/admin/settings/class-srwc-admin-menu.php';
-            require_once SRWC_PATH . 'includes/admin/settings/class-srwc-setting-fields.php';
             require_once SRWC_PATH . 'includes/admin/settings/class-srwc-coupon-handler.php';
+            require_once SRWC_PATH . 'includes/admin/settings/class-srwc-options.php';
+            require_once SRWC_PATH . 'includes/admin/settings/class-srwc-setting-fields.php';
+            require_once SRWC_PATH . 'includes/admin/settings/class-srwc-spin-email-limit.php';
+            require_once SRWC_PATH . 'includes/admin/settings/class-srwc-spin-metabox.php';
+            require_once SRWC_PATH . 'includes/admin/settings/class-srwc-spin-record-cpt.php';
+            require_once SRWC_PATH . 'includes/admin/settings/class-srwc-spin-records.php';
+            require_once SRWC_PATH . 'includes/admin/settings/class-srwc-spin-reports.php';
+
         }
 
         /**

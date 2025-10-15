@@ -27,10 +27,20 @@ if ( ! class_exists( 'SRWC_Coupon' ) ) :
 		 * Generate coupon.
 		 */
         public function generate_coupon() {
-            $coupon_type = isset( $_POST['coupon_type'] ) ? sanitize_text_field( $_POST['coupon_type'] ) : 'percent';
-            $value       = isset( $_POST['value'] ) ? floatval( $_POST['value'] ) : 0;
-            $win_label   = isset( $_POST['win_label'] ) ? sanitize_text_field( $_POST['win_label'] ) : '';
-            $customer_name = isset( $_POST['customer_name'] ) ? sanitize_text_field( $_POST['customer_name'] ) : '';
+            // Verify nonce for security
+            if ( ! isset( $_POST['nonce'] ) || ! 
+                wp_verify_nonce( 
+                    sanitize_text_field( wp_unslash( $_POST['nonce'] ) ),
+                    'srwc_nonce' 
+                )
+            ) :
+                return;
+            endif;
+
+            $coupon_type   = isset( $_POST['coupon_type'] ) ? sanitize_text_field( wp_unslash( $_POST['coupon_type'] ) ) : 'percent';
+            $value         = isset( $_POST['value'] ) ? floatval( wp_unslash( $_POST['value'] ) ) : 0;
+            $win_label     = isset( $_POST['win_label'] ) ? sanitize_text_field( wp_unslash( $_POST['win_label'] ) ) : '';
+            $customer_name = isset( $_POST['customer_name'] ) ? sanitize_text_field( wp_unslash( $_POST['customer_name'] ) ) : '';
         
             if ( ! empty( $_POST['customer_email'] ) ) :
                 $customer_email = sanitize_email( wp_unslash( $_POST['customer_email'] ) );
@@ -59,13 +69,12 @@ if ( ! class_exists( 'SRWC_Coupon' ) ) :
             // build coupon code
             $random_length = $code_length - strlen( $prefix ) - strlen( $suffix );
             $random_length = $random_length < 1 ? 1 : $random_length;
-        
-            $allowed = ( $code_type === 'numeric' ) ? '0123456789' : 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            $allowed       = ( $code_type === 'numeric' ) ? '0123456789' : 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         
             $random = '';
-            for ( $i = 0; $i < $random_length; $i++ ) {
+            for ( $i = 0; $i < $random_length; $i++ ) :
                 $random .= $allowed[ wp_rand( 0, strlen( $allowed ) - 1 ) ];
-            }
+            endfor;
         
             $coupon_code = strtoupper( $prefix . $random . $suffix );
         
@@ -101,8 +110,8 @@ if ( ! class_exists( 'SRWC_Coupon' ) ) :
                     : '';
 
                 // Create spin record
-                if ( class_exists( 'SRWC_Spin_Wheel_Records' ) ) :
-                    $record_id = SRWC_Spin_Wheel_Records::create_spin_record( array(
+                if ( class_exists( 'SRWC_Spin_Records' ) ) :
+                    $record_id = SRWC_Spin_Records::create_spin_record( array(
                         'customer_email' => $customer_email,
                         'customer_name'  => $customer_name,
                         'win_label'      => $win_label,
@@ -114,6 +123,9 @@ if ( ! class_exists( 'SRWC_Coupon' ) ) :
 
                 WC()->mailer();
                 do_action( 'srwc_user_win_email', $customer_email, $coupon_code, $date_expires );
+
+                do_action( 'srwc_admin_email', $customer_email, $coupon_code, $date_expires );
+
         
                 wp_send_json_success( array(
                     'coupon_code'  => $coupon_code,

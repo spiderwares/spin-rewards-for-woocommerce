@@ -81,7 +81,8 @@
 /*--------------------------- End Switch Field ------------------------------*/
 .cosmic_settings_page .cosmic_settings_page_content table .srwc-select select,
 .cosmic_settings_page .cosmic_settings_page_content table .srwc-text-field input[type="text"],
-.cosmic_settings_page .cosmic_settings_page_content table .srwc-number-field input[type="number"] {
+.cosmic_settings_page .cosmic_settings_page_content table .srwc-number-field input[type="number"],
+.cosmic_settings_page .cosmic_settings_page_content table .srwc-time-input-group input[type="number"] {
     min-width: 350px;
     padding: 3px 10px;
     border-radius: 2px;

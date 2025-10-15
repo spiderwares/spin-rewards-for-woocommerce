@@ -30,7 +30,7 @@ if ( ! class_exists( 'SRWC_User_Win_Email' ) ) :
 		}
 
 		public function get_default_subject() {
-			return esc_html__( 'Spin wheel coupon award.', 'spin-rewards-for-woocommerce' );
+			return esc_html__( 'Spin rewards coupon award.', 'spin-rewards-for-woocommerce' );
 		}
 
 		public function get_default_heading() {

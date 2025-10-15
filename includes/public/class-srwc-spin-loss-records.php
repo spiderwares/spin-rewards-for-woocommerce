@@ -19,15 +19,25 @@ if ( ! class_exists( 'SRWC_Spin_Loss_Records' ) ) :
          * Record loss spin (no coupon generated, no email sent)
          */
         public function record_loss_spin() {
-            $customer_name = isset( $_POST['customer_name'] ) ? sanitize_text_field( $_POST['customer_name'] ) : '';
+
+            if ( ! isset( $_POST['nonce'] ) || ! 
+                wp_verify_nonce( 
+                    sanitize_text_field( wp_unslash( $_POST['nonce'] ) ),
+                    'srwc_nonce' 
+                )
+            ) :
+                return;
+            endif;
+
+            $customer_name = isset( $_POST['customer_name'] ) ? sanitize_text_field( wp_unslash( $_POST['customer_name'] ) ) : '';
         
             if ( ! empty( $_POST['customer_email'] ) ) :
                 $customer_email = sanitize_email( wp_unslash( $_POST['customer_email'] ) );
             endif;
 
             // Create spin record for loss (no coupon, no email)
-            if ( class_exists( 'SRWC_Spin_Wheel_Records' ) ) :
-                $record_id = SRWC_Spin_Wheel_Records::create_spin_record( array(
+            if ( class_exists( 'SRWC_Spin_Records' ) ) :
+                $record_id = SRWC_Spin_Records::create_spin_record( array(
                     'customer_email' => $customer_email,
                     'customer_name'  => $customer_name,
                     'coupon_code'    => '', // No coupon for loss

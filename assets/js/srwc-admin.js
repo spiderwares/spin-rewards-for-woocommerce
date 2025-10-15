@@ -10,7 +10,6 @@ jQuery(function($) {
             this.initSelect2();
             this.initColorPickers();
             this.bindEvents();
-            this.initReports();
         }
 
         bindEvents() {
@@ -21,6 +20,7 @@ jQuery(function($) {
             $(document.body).on( 'click', '.srwc-media-remove', this.removeMedia.bind(this) );
             $(document.body).on( 'change', '.srwc-coupon-type', this.toggleCouponSelect.bind(this) );
             $(document.body).on( 'change', '.srwc-coupon-select', this.loadCouponOptions.bind(this) );
+            $(document.body).on( 'click', '#export-emails', this.exportEmails.bind(this) );
         }
 
         initEvent() {
@@ -29,7 +29,7 @@ jQuery(function($) {
                 update: function(event, ui) {
                     // Update index numbers after sorting
                     const table = ui.item.closest('table'),
-                        admin = new SRWC_Admin();
+                        admin   = new SRWC_Admin();
                     admin.updateIndexNumbers(table);
                 }
             });
@@ -44,13 +44,13 @@ jQuery(function($) {
 
         addRepeaterRow(e) {
             e.preventDefault();
-            const table     = $(e.currentTarget).closest('table'),
-                tbody       = table.find('tbody'),
-                template    = table.find('.srwc-repeater-template').clone(),
-                existingRows = tbody.find('tr.srwc-slide-row').length;
-
-            // Restrict to 6 slides
-            if (existingRows >= 6) {
+            const table      = $(e.currentTarget).closest('table'),
+                tbody        = table.find('tbody'),
+                template     = table.find('.srwc-repeater-template').clone(),
+                existingRows = tbody.find('tr.srwc-slide-row').length,
+                isPro        = srwc_admin.is_pro || false;
+            
+            if (!isPro && existingRows >= 6) {
                 alert(srwc_admin.messages.max_slides);
                 return false;
             }
@@ -64,9 +64,9 @@ jQuery(function($) {
         removeRepeaterRow(e) {
             e.preventDefault();
         
-            const table = $(e.currentTarget).closest('table'),
-                  tbody = table.find('tbody'),
-                  existingRows = tbody.find('tr.srwc-slide-row').length;
+            const table         = $(e.currentTarget).closest('table'),
+                  tbody         = table.find('tbody'),
+                  existingRows  = tbody.find('tr.srwc-slide-row').length;
         
             if (existingRows <= 3) {
                 alert(srwc_admin.messages.min_slides);
@@ -106,12 +106,12 @@ jQuery(function($) {
             var __this = $(e.currentTarget);
 
             if (__this.is('select')) {
-                var target  = __this.find(':selected').data('show'),
+                var target      = __this.find(':selected').data('show'),
                     hideElement = __this.data('hide');
                     $(document.body).find(hideElement).hide();
                     $(document.body).find(target).show();
             } else {
-                var target = __this.data('show');
+                var target  = __this.data('show');
                 $(document.body).find(target).toggle();
             }
         }
@@ -159,10 +159,10 @@ jQuery(function($) {
 
         toggleCouponSelect(e) {
             const __this = $(e.currentTarget).val(),
-                row = $(e.currentTarget).closest('.srwc-slide-row'),
-                value = row.find('.srwc-slide-value').hide(),
-                coupon = row.find('.srwc-coupon-select').hide(),
-                custom = row.find('.srwc-slide-custom-value').hide();
+                row      = $(e.currentTarget).closest('.srwc-slide-row'),
+                value    = row.find('.srwc-slide-value').hide(),
+                coupon   = row.find('.srwc-coupon-select').hide(),
+                custom   = row.find('.srwc-slide-custom-value').hide();
         
             coupon.next('.select2-container').hide();
         
@@ -214,34 +214,30 @@ jQuery(function($) {
             });
         }
 
-        initReports() {
-            const self = this;
-        
+        exportEmails() {
             // Export emails
-            $('#export-emails').on('click', function () {
-                const fromDate = $('#from-date').val(),
-                    toDate = $('#to-date').val();
-        
-                const form = $('<form>', {
-                    method: 'POST',
-                    action: srwc_admin.ajax_url,
-                });
-        
-                form.append($('<input>', { type: 'hidden', name: 'action', value: 'srwc_export_emails' }));
-                form.append($('<input>', { type: 'hidden', name: 'nonce', value: srwc_admin.nonce }));
-        
-                if (fromDate) {
-                    form.append($('<input>', { type: 'hidden', name: 'from_date', value: fromDate }));
-                }
-        
-                if (toDate) {
-                    form.append($('<input>', { type: 'hidden', name: 'to_date', value: toDate }));
-                }
-        
-                $('body').append(form);
-                form.submit();
-                form.remove();
+            const fromDate = $('#from-date').val(),
+                toDate     = $('#to-date').val(),
+    
+                form = $('<form>', {
+                method: 'POST',
+                action: srwc_admin.ajax_url,
             });
+    
+            form.append($('<input>', { type: 'hidden', name: 'action', value: 'srwc_export_emails' }));
+            form.append($('<input>', { type: 'hidden', name: 'nonce', value: srwc_admin.nonce }));
+    
+            if (fromDate) {
+                form.append($('<input>', { type: 'hidden', name: 'from_date', value: fromDate }));
+            }
+    
+            if (toDate) {
+                form.append($('<input>', { type: 'hidden', name: 'to_date', value: toDate }));
+            }
+    
+            $('body').append(form);
+            form.submit();
+            form.remove();
         }
         
     }

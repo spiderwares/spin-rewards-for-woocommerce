@@ -4,6 +4,13 @@
   min-width: 600px;
 }
 
+.srwc-time-inputs {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 /***** End Popup Trigger Select *****/
 
 /***** Media Field *****/
@@ -128,7 +135,7 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* KPI Cards */
+/***** Reports Cards *****/
 .srwc-report-cards {
   display: flex;
   gap: 20px;
@@ -168,7 +175,6 @@
   line-height: 1;
 }
 
-/* Filters and Actions */
 .srwc-reports-filters {
   background: #f8f9fa;
   border-radius: 8px;

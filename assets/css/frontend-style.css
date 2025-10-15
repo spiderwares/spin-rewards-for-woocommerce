@@ -6,11 +6,7 @@
     top: 0;  
     right: 0;
     display: none;
-    /* bottom:0; */
     background: rgba(0,0,0,0.6);
-    /* display:flex;
-    align-items:center;
-    justify-content:flex-start; */
     z-index: 99999;
 }
 
@@ -40,40 +36,6 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-}
-
-.srwc-wheel {
-    border-radius: 100%;
-    box-shadow: 10px 10px 10px rgba(0,0,0,0.3);
-}
-
-/* Half wheel display when full_wheel is disabled */
-/* .srwc-wheel.half-wheel{
-    border-radius: 50% 50% 0 0;
-    overflow: hidden;
-}
-
-.srwc-wheel.half-wheel .wheel-inner{
-    border-radius: 50% 50% 0 0;
-    overflow: hidden;
-}
-
-.srwc-wheel.half-wheel .srwc-pointer{
-    top: 0%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-} */
-
-.srwc-wheel .wheel-inner {
-    width: 100%;
-    height: 100%;
-    transform-origin: 50% 50%;
-    position: relative;
-    overflow: hidden;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 /**** Loader ****/
@@ -156,7 +118,6 @@
 .srwc-input {
     width: 100%;
     padding: 15px;
-    border-radius: 5px;
     border: none;
     font-size: 16px;
     box-sizing:border-box;
@@ -171,7 +132,6 @@
 .srwc-spin-btn {
     padding: 15px 25px;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
     text-transform: uppercase;
@@ -216,14 +176,6 @@
 }
 
 /***** End Win & Loss Message *****/
-
-.srwc-wheel-right h2 {
-    font-size: 28px;
-    text-transform: uppercase;
-    margin: 0 0 30px 0;
-    line-height: 1.2;
-    text-align: left;
-}
 
 .srwc-wheel-controls {
     display: flex;
@@ -292,3 +244,31 @@
 }
 
 /***** End Mini Spin Wheel *****/
+
+/***** GDPR Checkbox Styles *****/
+
+.srwc-gdpr-label {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #333;
+}
+
+.srwc-gdpr-checkbox {
+    margin-right: 8px;
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.srwc-gdpr-text {
+    flex: 1;
+}
+
+.srwc-gdpr-error {
+    margin-top: 5px;
+    display: none;
+}
+
+/***** End GDPR Checkbox Styles *****/

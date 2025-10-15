@@ -24,18 +24,14 @@ if ( ! class_exists( 'SRWC_Coupon_Handler' ) ) :
          * Initialize hooks and filters.
          */
         public function event_handler() {
-            add_action( 'wp_ajax_srwc_get_coupons', [ $this, 'get_coupons_ajax' ] );    
-            add_action( 'wp_ajax_nopriv_srwc_get_coupons', [ $this, 'get_coupons_ajax' ] );
+            add_action( 'wp_ajax_srwc_get_coupons', [ $this, 'handle_get_coupons' ] );    
+            add_action( 'wp_ajax_nopriv_srwc_get_coupons', [ $this, 'handle_get_coupons' ] );
         }
 
         /**
          * AJAX handler to get existing coupons
          */
-        public function get_coupons_ajax() {
-            // Verify nonce
-            if ( ! wp_verify_nonce( $_POST['nonce'], 'srwc_admin_nonce' ) ) {
-                wp_die( 'Security check failed' );
-            }
+        public function handle_get_coupons() {
 
             $coupons = array();
             
@@ -50,18 +46,18 @@ if ( ! class_exists( 'SRWC_Coupon_Handler' ) ) :
 
             $coupon_posts = get_posts( $args );
 
-            foreach ( $coupon_posts as $coupon_post ) {
+            foreach ( $coupon_posts as $coupon_post ) :
                 $coupon = new WC_Coupon( $coupon_post->ID );
                 
-                if ( $coupon->is_valid() ) {
+                if ( $coupon->is_valid() ) :
                     $coupons[] = array(
                         'code'        => strtoupper( $coupon->get_code() ),
                         'description' => $coupon->get_description() ? $coupon->get_description() : $coupon->get_code(),
                         'amount'      => $coupon->get_amount(),
                         'type'        => $coupon->get_discount_type()
                     );
-                }
-            }
+                endif;
+            endforeach;
 
             wp_send_json_success( $coupons );
         }

@@ -1,22 +1,22 @@
 <?php
 /**
- * Register Spin Wheel Records CPT for SRWC plugin
+ * Register Spin Metabox for SRWC plugin
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if( ! class_exists( 'SRWC_Spin_Wheel_Metabox' ) ) :
+if( ! class_exists( 'SRWC_Spin_Metabox' ) ) :
 
     /**
-     * Class SRWC_Spin_Wheel_Metabox
+     * Class SRWC_Spin_Metabox
      *
-     * Handles the registration of the Spin Wheel Records Custom Post Type.
+     * Handles the registration of the Spin Metabox.
      */
-    class SRWC_Spin_Wheel_Metabox {
+    class SRWC_Spin_Metabox {
 
         /**
-         * Constructor for the SRWC_Spin_Wheel_Metabox class.
-         * Hooks into WordPress to register the custom post type and statuses.
+         * Constructor for the SRWC_Spin_Metabox class.
+         * Hooks into WordPress to register the spin metabox.
          */
         public function __construct() {
             add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
@@ -24,7 +24,7 @@ if( ! class_exists( 'SRWC_Spin_Wheel_Metabox' ) ) :
         }
 
         /**
-         * Add meta boxes for spin records
+         * Add meta boxes for spin metabox
          */
         public function add_meta_boxes() {
             add_meta_box(
@@ -51,9 +51,11 @@ if( ! class_exists( 'SRWC_Spin_Wheel_Metabox' ) ) :
         }
 
         /**
-         * Render the spin record meta box
+         * Render the spin metabox
          */
         public function render_spin_wheel_metabox( $post ) {
+
+            $settings       = get_option( 'srwc_settings', array() );
             $customer_name  = get_post_meta( $post->ID, 'srwc_customer_name', true );
             $win_label      = get_post_meta( $post->ID, 'srwc_win_label', true );
             $coupon_code    = get_post_meta( $post->ID, 'srwc_coupon_code', true );
@@ -68,6 +70,7 @@ if( ! class_exists( 'SRWC_Spin_Wheel_Metabox' ) ) :
                     'customer_name'  => $customer_name,
                     'win_label'      => $win_label,
                     'coupon_code'    => $coupon_code,
+                    'settings'       => $settings,
                  ),
                 'spin-rewards-for-woocommerce/',
                 SRWC_TEMPLATE_PATH
@@ -76,5 +79,5 @@ if( ! class_exists( 'SRWC_Spin_Wheel_Metabox' ) ) :
 
     }
 
-    new SRWC_Spin_Wheel_Metabox();
+    new SRWC_Spin_Metabox();
 endif;

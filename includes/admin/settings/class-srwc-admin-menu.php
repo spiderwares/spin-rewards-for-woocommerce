@@ -150,6 +150,7 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
             wp_localize_script( 'srwc-admin', 'srwc_admin', array(
                 'ajax_url' => admin_url( 'admin-ajax.php' ),
                 'nonce'    => wp_create_nonce( 'srwc_admin_nonce' ),
+                'is_pro'   => $this->is_pro_version(),
                 'messages' => array(
                     'min_slides' => esc_html__( 'You must have at least 3 slides.', 'spin-rewards-for-woocommerce' ),
                     'max_slides' => esc_html__( 'You can only add up to 6 slides.', 'spin-rewards-for-woocommerce' ),
@@ -162,12 +163,22 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
          */
         public function admin_menu_content() {
 
+            if ( isset( $_GET['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['nonce'] ) ), 'srwc_admin_nonce' ) ) :
+                wp_die( esc_html__( 'Security check failed.', 'spin-rewards-for-woocommerce' ) );
+            endif;
+
             $active_tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'general';
             require_once SRWC_PATH . 'includes/admin/settings/views/rewards-menu.php';
         }
 
         public function reports_page_content() {
-            require_once SRWC_PATH . 'includes/admin/settings/views/reports.php';
+            require_once SRWC_PATH . 'includes/admin/settings/views/spin-reports.php';
+        }
+
+        public function is_pro_version() {
+            if ( class_exists( 'SRWC_Pro' ) ) {
+                return true;
+            }
         }
 
         public function filter_data_before_update( $value, $old_value, $option ) {

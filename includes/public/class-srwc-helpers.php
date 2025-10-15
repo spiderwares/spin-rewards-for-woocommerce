@@ -14,27 +14,27 @@ class SRWC_Helpers {
     public static function get_wait_milliseconds() {
         $settings = get_option( 'srwc_settings', array() );
 
-        $time_spin_between = ! empty( $settings['time_spin_between'] ) ? floatval( $settings['time_spin_between'] ) : 24;
+        $time_spin_between      = ! empty( $settings['time_spin_between'] ) ? floatval( $settings['time_spin_between'] ) : 24;
         $time_spin_between_unit = ! empty( $settings['time_spin_between_unit'] ) ? $settings['time_spin_between_unit'] : 'hours';
 
-        $waitMilliseconds = $time_spin_between * 1000; // default seconds
+        $waitTime = $time_spin_between * 1000; // default seconds
 
-        switch ( $time_spin_between_unit ) {
+        switch ( $time_spin_between_unit ) :
+            case 'seconds':
+                $waitTime = $time_spin_between * 1000;
+                break;
             case 'minutes':
-                $waitMilliseconds = $time_spin_between * 60 * 1000;
+                $waitTime = $time_spin_between * 60 * 1000;
                 break;
             case 'hours':
-                $waitMilliseconds = $time_spin_between * 60 * 60 * 1000;
+                $waitTime = $time_spin_between * 60 * 60 * 1000;
                 break;
             case 'days':
-                $waitMilliseconds = $time_spin_between * 24 * 60 * 60 * 1000;
+                $waitTime = $time_spin_between * 24 * 60 * 60 * 1000;
                 break;
-            case 'seconds':
-                $waitMilliseconds = $time_spin_between * 1000;
-                break;
-        }
+        endswitch;
 
-        return (int) $waitMilliseconds;
+        return (int) $waitTime;
     }
 
     /**
@@ -76,23 +76,26 @@ class SRWC_Helpers {
             if ( ! empty( $slide['coupon_type'] ) && ! empty( $slide['value'] ) ) :
                 $type  = $slide['coupon_type'];
                 $value = floatval( $slide['value'] );
-
+    
                 if ( $type === 'percent' ) :
                     $formatted = $value . '%';
                 elseif ( in_array( $type, array( 'fixed_cart', 'fixed_product' ), true ) ) :
-                    $formatted = html_entity_decode( strip_tags( wc_price( $value ) ) );
+                    $formatted = html_entity_decode( wp_strip_all_tags( wc_price( $value ) ) );
                 else :
                     $formatted = $value;
                 endif;
-
+    
                 if ( ! empty( $slide['label'] ) ) :
                     $slide['label'] = str_replace( '{coupon_amount}', $formatted, $slide['label'] );
                 endif;
             endif;
         endforeach;
 
+        $slides = apply_filters( 'srwc_slide_labels_after', $slides );
+    
         return $slides;
     }
+    
 }
 
 endif;

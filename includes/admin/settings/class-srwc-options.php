@@ -17,7 +17,7 @@ if ( ! class_exists( 'SRWC_Options' ) ) :
         public static function get_product_options() {
             $product_options = array();
 
-            if ( function_exists( 'wc_get_products' ) ) {
+            if ( function_exists( 'wc_get_products' ) ) :
                 $products = wc_get_products( 
                     array( 
                         'status' => 'publish', 
@@ -25,10 +25,10 @@ if ( ! class_exists( 'SRWC_Options' ) ) :
                     ) 
                 );
 
-                foreach ( $products as $product ) {
+                foreach ( $products as $product ) :
                     $product_options[ $product->get_id() ] = $product->get_name();
-                }
-            }
+                endforeach;
+            endif;
 
             return $product_options;
         }
@@ -48,11 +48,11 @@ if ( ! class_exists( 'SRWC_Options' ) ) :
                 ) 
             );
 
-            foreach ( $categories as $cat ) {
-                if ( ! is_wp_error( $cat ) ) {
+            foreach ( $categories as $cat ) :           
+                if ( ! is_wp_error( $cat ) ) :
                     $category_options[ $cat->term_id ] = $cat->name;
-                }
-            }
+                endif;
+            endforeach;
 
             return $category_options;
         }

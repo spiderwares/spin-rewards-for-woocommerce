@@ -145,6 +145,24 @@ foreach ( $fields as $field_Key => $field ) :
                         SRWC_TEMPLATE_PATH
                     );
                     break;
+
+                    case "srwctime":
+                        ob_start();
+                        wc_get_template(
+                            'fields/time-field.php',
+                            array(
+                                'field'     => $field,
+                                'field_Val' => $field_Val,
+                                'field_Key' => $field_Key,
+                            ),
+                            'spin-rewards-for-woocommerce/',
+                            SRWC_TEMPLATE_PATH
+                        );
+                        $html = ob_get_clean();
+        
+                        // Apply Pro filter only for srwctime field
+                        echo apply_filters( 'srwc_time_field', $html, $field, $field_Val, $field_Key );
+                        break;
                 
             endswitch;
         ?>

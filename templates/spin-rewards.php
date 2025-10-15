@@ -27,12 +27,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
       <div class="srwc-close">&times;</div>
 
       <!-- Title -->
-      <h2 class="srwc-title">
+      <div class="srwc-title">
         <?php 
           $title = !empty($settings['rewards_title']) ? $settings['rewards_title'] : 'SPIN TO WIN!';
           echo wp_kses_post( $title );
         ?>
-      </h2>
+      </div>
 
       <!-- Form -->
       <div class="srwc-wheel-controls">
@@ -41,8 +41,25 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             <div class="srwc-error srwc-name-error"></div>
         <?php endif; ?>
 
+        <!-- Mobile Number Field - Pro Version via Filter -->
+        <?php
+        echo wp_kses_post( apply_filters( 'srwc_pro_mobile_field', '', array(
+            'settings' => $settings,
+        ) ) );
+        ?>
+        
         <input type="email" class="srwc-input srwc-email" placeholder="<?php esc_attr_e( 'Please enter your email', 'spin-rewards-for-woocommerce' ); ?>" required/>
         <div class="srwc-error srwc-email-error"></div>
+
+        <?php if (!empty($settings['gdpr_checkbox']) && $settings['gdpr_checkbox'] === 'yes') : ?>
+            <div class="srwc-gdpr-container">
+                <label class="srwc-gdpr-label">
+                    <input type="checkbox" class="srwc-gdpr-checkbox" required/>
+                    <span class="srwc-gdpr-text"><?php echo wp_kses_post(!empty($settings['gdpr_message']) ? $settings['gdpr_message'] : 'I agree with the term and condition'); ?></span>
+                </label>
+                <div class="srwc-error srwc-gdpr-error"></div>
+            </div>
+        <?php endif; ?>
 
         <?php $btn_text = !empty($settings['spin_button_text']) ? $settings['spin_button_text'] : 'Spin Now'; ?>
         <button class="srwc-spin-btn">

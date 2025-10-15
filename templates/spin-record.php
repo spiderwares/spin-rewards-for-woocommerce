@@ -10,10 +10,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <div class="srwc-meta-box">
     <div class="srwc-meta-box-content">
         <div class="srwc-field-group">
-            <div class="srwc-field">
-                <label><?php esc_html_e( 'Customer Name', 'spin-rewards-for-woocommerce' ); ?></label>
-                <input type="text" value="<?php echo esc_attr( $customer_name ); ?>" readonly/>
-            </div>
+            <?php 
+            if ( !empty( $settings['user_name'] ) && $settings['user_name'] === 'yes' ) : ?>
+                <div class="srwc-field">
+                    <label><?php esc_html_e( 'Customer Name', 'spin-rewards-for-woocommerce' ); ?></label>
+                    <input type="text" value="<?php echo esc_attr( $customer_name ); ?>" readonly/>
+                </div>
+            <?php endif; ?>
             <div class="srwc-field">
                 <label><?php esc_html_e( 'Win Label', 'spin-rewards-for-woocommerce' ); ?></label>
                 <input type="text" value="<?php echo esc_attr( $win_label ); ?>" readonly/>

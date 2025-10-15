@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
     <h1><?php esc_html_e( 'Spin Rewards Reports', 'spin-rewards-for-woocommerce' ); ?></h1>
     
     <div class="srwc-reports-container">
-        <!-- KPI Cards Section -->
+        <!-- Reports Cards Section -->
         <div class="srwc-report-cards">
             <div class="srwc-report-card">
                 <div class="srwc-report-title"><?php esc_html_e( 'Total Spins', 'spin-rewards-for-woocommerce' ); ?></div>
@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             </div>
         </div>
 
-        <!-- Filters and Actions Section -->
+        <!-- Actions Section -->
         <div class="srwc-reports-filters">
             <div class="srwc-date-filters">
                 <div class="srwc-date-field">

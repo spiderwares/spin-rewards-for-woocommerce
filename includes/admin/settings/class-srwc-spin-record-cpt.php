@@ -1,6 +1,6 @@
 <?php
 /**
- * Register Spin Wheel Records CPT for SRWC plugin
+ * Register Spin Rewards Records CPT for SRWC plugin
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -8,14 +8,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Prevent direct access to this file.
  * This file is part of the Spin Rewards for WooCommerce plugin.
- * It handles the registration of the Spin Wheel Records Custom Post Type.
+ * It handles the registration of the Spin Rewards Records Custom Post Type.
  */
 if( ! class_exists( 'SRWC_Spin_Records_CPT' ) ) :
 
     /**
      * Class SRWC_Spin_Records_CPT
      *
-     * Handles the registration of the Spin Wheel Records Custom Post Type.
+     * Handles the registration of the Spin Rewards Records Custom Post Type.
      */
     class SRWC_Spin_Records_CPT {
 
@@ -31,14 +31,14 @@ if( ! class_exists( 'SRWC_Spin_Records_CPT' ) ) :
         }
 
         /**
-         * Registers the Spin Wheel Records Custom Post Type.
+         * Registers the Spin Rewards Records Custom Post Type.
          */
         public function register_spin_records_cpt() {
             $labels = array(
-               'name'                    => esc_html_x( 'Spin Wheel Records', 'spin-rewards-for-woocommerce' ),
-					'singular_name'      => esc_html_x( 'Spin Record', 'spin-rewards-for-woocommerce' ),
-					'menu_name'          => esc_html_x( 'Spin Records', 'Admin menu', 'spin-rewards-for-woocommerce' ),
-					'name_admin_bar'     => esc_html_x( 'Spin Record', 'Add new on Admin bar', 'spin-rewards-for-woocommerce' ),
+               'name'                    => esc_html__( 'Spin Rewards Records', 'spin-rewards-for-woocommerce' ),
+					'singular_name'      => esc_html__( 'Spin Record', 'spin-rewards-for-woocommerce' ),
+					'menu_name'          => esc_html__( 'Spin Records', 'spin-rewards-for-woocommerce' ),
+					'name_admin_bar'     => esc_html__( 'Spin Record', 'spin-rewards-for-woocommerce' ),
 					'view_item'          => esc_html__( 'View Spin Record', 'spin-rewards-for-woocommerce' ),
 					'all_items'          => esc_html__( 'All Spin Records', 'spin-rewards-for-woocommerce' ),
 					'search_items'       => esc_html__( 'Search Spin Records', 'spin-rewards-for-woocommerce' ),
@@ -49,7 +49,7 @@ if( ! class_exists( 'SRWC_Spin_Records_CPT' ) ) :
 
             $args = array(
                 'labels'              => $labels,
-                'description'         => esc_html__( 'Spin wheel records for WooCommerce.', 'spin-rewards-for-woocommerce' ),
+                'description'         => esc_html__( 'Spin Rewards Records for WooCommerce.', 'spin-rewards-for-woocommerce' ),
 				'public'              => false,
 				'show_ui'             => true,
 				'capability_type'     => 'post',
@@ -86,10 +86,15 @@ if( ! class_exists( 'SRWC_Spin_Records_CPT' ) ) :
         public function add_columns( $columns ) {
             unset( $columns['date'] );
 
-            $columns['customer_name'] = esc_html__( 'Customer Name', 'spin-rewards-for-woocommerce' );
-            $columns['win_label'] = esc_html__( 'Win Label', 'spin-rewards-for-woocommerce' );
+            // Only show customer name column if user_name is enabled
+            $settings = get_option( 'srwc_settings', array() );
+            if ( !empty( $settings['user_name'] ) && $settings['user_name'] === 'yes' ) :
+                $columns['customer_name'] = esc_html__( 'Customer Name', 'spin-rewards-for-woocommerce' );
+            endif;
+            
+            $columns['win_label']   = esc_html__( 'Win Label', 'spin-rewards-for-woocommerce' );
             $columns['coupon_code'] = esc_html__( 'Coupon Code', 'spin-rewards-for-woocommerce' );
-            $columns['spin_date'] = esc_html__( 'Spin Date', 'spin-rewards-for-woocommerce' );
+            $columns['spin_date']   = esc_html__( 'Date', 'spin-rewards-for-woocommerce' );
 
             return $columns;
         }
@@ -101,8 +106,12 @@ if( ! class_exists( 'SRWC_Spin_Records_CPT' ) ) :
             switch ( $column ) :
 
                 case 'customer_name':
-                    $name = get_post_meta( $post_id, 'srwc_customer_name', true );
-                    echo esc_html( $name ? $name : 'Sir/Ma\'am' );
+                    // Only render if user_name is enabled
+                    $settings = get_option( 'srwc_settings', array() );
+                    if ( !empty( $settings['user_name'] ) && $settings['user_name'] === 'yes' ) :
+                        $name = get_post_meta( $post_id, 'srwc_customer_name', true );
+                        echo esc_html( $name ? $name : 'Sir/Ma\'am' );
+                    endif;
                     break;
 
                 case 'win_label':
