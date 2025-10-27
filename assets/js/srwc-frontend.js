@@ -1,3 +1,5 @@
+'use strict ';
+
 jQuery(function($) {
     class SRWC_Frontend {
 
@@ -10,7 +12,7 @@ jQuery(function($) {
             this.modal       = $('.srwc-wheel-modal');
             this.wheelInner  = null;
             this.floatingBtn = $('.srwc-floating-btn');
-            this.loadSlides();
+            this.loadslides();
             this.bindEvents();
             this.floatingButton();
             this.popupTrigger();
@@ -20,11 +22,11 @@ jQuery(function($) {
 
         bindEvents() {
             $(document.body).on( 'click', '.srwc-open-wheel, .srwc-floating-btn', this.openWheel.bind(this) );
-            $(document.body).on( 'click', '.srwc-close, .srwc-wheel-modal', this.closeWheel.bind(this) );
+            $(document.body).on( 'click', '.srwc-close, .srwc-close-btn, .srwc-wheel-modal', this.closeWheel.bind(this) );
             $(document.body).on( 'click', '.srwc-spin-btn', this.spinWheel.bind(this) );
         }
 
-        loadSlides() {
+        loadslides() {
             try {
                 if (typeof srwc_frontend !== 'undefined' && srwc_frontend.slides) {
                     this.slides = srwc_frontend.slides;
@@ -52,15 +54,15 @@ jQuery(function($) {
         }
     
         buildWheel() {
-            const canvas = document.getElementById('srwc_wheel_canvas');
-            const settings = srwc_frontend?.settings || {};
+            const canvas = document.getElementById('srwc_wheel_canvas'),
+                settings = srwc_frontend?.settings || {};
         
             // Default base values
-            let baseSize = 550,
-                wheelSize = 100,
-                fontSize = 20,
-                textColor = "#fff",
-                fontFamily = "Helvetica";
+            let baseSize   = 550,
+                wheelSize  = 100,
+                fontSize   = 20,
+                textColor  = "#fff",
+                fontFamily = "Poppins";
         
             if (typeof wp !== 'undefined' && wp.hooks) {
                 wp.hooks.doAction(
@@ -104,21 +106,18 @@ jQuery(function($) {
         
             // Shadow + Border
             ctx.save();
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
-            ctx.shadowBlur = 25;
-            ctx.beginPath();
             ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
             ctx.strokeStyle = borderColor;
-            ctx.lineWidth = 20;
+            ctx.lineWidth = 15;
             ctx.stroke();
             ctx.restore();
         
-            // Draw slices
+            // Draw slides
             for (let i = 0; i < total; i++) {
-                const startAngle = (i * 2 * Math.PI) / total;
-                const endAngle = ((i + 1) * 2 * Math.PI) / total;
+                const startAngle = (i * 2 * Math.PI) / total,
+                    endAngle = ((i + 1) * 2 * Math.PI) / total;
         
-                // Slice background
+                // slide background
                 ctx.beginPath();
                 ctx.moveTo(centerX, centerY);
                 ctx.arc(centerX, centerY, radius - 4, startAngle, endAngle);
@@ -126,9 +125,9 @@ jQuery(function($) {
                 ctx.fillStyle = this.slides[i].color || this.randomColor();
                 ctx.fill();
         
-                // Slice border dots
-                const dotX = centerX + Math.cos(startAngle) * radius;
-                const dotY = centerY + Math.sin(startAngle) * radius;
+                // slide border dots
+                const dotX = centerX + Math.cos(startAngle) * radius,
+                    dotY = centerY + Math.sin(startAngle) * radius;
                 ctx.beginPath();
                 ctx.arc(dotX, dotY, 4, 0, 2 * Math.PI);
                 ctx.fillStyle = dotColor;
@@ -146,7 +145,6 @@ jQuery(function($) {
                 ctx.restore();
             }
         }
-        
         
         openWheel(e) {
             e.preventDefault();
@@ -166,7 +164,8 @@ jQuery(function($) {
             setTimeout(() => {
                 this.buildWheel();
                 this.modal.show();
-        
+                srwc_frontend.form.backgroundEffects();
+
                 setTimeout(() => {
                     this.modal.find('.srwc-wheel-container').addClass('slide-in');
                 }, 50);
@@ -176,7 +175,7 @@ jQuery(function($) {
         closeWheel(e) {
             const settings = srwc_frontend?.settings || {};
         
-            if (e.target.id === 'srwc-wheel-modal' || $(e.target).hasClass('srwc-close')) {
+            if (e.target.id === 'srwc-wheel-modal' || $(e.target).hasClass('srwc-close') || $(e.target).hasClass('srwc-close-btn') || $(e.target).closest('.srwc-close-btn').length) {
         
                 if (this.autoHideTimer) {
                     clearTimeout(this.autoHideTimer);
@@ -184,6 +183,8 @@ jQuery(function($) {
                 }
         
                 this.modal.find('.srwc-wheel-container').removeClass('slide-in').addClass('slide-out');
+                
+                srwc_frontend.form.removeBackgroundEffects();
         
                 setTimeout(() => {
                     this.modal.hide();
@@ -192,8 +193,8 @@ jQuery(function($) {
         
                     if (!this.hasSpin) {
                         let timeOnClose = parseInt(settings.time_on_close) || 0,
-                            unit = settings.time_on_close_unit || 'minutes',
-                            multiplier = 1000; 
+                            unit        = settings.time_on_close_unit || 'minutes',
+                            multiplier  = 1000; 
 
                         if (unit === 'minutes') multiplier = 60 * 1000;
                         else if (unit === 'hours') multiplier = 60 * 60 * 1000;
@@ -206,22 +207,20 @@ jQuery(function($) {
                         }
                     }
         
-                    // Reset spin flag
                     this.hasSpin = false;
-        
                 }, 800);
             }
         }
         
         spinWheel(e) {
             e.preventDefault();
-            if (!this.wheelInner || !this.slides.length || !this.validateForm()) return;
+            if (!this.wheelInner || !this.slides.length || !srwc_frontend.form.validateForm()) return;
         
-            const settings       = srwc_frontend?.settings || {},
-                  lastSpinKey    = 'srwc_last_spin_time',
-                  now            = Date.now(),
-                  lastSpin       = parseInt(localStorage.getItem(lastSpinKey)) || 0,
-                  waitTime = srwc_frontend.waitTime || 0;
+            const settings      = srwc_frontend?.settings || {},
+                  lastSpinKey   = 'srwc_last_spin_time',
+                  now           = Date.now(),
+                  lastSpin      = parseInt(localStorage.getItem(lastSpinKey)) || 0,
+                  waitTime      = srwc_frontend.waitTime || 0;
         
             const customerEmail = $('.srwc-email').val().trim();
             if (customerEmail) {
@@ -247,10 +246,9 @@ jQuery(function($) {
                     if (response.success) {
                         this.modal.find('.srwc-email-error').hide().text('');
                         if (typeof callback === 'function') callback();
-                    } else {
-                        // Show error message 
+                    } else { 
                         const settings = srwc_frontend?.settings || {},
-                            spinLimit  = settings.spin_per_email || 0;
+                            spinLimit  = settings.spin_per_email;
                         let errorMessage = srwc_frontend.messages.spin_limit_exceeded;
                         errorMessage     = errorMessage.replace('{limit}', spinLimit);
                         this.modal.find('.srwc-email-error').text(errorMessage).show();
@@ -297,8 +295,8 @@ jQuery(function($) {
                 speedMap      = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8 },
                 speed         = speedMap[settings.wheel_speed_spin || 'three'] || 3,
                 duration      = settings.wheel_time_duration || 4,
-                selectedSlide = this.slideProbability(),
-                slideCenter   = (selectedSlide * degreesPer) + (degreesPer / 2),
+                selectedslide = this.slideProbability(),
+                slideCenter   = (selectedslide * degreesPer) + (degreesPer / 2),
                 rotateTo      = (360 * speed) + (360 - slideCenter);
         
             spinBtn.prop('disabled', true).html('<span class="srwc-loader"></span>');
@@ -310,19 +308,19 @@ jQuery(function($) {
         
             setTimeout(() => {
                 // Use the selected slide directly since we calculated the rotation to point to it
-                const chosen = this.slides[selectedSlide],
+                const chosen = this.slides[selectedslide],
                     label    = this.labelDisplay(chosen.label || '', chosen);
         
                 if (['percent', 'fixed_product', 'fixed_cart'].includes(chosen.coupon_type)) {
                     this.generateCoupon(chosen, (success, updatedChosen) => {
                         if (success) {
-                            this.showWinMessage(updatedChosen, label);
+                            srwc_frontend.form.showWinMessage(updatedChosen, label);
                             this.handleShowAgain(settings.show_again);
                         }
                     });
                 } else {
                     this.recordLossSpin(chosen, label);
-                    this.showWinMessage(chosen, label);
+                    srwc_frontend.form.showWinMessage(chosen, label);
                     this.handleShowAgain(settings.show_again);
                 }
             }, duration * 1000);
@@ -333,21 +331,21 @@ jQuery(function($) {
         }
 
         slideProbability() {
-            const weightedSlides = [];
+            const weightedslides = [];
             
             this.slides.forEach((slide, index) => {
                 const probability = parseFloat(slide.probability) || 0;
                 for (let i = 0; i < probability; i++) {
-                    weightedSlides.push(index);
+                    weightedslides.push(index);
                 }
             });
             
-            if (weightedSlides.length === 0) {
+            if (weightedslides.length === 0) {
                 return Math.floor(Math.random() * this.slides.length);
             }
             
-            const randomIndex = Math.floor(Math.random() * weightedSlides.length);
-            return weightedSlides[randomIndex];
+            const randomIndex = Math.floor(Math.random() * weightedslides.length);
+            return weightedslides[randomIndex];
         }
 
         handleShowAgain( delay, unit ) {
@@ -377,6 +375,7 @@ jQuery(function($) {
                     coupon_type: chosen.coupon_type,
                     customer_email: $('.srwc-email').val(),
                     customer_name: $('.srwc-name').val(),
+                    customer_mobile: $('.srwc-mobile').val(),
                     win_label: chosen.label || '',
                     value: chosen.value
                 },
@@ -388,10 +387,6 @@ jQuery(function($) {
                         this.modal.find('.srwc-email-error').text(srwc_frontend.messages.failed_generate_coupon || 'Failed to generate coupon.').show();
                         if (typeof callback === 'function') callback(false, chosen);
                     }
-                },
-                error: (xhr, status, error) => {
-                    this.modal.find('.srwc-email-error').text(srwc_frontend.messages.failed_generate_coupon || 'Failed to generate coupon.').show();
-                    if (typeof callback === 'function') callback(false, chosen);
                 }
             });
         }
@@ -405,52 +400,9 @@ jQuery(function($) {
                     nonce: srwc_frontend.nonce,
                     customer_email: $('.srwc-email').val(),
                     customer_name: $('.srwc-name').val(),
+                    customer_mobile: $('.srwc-mobile').val(),
                 }
             });
-        }
-
-        validateForm() {
-            const emailField = this.modal.find('.srwc-email'),
-                nameField    = this.modal.find('.srwc-name'),
-                mobileField = this.modal.find('.srwc-mobile'),
-                email        = emailField.val().trim(),
-                settings     = srwc_frontend?.settings || {};
-        
-            this.modal.find('.srwc-error').hide().text('');
-        
-            // Name validation
-            if (settings.user_name_require === 'yes' && nameField.length) {
-                const name = nameField.val().trim();
-                if (!name) {
-                    nameField.next('.srwc-name-error').text(srwc_frontend.messages.name_required || 'Please enter your name').show();
-                    nameField.focus();
-                    return false;
-                }
-            }
-        
-            // Email required
-            if (!email) {
-                emailField.next('.srwc-email-error').text(srwc_frontend.messages.email_required || 'Please enter your email').show();
-                emailField.focus();
-                return false;
-            }
-        
-            const emailRegex = /^[^\s@]+@[a-zA-Z]+\.[A-Za-z]{2,}$/;
-            if (!emailRegex.test(email)) {
-                emailField.next('.srwc-email-error').text(srwc_frontend.messages.email_invalid || 'Please enter a valid email').show();
-                emailField.focus();
-                return false;
-            }
-
-            // GDPR validation
-            const gdprCheckbox = this.modal.find('.srwc-gdpr-checkbox');
-            if (gdprCheckbox.length && !gdprCheckbox.is(':checked')) {
-                this.modal.find('.srwc-gdpr-error').text(srwc_frontend.messages.gdpr_required || 'Please agree with our term and condition.').show();
-                gdprCheckbox.focus();
-                return false;
-            }
-            
-            return true;
         }
 
         floatingButton() {
@@ -466,49 +418,9 @@ jQuery(function($) {
                 this.floatingBtn.addClass('srwc-hidden');
                 localStorage.setItem('srwc_icon_hidden', 'true');
             }
-        }
-
-        showWinMessage(chosen, label) {
-            const settings = srwc_frontend?.settings || {},
-                isWin      = chosen.coupon_type !== 'none';
-            
-            let message;
-            if (isWin) {
-                message = settings.win_message
-                    .replace('{coupon_label}', label ? '<b>' + label + '</b>' : '')
-                    .replace('{checkout}', '<a href="' + srwc_frontend.checkout_url + '">checkout</a>');
-            } else {
-                message = settings.lose_message;
-            }
-            
-            // Hide the form and show message
-            this.modal.find('.srwc-wheel-controls').hide();
-            this.modal.find('.srwc-win-text').html(message);
-            this.modal.find('.srwc-win-message').show();
-            
-            this.autoHideWheel(settings);
-
-            if (typeof wp !== 'undefined' && wp.hooks) {
-                wp.hooks.doAction('srwcShowWinMessage', chosen, label, this);
-            }
-            
-        }
-
-        autoHideWheel(settings) {
-            const autoHideDelay = parseInt(settings.auto_hide_wheel) || 0;
-            
-            if (autoHideDelay > 0) {
-                if (this.autoHideTimer) {
-                    clearTimeout(this.autoHideTimer);
-                }
-                
-                this.autoHideTimer = setTimeout(() => {
-                    this.closeWheel({ target: { id: 'srwc-wheel-modal' } });
-                }, autoHideDelay * 1000); 
-            }
-        }       
+        }     
 
     }
 
-    new SRWC_Frontend();
+    srwc_frontend.frontend = new SRWC_Frontend();
 });

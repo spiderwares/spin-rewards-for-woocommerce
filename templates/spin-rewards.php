@@ -6,8 +6,13 @@
 if ( ! defined( 'ABSPATH' ) ) exit;  
 ?>
 
+<!-- Background Effects -->
+<div class="srwc-bg-effects"></div>
+
 <div class="srwc-wheel-modal">
   <div class="srwc-wheel-container">
+    
+    <!-- Firework Animation Container -->
     
     <!-- Left Side: Wheel -->
     <div class="srwc-wheel-left">
@@ -21,31 +26,33 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         </div>
       </div>
     </div>
-
+    
     <!-- Right Side: Controls -->
     <div class="srwc-wheel-right">
       <div class="srwc-close">&times;</div>
-
+      
+      <!-- Win Effects -->
+      <div class="srwc-firework" id="srwc-firework"></div>
+      
       <!-- Title -->
       <div class="srwc-title">
         <?php 
           $title = !empty($settings['rewards_title']) ? $settings['rewards_title'] : 'SPIN TO WIN!';
           echo wp_kses_post( $title );
-        ?>
+          ?>
       </div>
-
+      
       <!-- Form -->
-      <div class="srwc-wheel-controls">
+      <div class="srwc-form-controls">
         <?php if (!empty($settings['user_name']) && $settings['user_name'] === 'yes') : ?>
             <input type="text" class="srwc-input srwc-name" placeholder="<?php esc_attr_e( 'Please enter your name', 'spin-rewards-for-woocommerce' ); ?>" required/>
             <div class="srwc-error srwc-name-error"></div>
-        <?php endif; ?>
-
-        <!-- Mobile Number Field - Pro Version via Filter -->
+            <?php endif; ?>
+            
         <?php
-        echo wp_kses_post( apply_filters( 'srwc_pro_mobile_field', '', array(
-            'settings' => $settings,
-        ) ) );
+          echo wp_kses_post( apply_filters( 'srwc_wheel_pro_field', '', array(
+              'settings' => $settings,
+          ) ) );
         ?>
         
         <input type="email" class="srwc-input srwc-email" placeholder="<?php esc_attr_e( 'Please enter your email', 'spin-rewards-for-woocommerce' ); ?>" required/>
@@ -71,6 +78,17 @@ if ( ! defined( 'ABSPATH' ) ) exit;
       <div class="srwc-win-message">
         <div class="srwc-win-text"></div>
       </div>
+      
+      <!-- Close Button at Bottom -->
+      <?php if (!empty($settings['show_close_button']) && $settings['show_close_button'] === 'yes') : ?>
+        <div class="srwc-close-bottom">
+          <button class="srwc-close-btn">
+            <span class="srwc-close-text">
+              <?php echo esc_html(!empty($settings['close_button_text']) ? $settings['close_button_text'] : 'Close Now'); ?>
+            </span>
+          </button>
+        </div>
+      <?php endif; ?>
     </div>
   </div>
 </div>

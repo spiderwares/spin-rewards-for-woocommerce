@@ -60,6 +60,7 @@ if( ! class_exists( 'SRWC_Spin_Records' ) ) :
             $defaults = array(
                 'customer_email' => '',
                 'customer_name'  => '',
+                'customer_mobile' => '',
                 'win_label'      => '',
                 'coupon_code'    => '',
                 'coupon_type'    => '',
@@ -87,6 +88,7 @@ if( ! class_exists( 'SRWC_Spin_Records' ) ) :
             if ( $post_id && ! is_wp_error( $post_id ) ) :
                 update_post_meta( $post_id, 'srwc_customer_email', sanitize_email( $data['customer_email'] ) );
                 update_post_meta( $post_id, 'srwc_customer_name', sanitize_text_field( $data['customer_name'] ) );
+                update_post_meta( $post_id, 'srwc_customer_mobile', sanitize_text_field( $data['customer_mobile'] ) );
                 update_post_meta( $post_id, 'srwc_win_label', sanitize_text_field( $data['win_label'] ) );
                 update_post_meta( $post_id, 'srwc_coupon_code', sanitize_text_field( $data['coupon_code'] ) );
                 update_post_meta( $post_id, 'srwc_spin_date', sanitize_text_field( $data['spin_date'] ) );
@@ -96,7 +98,6 @@ if( ! class_exists( 'SRWC_Spin_Records' ) ) :
 
             return false;
         }
-
     }
 
     new SRWC_Spin_Records();

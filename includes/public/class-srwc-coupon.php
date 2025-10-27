@@ -111,9 +111,11 @@ if ( ! class_exists( 'SRWC_Coupon' ) ) :
 
                 // Create spin record
                 if ( class_exists( 'SRWC_Spin_Records' ) ) :
+                    $customer_mobile = isset( $_POST['customer_mobile'] ) ? sanitize_text_field( wp_unslash( $_POST['customer_mobile'] ) ) : '';
                     $record_id = SRWC_Spin_Records::create_spin_record( array(
                         'customer_email' => $customer_email,
                         'customer_name'  => $customer_name,
+                        'customer_mobile' => $customer_mobile,
                         'win_label'      => $win_label,
                         'coupon_code'    => $coupon_code,
                         'coupon_type'    => $coupon_type,
@@ -123,10 +125,8 @@ if ( ! class_exists( 'SRWC_Coupon' ) ) :
 
                 WC()->mailer();
                 do_action( 'srwc_user_win_email', $customer_email, $coupon_code, $date_expires );
-
                 do_action( 'srwc_admin_email', $customer_email, $coupon_code, $date_expires );
 
-        
                 wp_send_json_success( array(
                     'coupon_code'  => $coupon_code,
                     'date_expires' => $date_expires,

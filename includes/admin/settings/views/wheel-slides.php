@@ -1,7 +1,7 @@
 <?php
 /**
- * Settings Tab: Wheel Slides
- * Loads the Wheel Slides settings section in the plugin settings page.
+ * Settings Tab: Wheel slides
+ * Loads the Wheel slides settings section in the plugin settings page.
  * 
  * @package Spin_Rewards_For_WooCommerce
  */
@@ -24,12 +24,12 @@ $fields = SRWC_Rewards_Fields::wheel_slides_field();
 $options = get_option( 'srwc_settings', true );
 
 /**
- * Load the settings form template for the Wheel Slides settings tab.
+ * Load the settings form template for the Wheel slides settings tab.
  */
 wc_get_template(
 	'fields/setting-forms.php',
 	array(
-		'title'   => 'Wheel Slides',         // Section title.
+		'title'   => 'Wheel slides',         // Section title.
 		'metaKey' => 'srwc_settings',   // Option meta key.
 		'fields'  => $fields,           // Field definitions.
 		'options' => $options,          // Saved option values.

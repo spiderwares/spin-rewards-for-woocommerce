@@ -1,3 +1,5 @@
+'use strict ';
+
 jQuery(function($) {
     class SRWC_Admin {
 
@@ -82,7 +84,6 @@ jQuery(function($) {
             $('.srwc-select2').each(function() {
                 const __this = $(this);
                 
-                // Skip if already initialized
                 if (__this.is(':visible')) {
                     let width = '100%';
                     
@@ -111,7 +112,7 @@ jQuery(function($) {
                     $(document.body).find(hideElement).hide();
                     $(document.body).find(target).show();
             } else {
-                var target  = __this.data('show');
+                var target      = __this.data('show');
                 $(document.body).find(target).toggle();
             }
         }
@@ -185,7 +186,6 @@ jQuery(function($) {
                 return;
             }
 
-            // AJAX request to get coupons
             $.ajax({
                 type: 'POST',
                 url: srwc_admin.ajax_url,
@@ -228,7 +228,8 @@ jQuery(function($) {
             form.append($('<input>', { type: 'hidden', name: 'nonce', value: srwc_admin.nonce }));
     
             if (fromDate) {
-                form.append($('<input>', { type: 'hidden', name: 'from_date', value: fromDate }));
+                form.append($('<input>', { 
+                    type: 'hidden', name: 'from_date', value: fromDate }));
             }
     
             if (toDate) {
@@ -239,6 +240,7 @@ jQuery(function($) {
             form.submit();
             form.remove();
         }
+        
         
     }
 

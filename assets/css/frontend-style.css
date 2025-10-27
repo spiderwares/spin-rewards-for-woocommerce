@@ -1,4 +1,4 @@
-/***** Spin Wheel Modal *****/
+/*--------------------------- Spin Wheel Modal ---------------------------*/
 
 .srwc-wheel-modal {
     position: fixed;
@@ -6,7 +6,7 @@
     top: 0;  
     right: 0;
     display: none;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.5);
     z-index: 99999;
 }
 
@@ -38,7 +38,7 @@
     padding: 20px;
 }
 
-/**** Loader ****/
+/*--------------------------- Loader ---------------------------*/
 
 .srwc-loader {
     display: inline-block;
@@ -57,9 +57,9 @@
     to { transform: rotate(360deg); }
 }
 
-/***** End Loader *****/
+/*--------------------------- End Loader ---------------------------*/
 
-/***** Wheel Pointer *****/
+/*--------------------------- Wheel Pointer ---------------------------*/
 
 .srwc-pointer {
     position: absolute;
@@ -104,9 +104,9 @@
     z-index: 21;
 }
 
-/***** End Wheel Pointer *****/
+/*--------------------------- End Wheel Pointer ---------------------------*/
 
-/***** Form *****/
+/*--------------------------- Form ---------------------------*/
 
 .srwc-wheel-right {
     flex: 1 1 auto;
@@ -152,9 +152,9 @@
     display: none;
 }
 
-/***** End Form *****/
+/*--------------------------- End Form ---------------------------*/
 
-/***** Win & Loss Message *****/
+/*--------------------------- Win & Loss Message ---------------------------*/
 
 .srwc-win-text {
     font-size: 20px;
@@ -162,26 +162,26 @@
     margin-bottom: 20px;
 }
 
-.srwc-close {
-    position: absolute;
-    right: 10px;
-    top: -10px;
-    color: #fff;
-    font-size: 50px;
-    cursor: pointer;
-}
-
 .srwc-hidden {
     display: none;
 }
 
-/***** End Win & Loss Message *****/
+/*--------------------------- End Win & Loss Message ---------------------------*/
 
-.srwc-wheel-controls {
+.srwc-form-controls {
     display: flex;
     flex-direction: column;
     gap: 15px;
     margin-bottom: 20px;
+}
+
+.srwc-close {
+    position: absolute;
+    right: 0;
+    top: -30px;
+    color: #fff;
+    font-size: 60px;
+    cursor: pointer;
 }
 
 .srwc-wheel-right p {
@@ -191,14 +191,14 @@
     text-align: left;
 }
 
-/***** Mini Spin Wheel *****/
+/*--------------------------- Mini Spin Wheel ---------------------------*/
 
 .srwc-floating-btn {
     position: fixed;
     right: 20px;
     bottom: 20px;
-    width: 65px;
-    height: 60px;
+    width: 75px;
+    height: 75px;
     padding: 0;
     background: transparent;
     color:#fff;
@@ -243,9 +243,9 @@
     z-index: 1;
 }
 
-/***** End Mini Spin Wheel *****/
+/*--------------------------- End Mini Spin Wheel ---------------------------*/
 
-/***** GDPR Checkbox Styles *****/
+/*--------------------------- GDPR Checkbox Styles ---------------------------*/
 
 .srwc-gdpr-label {
     display: flex;
@@ -271,4 +271,4 @@
     display: none;
 }
 
-/***** End GDPR Checkbox Styles *****/
+/*--------------------------- End GDPR Checkbox Styles ---------------------------*/

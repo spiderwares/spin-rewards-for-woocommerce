@@ -60,32 +60,47 @@ if ( ! class_exists( 'SRWC_Spin_Reports' ) ) :
             $spin_records = get_posts( $args );
             $csv_data     = array();
             $show_name    = ! empty( $this->settings['user_name'] ) && $this->settings['user_name'] === 'yes';
+            $show_mobile  = ! empty( $this->settings['user_mobile'] ) && $this->settings['user_mobile'] === 'yes';
         
-            $csv_data[] = $show_name ? array( 'Email', 'Name', 'Spin Date', 'Win Label', 'Coupon Code' )
-                                     : array( 'Email', 'Spin Date', 'Win Label', 'Coupon Code' );
+            // Build CSV headers based on enabled fields
+            $headers = array( 'Email' );
+            if ( $show_name ) :
+                $headers[] = 'Name';
+            endif;
+            if ( $show_mobile ) :
+                $headers[] = 'Mobile Number';
+            endif;
+            $headers[] = 'Spin Date';
+            $headers[] = 'Win Label';
+            $headers[] = 'Coupon Code';
+            
+            $csv_data[] = $headers;
         
             foreach ( $spin_records as $record ) :
                 $email       = get_post_meta( $record->ID, 'srwc_customer_email', true );
                 $name        = get_post_meta( $record->ID, 'srwc_customer_name', true );
+                $mobile      = get_post_meta( $record->ID, 'srwc_customer_mobile', true );
                 $spin_date   = get_post_meta( $record->ID, 'srwc_spin_date', true );
                 $win_label   = get_post_meta( $record->ID, 'srwc_win_label', true );
                 $coupon_code = get_post_meta( $record->ID, 'srwc_coupon_code', true );
         
                 if ( $email ) :
-                    $csv_data[] = $show_name
-                        ? array(
-                            $email,
-                            $name ?: 'Sir/Ma\'am',
-                            $spin_date ? date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $spin_date ) ) : '',
-                            $win_label ?: '',
-                            $coupon_code ?: ''
-                        )
-                        : array(
-                            $email,
-                            $spin_date ? date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $spin_date ) ) : '',
-                            $win_label ?: '',
-                            $coupon_code ?: ''
-                        );
+                    // Build CSV row based on enabled fields
+                    $row = array( $email );
+                    
+                    if ( $show_name ) :
+                        $row[] = $name ?: 'Sir/Ma\'am';
+                    endif;
+                    
+                    if ( $show_mobile ) :
+                        $row[] = $mobile ?: '';
+                    endif;
+                    
+                    $row[] = $spin_date ? date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $spin_date ) ) : '';
+                    $row[] = $win_label ?: '';
+                    $row[] = $coupon_code ?: '';
+                    
+                    $csv_data[] = $row;
                 endif;
             endforeach;
         
@@ -104,7 +119,6 @@ if ( ! class_exists( 'SRWC_Spin_Reports' ) ) :
             fclose( $output );
             exit;
         }
-        
 
     }
 

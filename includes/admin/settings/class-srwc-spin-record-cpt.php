@@ -92,6 +92,11 @@ if( ! class_exists( 'SRWC_Spin_Records_CPT' ) ) :
                 $columns['customer_name'] = esc_html__( 'Customer Name', 'spin-rewards-for-woocommerce' );
             endif;
             
+            // Only show mobile number column if user_mobile is enabled
+            if ( !empty( $settings['user_mobile'] ) && $settings['user_mobile'] === 'yes' ) :
+                $columns['customer_mobile'] = esc_html__( 'Mobile Number', 'spin-rewards-for-woocommerce' );
+            endif;
+            
             $columns['win_label']   = esc_html__( 'Win Label', 'spin-rewards-for-woocommerce' );
             $columns['coupon_code'] = esc_html__( 'Coupon Code', 'spin-rewards-for-woocommerce' );
             $columns['spin_date']   = esc_html__( 'Date', 'spin-rewards-for-woocommerce' );
@@ -111,6 +116,15 @@ if( ! class_exists( 'SRWC_Spin_Records_CPT' ) ) :
                     if ( !empty( $settings['user_name'] ) && $settings['user_name'] === 'yes' ) :
                         $name = get_post_meta( $post_id, 'srwc_customer_name', true );
                         echo esc_html( $name ? $name : 'Sir/Ma\'am' );
+                    endif;
+                    break;
+
+                case 'customer_mobile':
+                    // Only render if user_mobile is enabled
+                    $settings = get_option( 'srwc_settings', array() );
+                    if ( !empty( $settings['user_mobile'] ) && $settings['user_mobile'] === 'yes' ) :
+                        $mobile = get_post_meta( $post_id, 'srwc_customer_mobile', true );
+                        echo esc_html( $mobile ? $mobile : '-' );
                     endif;
                     break;
 

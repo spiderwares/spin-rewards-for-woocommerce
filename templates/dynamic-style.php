@@ -35,7 +35,8 @@ $email_border               = !empty($settings['email_border']) ? $settings['ema
 $name_border                = !empty($settings['name_border']) ? $settings['name_border'] : '10px';
 $spin_button_border         = !empty($settings['spin_button_border']) ? $settings['spin_button_border'] : '10px';
 $wheel_pointer_cutout_color = !empty($settings['wheel_pointer_cutout_color']) ? $settings['wheel_pointer_cutout_color'] : '#ffffff';
-$wheel_pointer_cutout_image = !empty($settings['wheel_pointer_cutout_image']) ? $settings['wheel_pointer_cutout_image'] : '';
+$wheel_pointer_image        = !empty($settings['wheel_pointer_image']) ? $settings['wheel_pointer_image'] : '';
+$spin_bg_effects            = !empty($settings['spin_bg_effects']) ? $settings['spin_bg_effects'] : 'none';
 
 $mini_wheel = '';
 if (!empty($settings['slides']) && is_array($settings['slides'])) :
@@ -64,8 +65,8 @@ endif;
 }
 
 .srwc-pointer .srwc-pointer-cutout {
-    <?php if(!empty($wheel_pointer_cutout_image)): ?>
-        background: url('<?php echo esc_url($wheel_pointer_cutout_image); ?>') !important;
+    <?php if(!empty($wheel_pointer_image)): ?>
+        background: url('<?php echo esc_url($wheel_pointer_image); ?>') !important;
         background-size: contain !important;
         background-repeat: no-repeat !important;
     <?php else: ?>
@@ -104,7 +105,6 @@ endif;
     border-radius: <?php echo esc_html( $spin_button_border ); ?>px;
 }
 
-/* Floating Button */
 .srwc-floating-btn {
     <?php
     switch($icon_position) {
@@ -115,19 +115,11 @@ endif;
             echo 'top: 40px; right: 20px; left: auto; bottom: auto;';
             break;
         case 'bottom-left':
-            echo 'bottom: 40px; left: 20px; right: auto; top: auto;';
+            echo 'bottom: 20px; left: 20px; right: auto; top: auto;';
             break;
         case 'bottom-right':
-            echo 'bottom: 40px; right: 20px; left: auto; top: auto;';
+            echo 'bottom: 20px; right: 20px; left: auto; top: auto;';
             break;
-        // case 'middle-left':
-        //     echo 'top: 50%; left: 20px; right: auto; bottom: auto; transform: translateY(-50%);';
-        //     break;
-        // case 'middle-right':
-        //     echo 'top: 50%; right: 20px; left: auto; bottom: auto; transform: translateY(-50%);';
-        //     break;
-        default:
-            echo 'bottom: 40px; right: 20px; left: auto; top: auto;';
     }
     ?>
 }
@@ -172,6 +164,7 @@ endif;
     }
     ?>
 }
+
 .srwc-pointer .srwc-pointer-cutout {
     <?php
     switch ($wheel_pointer_position) {
@@ -187,7 +180,6 @@ endif;
         case 'left':
             echo 'top: 38px; left: -205px; width: 20px; height: 20px;';
             break;
-        
     }
     ?>
 }
@@ -207,3 +199,11 @@ endif;
 .srwc-wheel-dot {
     background: <?php echo esc_html( $wheel_dot_color ); ?>;
 }
+
+/* Background Effects Container */
+<?php if($spin_bg_effects !== 'none'): ?>
+body {
+    position: relative;
+    overflow-x: hidden;
+}
+<?php endif; ?>

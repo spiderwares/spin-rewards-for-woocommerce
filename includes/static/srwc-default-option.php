@@ -25,6 +25,7 @@ return apply_filters(
             'name_border'                   => 10,
             'email_border'                  => 10,
             'auto_hide_wheel'               => 0,
+            'auto_spin'                     => 0,
             'win_message'                   => 'Congratulations! You have won a {coupon_label} discount coupon. The coupon has been sent to the email address you provided when spinning. Redeem it at checkout {checkout} now!',
             'lose_message'                  => 'OOPS! No luck this time. Try again!',
             'gdpr_checkbox'                 => 'no',
@@ -44,7 +45,7 @@ return apply_filters(
             'wheel_speed_spin'              => '3',
             'wheel_pointer'                 => 'center',
             'wheel_pointer_color'           => '#f70707',
-            'wheel_pointer_cutout_type'     => 'color',
+            'wheel_pointer_type'     => 'color',
             'wheel_center_color'            => '#ffffff',
             'wheel_border_color'            => '#ffffff',
             'background_blend_mode'         => 'none',
@@ -57,6 +58,11 @@ return apply_filters(
             'spin_button_text_color'        => '#ffffff',
             'spin_button_bg_color'          => '#ff9000',
             'spin_button_hover_bg_color'    => '#ffad42',
+            'show_close_button'             => 'no',
+            'close_button_text'             => 'Close Now',
+            'close_btn_font_size'           => 18,
+            'close_btn_text_color'          => '#ff4444',
+            'close_btn_hover_color'         => '#ffffff',
             'wheel_text_size'               => 18,
             'wheel_size'                    => 100,
             'display_currency'              => 'symbol',
@@ -70,6 +76,7 @@ return apply_filters(
             'gdpr_required_message'         => 'Please agree with our term and condition.',
             'error_message_color'           => '#ffffff',
             'error_message_font_size'       => 14,
+            'spin_bg_effects'               => 'none',
 
             // Default wheel slides 
             'slides' => array(

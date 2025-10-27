@@ -38,3 +38,9 @@ wc_get_template(
 	SRWC_TEMPLATE_PATH                  // Absolute path to the template directory.
 );
 
+// Add auto reset spins status display
+
+do_action( 'srwc_after_general_settings' );
+
+?>
+

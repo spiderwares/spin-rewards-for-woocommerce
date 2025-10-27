@@ -1,6 +1,6 @@
 <?php
 /**
- * Spin Wheel Slides Field Template
+ * Spin Wheel slides Field Template
  */
 
 // Prevent direct access to the file.
@@ -110,7 +110,7 @@ defined( 'ABSPATH' ) || exit;
                 <td colspan="7">
 
                     <button class="srwc-add-repeater-row srwc-admin-button">
-                        <span><?php esc_html_e( 'Add Slide', 'spin-rewards-for-woocommerce' ); ?></span>
+                        <span><?php esc_html_e( 'Add slide', 'spin-rewards-for-woocommerce' ); ?></span>
                     </button>
 
                     <div id="srwc-update-rate-msg" class="srwc-error"></div>

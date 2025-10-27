@@ -73,36 +73,42 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
          * Admin menu for the plugin.
          */
         public function admin_menu() {
+
+            // Main Spin Rewards submenu under WooCommerce
             add_submenu_page( 
                 'woocommerce', 
                 esc_html__( 'Spin Rewards', 'spin-rewards-for-woocommerce' ), 
                 esc_html__( 'Spin Rewards', 'spin-rewards-for-woocommerce' ), 
                 'manage_options', 
                 'cosmic-srwc', 
-                [ $this,'admin_menu_content' ] 
+                [ $this, 'admin_menu_content' ] 
             );
-
-            // Add Spin Records submenu
+    
+            // Add Spin Records menu
             add_menu_page(
-                esc_html__( 'Spin Records', 'spin-rewards-for-woocommerce' ), // Page title
-                esc_html__( 'Spin Records', 'spin-rewards-for-woocommerce' ), // Menu title
-                'manage_options',                                             // Capability
-                'edit.php?post_type=srwc_spin_record',                        // Menu slug
-                '',                                                           // Callback not needed
-                'dashicons-awards',                                           // Trophy Icon for Rewards
-                30                                                            // Position (optional)
+                esc_html__( 'Spin Records', 'spin-rewards-for-woocommerce' ),
+                esc_html__( 'Spin Records', 'spin-rewards-for-woocommerce' ),
+                'manage_options',
+                'edit.php?post_type=srwc_spin_record',
+                '', // no callback needed
+                'dashicons-awards',
+                30
+            );
+    
+            // Reports submenu under Spin Records
+            add_submenu_page(
+                'edit.php?post_type=srwc_spin_record',
+                esc_html__( 'Reports', 'spin-rewards-for-woocommerce' ),
+                esc_html__( 'Reports', 'spin-rewards-for-woocommerce' ),
+                'manage_options',
+                'srwc-reports',
+                [ $this, 'reports_page_content' ]
             );
 
-            // Add Reports submenu
-            add_submenu_page(
-                'edit.php?post_type=srwc_spin_record',                        // Parent slug
-                esc_html__( 'Reports', 'spin-rewards-for-woocommerce' ),      // Page title
-                esc_html__( 'Reports', 'spin-rewards-for-woocommerce' ),      // Menu title
-                'manage_options',                                             // Capability
-                'srwc-reports',                                               // Menu slug
-                [ $this, 'reports_page_content' ]                             // Callback
-            );
-        }
+            // Try Pro Version submenu under Spin Wheel Price
+            do_action( 'srwc_after_admin_menu' );
+
+        } 
         
         /**
          * Enqueue admin styles.
@@ -147,13 +153,16 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
             );
 
             // Localize script for AJAX
-            wp_localize_script( 'srwc-admin', 'srwc_admin', array(
+            wp_localize_script( 'srwc-admin', 
+                'srwc_admin', array(
                 'ajax_url' => admin_url( 'admin-ajax.php' ),
                 'nonce'    => wp_create_nonce( 'srwc_admin_nonce' ),
                 'is_pro'   => $this->is_pro_version(),
                 'messages' => array(
                     'min_slides' => esc_html__( 'You must have at least 3 slides.', 'spin-rewards-for-woocommerce' ),
                     'max_slides' => esc_html__( 'You can only add up to 6 slides.', 'spin-rewards-for-woocommerce' ),
+                    'calculating' => esc_html__('Calculating...', 'spin-rewards-for-woocommerce'),
+                    'disabled'    => esc_html__('This function is currently DISABLED', 'spin-rewards-for-woocommerce'),
                 ),
             ) );
         }
@@ -175,10 +184,21 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
             require_once SRWC_PATH . 'includes/admin/settings/views/spin-reports.php';
         }
 
+        public function try_pro_page_content() {
+            ?>
+            <div class="wrap">
+                <h1><?php esc_html_e( 'Try Pro Version', 'spin-rewards-for-woocommerce' ); ?></h1>
+                <div class="notice notice-info">
+                    <p><strong><?php esc_html_e( 'This is pro version', 'spin-rewards-for-woocommerce' ); ?></strong></p>
+                </div>
+            </div>
+            <?php
+        }
+
         public function is_pro_version() {
-            if ( class_exists( 'SRWC_Pro' ) ) {
+            if ( class_exists( 'SRWC_Pro' ) ) :
                 return true;
-            }
+            endif;
         }
 
         public function filter_data_before_update( $value, $old_value, $option ) {
@@ -214,7 +234,6 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
             $data = array_merge( $old_value, $value );
             return $data;
         }
-
 
     }
 

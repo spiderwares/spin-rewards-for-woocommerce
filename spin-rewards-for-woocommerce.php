@@ -8,6 +8,7 @@
  * Author:            Cosmic
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * Requires Plugins:  woocommerce
  * Text Domain:       spin-rewards-for-woocommerce
  *
  * @package Spin_Rewards_For_WooCommerce

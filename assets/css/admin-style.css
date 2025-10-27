@@ -1,4 +1,34 @@
-/***** Popup Trigger Select *****/
+/*--------------------------- Settings Page ---------------------------*/
+
+.srwc-settings-page .form-table th {
+  width: 200px;
+  padding: 20px 10px 20px 0;
+  vertical-align: top;
+}
+
+.srwc-settings-page .form-table td {
+  padding: 15px 10px;
+}
+
+.srwc-settings-page .form-table input[type="number"] {
+  width: 80px;
+}
+
+.srwc-settings-page .form-table select {
+  min-width: 200px;
+}
+
+.srwc-settings-page .description {
+  font-style: italic;
+  color: #666;
+  margin-top: 5px;
+}
+
+.srwc-settings-page .notice {
+  margin: 15px 0;
+}
+
+/*--------------------------- Popup Trigger Select ---------------------------*/
 
 #popup_trigger, .srwc-select {
   min-width: 600px;
@@ -11,9 +41,9 @@
   flex-wrap: wrap;
 }
 
-/***** End Popup Trigger Select *****/
+/*--------------------------- End Popup Trigger Select ---------------------------*/
 
-/***** Media Field *****/
+/*--------------------------- Media Field ---------------------------*/
 
 .srwc-media {
   display: flex;
@@ -62,9 +92,9 @@
   align-items: center;
 }
 
-/***** End Media Field *****/
+/*--------------------------- End Media Field ---------------------------*/
 
-/***** Repeater Row *****/
+/*--------------------------- Repeater Row ---------------------------*/
 
 .srwc-add-repeater-row {
   background: #0073aa;
@@ -110,9 +140,9 @@
   text-align: center;
 }
 
-/***** End Repeater Row *****/
+/*--------------------------- End Repeater Row ---------------------------*/
 
-/***** Reports Page Styles *****/
+/*--------------------------- Reports Page Styles ---------------------------*/
 
 .srwc-reports-page {
   background: #f1f1f1;
@@ -135,7 +165,7 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/***** Reports Cards *****/
+/*--------------------------- Reports Cards ---------------------------*/
 .srwc-report-cards {
   display: flex;
   gap: 20px;
@@ -258,7 +288,7 @@
   color: #2c3338;
 }
 
-/* Responsive Design */
+/*--------------------------- Responsive Design ---------------------------*/
 @media (max-width: 768px) {
   .srwc-report-cards {
     flex-direction: column;
@@ -310,4 +340,60 @@
   }
 }
 
-/***** End Reports Page Styles *****/
+/*--------------------------- End Reports Page Styles ---------------------------*/
+
+/*--------------------------- Auto Reset Status Styles ---------------------------*/
+.srwc-auto-reset-status {
+  margin-top: 20px;
+  padding: 15px;
+  background: #e8f5e8;
+  border: 1px solid #4caf50;
+  border-radius: 8px;
+}
+
+.srwc-auto-reset-status.disabled {
+  background: #fce4ec;
+  border: 1px solid #d32f2f;
+}
+
+.srwc-status-header {
+  margin-bottom: 8px;
+}
+
+.srwc-status-header strong,
+.srwc-status-header span {
+  color: #2e7d32;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.srwc-auto-reset-status.disabled .srwc-status-header strong,
+.srwc-auto-reset-status.disabled .srwc-status-header span {
+  color: #8d1a1a;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.srwc-status-schedule {
+  color: #666;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.srwc-status-schedule strong {
+  color: #555;
+  font-weight: 500;
+}
+
+.srwc-next-reset-time {
+  color: #666;
+  font-weight: 400;
+}
+
+.srwc-auto-reset-status.disabled .srwc-status-schedule,
+.srwc-auto-reset-status.disabled .srwc-status-schedule strong,
+.srwc-auto-reset-status.disabled .srwc-next-reset-time {
+  color: #8d1a1a;
+}
+
+/*--------------------------- End Auto Reset Status Styles ---------------------------*/

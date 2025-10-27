@@ -30,6 +30,7 @@ if ( ! class_exists( 'SRWC_Spin_Loss_Records' ) ) :
             endif;
 
             $customer_name = isset( $_POST['customer_name'] ) ? sanitize_text_field( wp_unslash( $_POST['customer_name'] ) ) : '';
+            $customer_mobile = isset( $_POST['customer_mobile'] ) ? sanitize_text_field( wp_unslash( $_POST['customer_mobile'] ) ) : '';
         
             if ( ! empty( $_POST['customer_email'] ) ) :
                 $customer_email = sanitize_email( wp_unslash( $_POST['customer_email'] ) );
@@ -40,6 +41,7 @@ if ( ! class_exists( 'SRWC_Spin_Loss_Records' ) ) :
                 $record_id = SRWC_Spin_Records::create_spin_record( array(
                     'customer_email' => $customer_email,
                     'customer_name'  => $customer_name,
+                    'customer_mobile' => $customer_mobile,
                     'coupon_code'    => '', // No coupon for loss
                     'spin_date'      => current_time( 'mysql' )
                 ) );

@@ -78,7 +78,7 @@
     padding: 0;
 }
 
-/*--------------------------- End Switch Field ------------------------------*/
+/*--------------------------- End Switch Field ---------------------------*/
 .cosmic_settings_page .cosmic_settings_page_content table .srwc-select select,
 .cosmic_settings_page .cosmic_settings_page_content table .srwc-text-field input[type="text"],
 .cosmic_settings_page .cosmic_settings_page_content table .srwc-number-field input[type="number"],
@@ -102,7 +102,7 @@
     /* background-color: #eceafb; */
 }
 
-/***** Switch Field Styling *****/
+/*--------------------------- Switch Field Styling ---------------------------*/
 
 .srwc-switch-field {
     display: inline-flex;
@@ -181,9 +181,9 @@
     display: none;
 }
   
-/***** End Switch Field Styling *****/
+/*--------------------------- End Switch Field Styling ---------------------------*/
 
-/***** Number Field Styling *****/
+/*--------------------------- Number Field Styling ---------------------------*/
 .srwc-number-field {
     display: flex;
 }
@@ -209,12 +209,12 @@
   
 } 
 
-/***** End Number Field Styling *****/
+/*--------------------------- End Number Field Styling ---------------------------*/
 
-/***** Pro Version *****/
+/*--------------------------- Pro Version ---------------------------*/
 
 .srwc-pro-message {
     color: #c9356e;
 }
   
-/***** End Pro Version *****/
+/*--------------------------- End Pro Version ---------------------------*/

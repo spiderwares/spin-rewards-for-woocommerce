@@ -38,6 +38,14 @@ if ( ! class_exists( 'SRWC_Public' ) ) :
                 true
             );
 
+            wp_enqueue_script( 
+                'srwc-form', 
+                SRWC_URL . 'assets/js/srwc-form.js', 
+                array( 'jquery', 'wp-hooks' ), 
+                SRWC_VERSION,
+                true
+            );
+
             $slides = array();
             if ( isset( $this->settings['slides'] ) && is_array( $this->settings['slides'] ) ) :
                 $slides = $this->settings['slides'];
@@ -53,10 +61,10 @@ if ( ! class_exists( 'SRWC_Public' ) ) :
                 'checkout_url'      => function_exists('wc_get_checkout_url') ? wc_get_checkout_url() : '/checkout/',
                 'currency_symbol'   => get_woocommerce_currency_symbol(),
                 'messages'  => array(
-                    'email_required'            => !empty($this->settings['email_required_message']) ? $this->settings['email_required_message'] : esc_html__( 'Please enter your email.', 'spin-rewards-for-woocommerce' ),
-                    'email_invalid'             => !empty($this->settings['email_invalid_message']) ? $this->settings['email_invalid_message'] : esc_html__( 'Please enter a valid email address.', 'spin-rewards-for-woocommerce' ),
                     'name_required'             => !empty($this->settings['name_required_message']) ? $this->settings['name_required_message'] : esc_html__( 'Please enter your name.', 'spin-rewards-for-woocommerce' ),
                     'mobile_invalid'            => !empty($this->settings['mobile_invalid_message']) ? $this->settings['mobile_invalid_message'] : esc_html__( 'Please enter a valid mobile number.', 'spin-rewards-for-woocommerce' ),
+                    'email_required'            => !empty($this->settings['email_required_message']) ? $this->settings['email_required_message'] : esc_html__( 'Please enter your email.', 'spin-rewards-for-woocommerce' ),
+                    'email_invalid'             => !empty($this->settings['email_invalid_message']) ? $this->settings['email_invalid_message'] : esc_html__( 'Please enter a valid email address.', 'spin-rewards-for-woocommerce' ),
                     'failed_generate_coupon'    => esc_html__( 'Failed to generate coupon.', 'spin-rewards-for-woocommerce' ),
                     'wait_spin'                 => !empty($this->settings['wait_spin_message']) ? $this->settings['wait_spin_message'] : esc_html__( 'You must wait {time} before spinning again.', 'spin-rewards-for-woocommerce' ),
                     'spin_limit_exceeded'       => !empty($this->settings['spin_limit_email_message']) ? $this->settings['spin_limit_email_message'] : esc_html__( 'You’ve reached the limit of {limit} spins for this email address.', 'spin-rewards-for-woocommerce' ),

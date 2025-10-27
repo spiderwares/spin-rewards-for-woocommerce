@@ -97,7 +97,6 @@ if ( ! class_exists( 'SRWC' ) ) :
             
             // Save default options on first activation
             $default = include_once SRWC_PATH . 'includes/static/srwc-default-option.php';
-            error_log(print_r($default, true));
 
             foreach ( $default as $optionKey => $option ) :
                 $existingOption = get_option( $optionKey );
@@ -116,9 +115,10 @@ if ( ! class_exists( 'SRWC' ) ) :
         public function includes() {
             if ( is_admin() ) :
                 $this->includes_admin();
-            else :
+           else :
                 $this->includes_public();
             endif;
+
             require_once SRWC_PATH . 'includes/public/class-srwc-coupon.php';
             require_once SRWC_PATH . 'includes/email/class-srwc-email.php';
             require_once SRWC_PATH . 'includes/public/class-srwc-spin-loss-records.php';
@@ -139,7 +139,6 @@ if ( ! class_exists( 'SRWC' ) ) :
             require_once SRWC_PATH . 'includes/admin/settings/class-srwc-spin-record-cpt.php';
             require_once SRWC_PATH . 'includes/admin/settings/class-srwc-spin-records.php';
             require_once SRWC_PATH . 'includes/admin/settings/class-srwc-spin-reports.php';
-
         }
 
         /**

@@ -32,7 +32,7 @@ defined( 'ABSPATH' ) || exit;
                 <?php esc_html_e( 'Spin Rewards', 'spin-rewards-for-woocommerce' ); ?>
             </a>
 
-            <!-- Wheel Slides settings tab -->
+            <!-- Wheel slides settings tab -->
             <a href="<?php echo esc_url( admin_url( 'admin.php?page=cosmic-srwc&tab=wheel-slides' ) ); ?>" 
                class="<?php echo esc_attr( $active_tab === 'wheel-slides' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">
                 <img src="<?php echo esc_url( SRWC_URL . 'assets/img/slides.svg'); ?>" />
