@@ -20,7 +20,8 @@
     align-items: center;
     flex-wrap: wrap;
     padding: 30px;
-    transition: transform 0.5s ease-out;
+    transform: translateX(-100%);
+    transition: transform 0.7s ease-out;
 }
 
 .srwc-wheel-container.slide-in {
