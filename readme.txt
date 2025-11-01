@@ -24,20 +24,18 @@ Designed to be lightweight, extensible, and theme‑compatible.
 ⭐ Enable/disable the spin wheel globally
 ⭐ Frontend popup spin wheel with responsive, theme‑friendly UI
 ⭐ Customizable wheel design: colors, labels, pointer, slices, and probability
-⭐ Slides/intro content and CTA configuration before/after the wheel
 ⭐ Offer instant discount coupons to winners (auto‑generated)
-⭐ Coupon settings: type, amount, length, prefix, suffix, usage limits, expiry
+⭐ GDPR-Friendly Display optional GDPR checkbox with customizable terms text.
+⭐ Coupon settings: type, amount, length, prefix, suffix, usage limits, expiry date etc.
 ⭐ Collect email before spin with limits to prevent abuse
 ⭐ Per‑email/guest spin limits and optional unique session controls
-⭐ Localization of all frontend texts and labels
-⭐ Email notifications for winners (customer) and admin alerts
+⭐ Email notifications for winners (customer)
 ⭐ Automatic application or display of won coupon codes
 ⭐ Detailed spin records and reports in admin
-⭐ Option to restyle wheel on brand colors and dark/light modes
 ⭐ Display rules (e.g., show on specific pages); easy on/off switch
 ⭐ Conditional display tags support (is_cart(), is_checkout(), is_product(), etc.) with logical operators (||, &&, !)
+⭐ Localization of all frontend texts and labels
 ⭐ Developer‑friendly with template overrides
-⭐ Compatible with WooCommerce HPOS
 
 == Installation ==
 
