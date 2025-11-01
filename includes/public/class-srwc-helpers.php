@@ -42,6 +42,10 @@ if ( ! class_exists( 'SRWC_Helpers' ) ) :
          * Evaluate conditional tags
          */
         public static function evaluate_conditionals( $expression ) {
+            if ( empty( $expression ) ) :
+                return false;
+            endif;
+        
             $tags = array(
                 'is_cart', 'is_checkout', 'is_product', 'is_shop',
                 'is_product_category', 'is_home', 'is_front_page'
@@ -49,19 +53,41 @@ if ( ! class_exists( 'SRWC_Helpers' ) ) :
         
             foreach ( $tags as $tag ) :
                 if ( function_exists( $tag ) ) :
-                    $value = $tag() ? 'true' : 'false';
-                    $expression = preg_replace( '/\b' . $tag . '\(\)/', $value, $expression );
+                    $expression = preg_replace(
+                        '/\b' . preg_quote( $tag, '/' ) . '\(\)/',
+                        $tag() ? '1' : '0',
+                        $expression
+                    );
                 endif;
             endforeach;
         
-            $expression = str_replace( array( '||', '&&', '!' ), array( ' or ', ' and ', ' not ' ), $expression );
+            $expression = strtolower( trim( $expression ) );
+            $expression = str_replace( ['||', '&&', '!'], [' or ', ' and ', ' not '], $expression );
         
-            if ( empty( $expression ) ) :
-                return false;
-            endif;
+            // Evaluate parentheses first
+            while ( preg_match( '/\(([^()]+)\)/', $expression, $m ) ) :
+                $inner = self::evaluate_simple_expression( $m[1] );
+                $expression = str_replace( $m[0], $inner ? '1' : '0', $expression );
+            endwhile;
         
-            return eval( 'return (' . $expression . ');' );
-        }    
+            return self::evaluate_simple_expression( $expression );
+        }
+        
+        private static function evaluate_simple_expression( $expr ) {
+            $expr = trim( strtolower( $expr ) );
+            $expr = preg_replace( '/not\s+(\d+)/', '(1 - $1)', $expr );
+        
+            while ( preg_match( '/(\d+)\s+and\s+(\d+)/', $expr, $m ) ) :   
+                $expr = str_replace( $m[0], ($m[1] && $m[2]) ? '1' : '0', $expr );
+            endwhile;
+
+            while ( preg_match( '/(\d+)\s+or\s+(\d+)/', $expr, $m ) ) :
+                $expr = str_replace( $m[0], ($m[1] || $m[2]) ? '1' : '0', $expr );
+            endwhile;
+        
+            return (bool) (int) trim( $expr );
+        }
+           
 
         /**
          * Format slide labels with coupon values

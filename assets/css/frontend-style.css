@@ -6,20 +6,21 @@
     top: 0;  
     right: 0;
     display: none;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.6);
     z-index: 99999;
 }
 
 .srwc-wheel-container {
-    width: 60vw;
-    height: 100vh;
-    padding: 40px;
     box-sizing: border-box;
+    max-width: 1200px;
+    width: 100%;
+    height: 100vh;
     display: flex;
-    gap: 30px;
-    border-radius: 0;
-    transform: translateX(-100%);
-    transition: transform 0.8s ease-out;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 30px;
+    transition: transform 0.5s ease-out;
 }
 
 .srwc-wheel-container.slide-in {
@@ -31,14 +32,23 @@
 }
 
 .srwc-wheel-left {
-    flex: 0 0 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    width: 50%;
+}
+
+.srwc-wheel {
+    position: relative;
 }
 
 .wheel-inner canvas {
+    max-width: 500px;
+    max-height: 500px;
+    width: 100%;
+    height: 100%;
+    min-width: 300px;
+    min-height: 300px;
     display: block; 
 }
 
@@ -68,22 +78,13 @@
 .srwc-pointer {
     position: absolute;
     top: 50%;
-    left: 29%;
+    left: 50%;
     transform: translate(-50%, -50%);
     width: 100px;
     height: 100px;
     pointer-events: none;
     z-index: 20;
 }
-
-/* .srwc-pointer::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-} */
 
 .srwc-pointer::after {
     content: '';
@@ -99,7 +100,7 @@
 
 .srwc-pointer .srwc-pointer-cutout {
     position: absolute;
-    top: 35px;
+    top: 35%;
     left: 50%;
     transform: translateX(-50%);
     width: 30px;
@@ -113,37 +114,45 @@
 /*--------------------------- Form ---------------------------*/
 
 .srwc-wheel-right {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    width: 50%;
 }
 
 .srwc-input {
-    width: 100%;
-    padding: 15px;
-    border: none;
-    font-size: 16px;
-    box-sizing:border-box;
-    background: #fff;
-    color: #333;
+    width: 100% !important;
+    padding: 15px 25px !important;
+    border: none !important;
+    border-radius: 10px !important;
+    outline: none !important;
+    box-shadow: none !important;
+    transition: all 0.3s ease !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    color: #333 !important;
+    box-sizing:border-box !important;
+    background: #fff !important;
 }
 
 .srwc-input::placeholder {
-    color:#999;
+    color:#999 !important;
 }
 
 .srwc-spin-btn {
-    padding: 15px 25px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    text-transform: uppercase;
-    transition: background 0.3s ease;
+    padding: 15px 25px !important;
+    border: none !important;
+    cursor: pointer !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 18px !important;
+    text-transform: uppercase !important;
+    line-height: 1.5 !important;
+    border-radius: 10px !important;
+    transition: all 0.3s ease !important;
 }
 
 .srwc-spin-btn:disabled {
-    background:#ccc;
+    opacity: 0.5;
     cursor: not-allowed;
 }
 
@@ -172,20 +181,33 @@
 
 /*--------------------------- End Win & Loss Message ---------------------------*/
 
+.srwc-title {
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.2;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
 .srwc-form-controls {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 15px;
 }
 
 .srwc-close {
     position: absolute;
-    right: 0;
-    top: -30px;
-    color: #fff;
-    font-size: 60px;
     cursor: pointer;
+    right: 15px;
+    top: 10px;
+    font-size: 30px;
+    line-height: 1;
+    color: #fff;
+    z-index: 10;
 }
 
 .srwc-wheel-right p {
@@ -262,3 +284,13 @@
 }
 
 /*----------------------------- End Close Button -----------------------------*/
+
+
+@media (max-width: 1024px) {
+    .srwc-wheel-left {
+        width: 100% !important;
+    }
+    .srwc-wheel-right {
+        width: 100% !important;
+    }
+}

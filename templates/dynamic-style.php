@@ -25,17 +25,17 @@ $btn_text_color             = !empty($settings['spin_button_text_color']) ? $set
 $btn_bg_color               = !empty($settings['spin_button_bg_color']) ? $settings['spin_button_bg_color'] : '#111111';
 $btn_bg_hover_color         = !empty($settings['spin_button_hover_bg_color']) ? $settings['spin_button_hover_bg_color'] : '#000000';
 $wheel_pointer_color        = !empty($settings['wheel_pointer_color']) ? $settings['wheel_pointer_color'] : '#000000';
-$wheel_pointer_position     = !empty($settings['wheel_pointer']) ? $settings['wheel_pointer'] : 'center';
 $error_message_color        = !empty($settings['error_message_color']) ? $settings['error_message_color'] : '#ff4444';
 $error_message_font_size    = !empty($settings['error_message_font_size']) ? $settings['error_message_font_size'] : '14';
-$name_border                = !empty($settings['name_border']) ? $settings['name_border'] : '10px';
 $email_border               = !empty($settings['email_border']) ? $settings['email_border'] : '10px';
+$name_border                = !empty($settings['name_border']) ? $settings['name_border'] : '10px';
 $spin_button_border         = !empty($settings['spin_button_border']) ? $settings['spin_button_border'] : '10px';
 $wheel_pointer_cutout_color = !empty($settings['wheel_pointer_cutout_color']) ? $settings['wheel_pointer_cutout_color'] : '#ffffff';
 $wheel_pointer_image        = !empty($settings['wheel_pointer_image']) ? $settings['wheel_pointer_image'] : '';
-$close_btn_text_color       = !empty($settings['close_btn_text_color']) ? $settings['close_btn_text_color'] : '#ff4444';
-$close_btn_font_size        = !empty($settings['close_btn_font_size']) ? $settings['close_btn_font_size'] : '18';
-$close_btn_hover_color      = !empty($settings['close_btn_hover_color']) ? $settings['close_btn_hover_color'] : '#ffffff';
+$spin_bg_effects            = !empty($settings['spin_bg_effects']) ? $settings['spin_bg_effects'] : 'none';
+$close_btn_text_color        = !empty($settings['close_btn_text_color']) ? $settings['close_btn_text_color'] : '#ff4444';
+$close_btn_font_size         = !empty($settings['close_btn_font_size']) ? $settings['close_btn_font_size'] : '18';
+$close_btn_hover_color       = !empty($settings['close_btn_hover_color']) ? $settings['close_btn_hover_color'] : '#ffffff';
 
 ?>
 .srwc-email {
@@ -96,16 +96,16 @@ $close_btn_hover_color      = !empty($settings['close_btn_hover_color']) ? $sett
     <?php
     switch($icon_position) {
         case 'top-left':
-            echo 'top: 35px; left: 0px; right: auto; bottom: auto;';
+            echo 'top: 40px; left: 20px; right: auto; bottom: auto;';
             break;
         case 'top-right':
-            echo 'top: 35px; right: 0px; left: auto; bottom: auto;';
+            echo 'top: 40px; right: 20px; left: auto; bottom: auto;';
             break;
         case 'bottom-left':
-            echo 'bottom: 20px; left: 0px; right: auto; top: auto;';
+            echo 'bottom: 20px; left: 20px; right: auto; top: auto;';
             break;
         case 'bottom-right':
-            echo 'bottom: 20px; right: 0px; left: auto; top: auto;';
+            echo 'bottom: 20px; right: 20px; left: auto; top: auto;';
             break;
     }
     ?>
@@ -126,16 +126,13 @@ $close_btn_hover_color      = !empty($settings['close_btn_hover_color']) ? $sett
     background: <?php echo esc_html( $wheel_pointer_color ); ?>;
 }
 
-/* Dynamic Pointer Positioning */
-.srwc-pointer::after {
-    <?php
-    switch ($wheel_pointer_position) {
-        case 'center':
-            echo 'top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-135deg);';
-            break;
-    }
-    ?>
+/* Background Effects Container */
+<?php if($spin_bg_effects !== 'none'): ?>
+body {
+    position: relative;
+    overflow-x: hidden;
 }
+<?php endif; ?>
 
 .srwc-close-btn {
     color: <?php echo esc_html( $close_btn_text_color ); ?>;

@@ -285,11 +285,6 @@ jQuery(function($) {
                 $(e.target).closest('.srwc-close-btn').length
             ) {
         
-                // if (this.autoHideTimer) {
-                //     clearTimeout(this.autoHideTimer);
-                //     this.autoHideTimer = null;
-                // }
-        
                 this.modal.find('.srwc-wheel-container').removeClass('slide-in').addClass('slide-out');
                 srwc_frontend.form.removeBackgroundEffects();
         
