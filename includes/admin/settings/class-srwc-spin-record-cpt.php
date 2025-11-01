@@ -5,11 +5,6 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-/**
- * Prevent direct access to this file.
- * This file is part of the Spin Rewards for WooCommerce plugin.
- * It handles the registration of the Spin Rewards Records Custom Post Type.
- */
 if( ! class_exists( 'SRWC_Spin_Records_CPT' ) ) :
 
     /**
@@ -21,11 +16,11 @@ if( ! class_exists( 'SRWC_Spin_Records_CPT' ) ) :
 
         /**
          * Constructor for the SRWC_Spin_Records_CPT class.
-         * Hooks into WordPress to register the custom post type and statuses.
+         * 
          */
         public function __construct() {
-            add_action( 'init', array( $this, 'register_spin_records_cpt' ) );
-            add_action( 'init', array( $this, 'flush_rules' ), 99 );
+            add_action( 'init', [ $this, 'register_spin_records_cpt' ] );
+            add_action( 'init', [ $this, 'flush_rules' ], 99 );
             add_filter( 'manage_srwc_spin_record_posts_columns', [ $this, 'add_columns' ] );
             add_action( 'manage_srwc_spin_record_posts_custom_column', [ $this, 'render_column_data' ], 10, 2 );
         }
@@ -34,6 +29,7 @@ if( ! class_exists( 'SRWC_Spin_Records_CPT' ) ) :
          * Registers the Spin Rewards Records Custom Post Type.
          */
         public function register_spin_records_cpt() {
+            
             $labels = array(
                'name'                    => esc_html__( 'Spin Rewards Records', 'spin-rewards-for-woocommerce' ),
 					'singular_name'      => esc_html__( 'Spin Record', 'spin-rewards-for-woocommerce' ),
@@ -86,13 +82,12 @@ if( ! class_exists( 'SRWC_Spin_Records_CPT' ) ) :
         public function add_columns( $columns ) {
             unset( $columns['date'] );
 
-            // Only show customer name column if user_name is enabled
             $settings = get_option( 'srwc_settings', array() );
+            
             if ( !empty( $settings['user_name'] ) && $settings['user_name'] === 'yes' ) :
                 $columns['customer_name'] = esc_html__( 'Customer Name', 'spin-rewards-for-woocommerce' );
             endif;
             
-            // Only show mobile number column if user_mobile is enabled
             if ( !empty( $settings['user_mobile'] ) && $settings['user_mobile'] === 'yes' ) :
                 $columns['customer_mobile'] = esc_html__( 'Mobile Number', 'spin-rewards-for-woocommerce' );
             endif;

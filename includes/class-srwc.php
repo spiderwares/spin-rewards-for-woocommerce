@@ -96,17 +96,13 @@ if ( ! class_exists( 'SRWC' ) ) :
         public static function plugin_activate() {
             
             // Save default options on first activation
-            $default = include_once SRWC_PATH . 'includes/static/srwc-default-option.php';
+            $default_options = include_once SRWC_PATH . 'includes/static/srwc-default-option.php';
+            $existingOption  = get_option( 'srwc_settings' );
 
-            foreach ( $default as $optionKey => $option ) :
-                $existingOption = get_option( $optionKey );
-
-
-                // If the option is not set, update it with the default value
-                if ( ! $existingOption ) :
-                    update_option( $optionKey, $option );
-                endif;
-            endforeach;
+            // If the option is not set, update it with the default value
+            if ( ! $existingOption ) :
+                update_option( 'srwc_settings', $default_options['srwc_settings'] );
+            endif;
         }
 
         /**
@@ -119,8 +115,8 @@ if ( ! class_exists( 'SRWC' ) ) :
                 $this->includes_public();
             endif;
 
-            require_once SRWC_PATH . 'includes/public/class-srwc-coupon.php';
             require_once SRWC_PATH . 'includes/email/class-srwc-email.php';
+            require_once SRWC_PATH . 'includes/public/class-srwc-offer-coupon.php';
             require_once SRWC_PATH . 'includes/public/class-srwc-spin-loss-records.php';
         }
 

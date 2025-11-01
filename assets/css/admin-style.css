@@ -10,6 +10,10 @@
   padding: 15px 10px;
 }
 
+.srwc-settings-form .form-table td {
+  vertical-align: top;
+}
+
 .srwc-settings-page .form-table input[type="number"] {
   width: 80px;
 }
@@ -30,7 +34,7 @@
 
 /*--------------------------- Popup Trigger Select ---------------------------*/
 
-#popup_trigger, .srwc-select {
+.srwc-select, #popup_trigger {
   min-width: 600px;
 }
 
@@ -51,13 +55,8 @@
   gap: 10px;
 }
 
-.srwc-media-preview {
-  margin-top: 10px;
-}
-
-.srwc-media-preview img {
-  max-width: 250px;
-  max-height: 250px;
+.srwc-media-img {
+  width: 10rem;
 }
 
 .srwc-media-upload,
@@ -70,8 +69,8 @@
 .srwc-media-buttons .srwc-media-upload:hover {
   background-color: rgb(15, 162, 220);
   color: #fff;
-  border: 1px solid rgb(15, 162, 220);
-  padding: 5px 10px;
+  border: none;
+  padding: 0px 10px;
   border-radius: 5px;
   font-size: 15px;
 }
@@ -80,8 +79,8 @@
 .srwc-media-buttons .srwc-media-remove:hover {
   background-color: rgb(220, 15, 15);
   color: #fff;
-  border: 1px solid rgb(220, 39, 15);
-  padding: 5px 10px;
+  border: none;
+  padding: 0px 10px;
   border-radius: 5px;
   font-size: 15px;
 }
@@ -95,6 +94,14 @@
 /*--------------------------- End Media Field ---------------------------*/
 
 /*--------------------------- Repeater Row ---------------------------*/
+
+tbody.srwc-repeater-body.ui-sortable td {
+  cursor: move;
+}
+
+.srwc-center {
+  text-align: center;
+}
 
 .srwc-add-repeater-row {
   background: #0073aa;
@@ -113,7 +120,7 @@
 
 .srwc-remove-repeater-row {
   border: none;
-  background: #e7e7e7;
+  background: none;
   cursor: pointer;
 }
 
@@ -136,8 +143,102 @@
 .srwc-slides-table th.srwc-label, 
 .srwc-slides-table th.srwc-value, 
 .srwc-slides-table th.srwc-probability,
-.srwc-slides-table th.srwc-color {
+.srwc-slides-table th.srwc-color,
+.srwc-slides-table th.srwc-action {
   text-align: center;
+}
+
+.srwc-info-box {
+  margin-top: 12px;
+  background: #f8fff2;
+  border: 1px solid #cde5b2;
+  padding: 10px 14px;
+  border-radius: 4px;
+}
+
+.srwc-info-box ul {
+  margin: 0 0 0 18px;
+}
+
+.srwc-info-box li {
+  list-style: disc;
+  color: #2d4f1f;
+  line-height: 1.5;
+}
+
+.srwc-info-box code {
+  background: #eef7e4;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+.srwc-slides-note-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 4px 10px 4px;
+}
+
+.srwc-slides-note-left,
+.srwc-slides-note-right {
+  color: #556;
+}
+
+.srwc-slides-note-left {
+  margin-left: 30rem;
+}
+
+.srwc-slides-note-right {
+  margin-right: 29rem;
+}
+
+
+.srwc-admin-preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.55);
+  z-index: 999999;
+}
+
+.srwc-admin-preview.show {
+  display: flex;
+}
+
+.srwc-preview-container {
+  position: relative;
+  display: inline-block;
+  justify-content: center;
+  padding: 10px;
+}
+
+.srwc-preview-close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 25px;
+  height: 25px;
+  background: #ff4444;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  z-index: 10;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.srwc-preview-close:hover {
+  background: #cc0000;
 }
 
 /*--------------------------- End Repeater Row ---------------------------*/
@@ -288,6 +389,18 @@
   color: #2c3338;
 }
 
+.srwc-preview-wheel {
+  background: #b68d06;
+  color: #FFFFFF;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-left: 92.5rem;
+}
+
+
 /*--------------------------- Responsive Design ---------------------------*/
 @media (max-width: 768px) {
   .srwc-report-cards {
@@ -342,58 +455,25 @@
 
 /*--------------------------- End Reports Page Styles ---------------------------*/
 
-/*--------------------------- Auto Reset Status Styles ---------------------------*/
-.srwc-auto-reset-status {
-  margin-top: 20px;
-  padding: 15px;
-  background: #e8f5e8;
-  border: 1px solid #4caf50;
-  border-radius: 8px;
+/*--------------------------- Select2 Coupon Select Styles ---------------------------*/
+
+.srwc-coupon-select + .select2-container .select2-selection--single .select2-selection__placeholder {
+  text-align: left !important;
 }
 
-.srwc-auto-reset-status.disabled {
-  background: #fce4ec;
-  border: 1px solid #d32f2f;
+.srwc-coupon-select + .select2-container .select2-selection--single {
+  text-align: left !important;
+  height: 40px !important;
+  padding: 5px;
 }
 
-.srwc-status-header {
-  margin-bottom: 8px;
+.srwc-coupon-select + .select2-container .select2-selection__rendered {
+  text-align: left !important;
+  padding-left: 8px !important;
 }
 
-.srwc-status-header strong,
-.srwc-status-header span {
-  color: #2e7d32;
-  font-weight: 700;
-  font-size: 16px;
+.srwc-coupon-select + .select2-container .select2-selection--single .select2-selection__arrow {
+  height: 37px !important;
 }
 
-.srwc-auto-reset-status.disabled .srwc-status-header strong,
-.srwc-auto-reset-status.disabled .srwc-status-header span {
-  color: #8d1a1a;
-  font-weight: 700;
-  font-size: 16px;
-}
-
-.srwc-status-schedule {
-  color: #666;
-  font-size: 14px;
-  margin-top: 8px;
-}
-
-.srwc-status-schedule strong {
-  color: #555;
-  font-weight: 500;
-}
-
-.srwc-next-reset-time {
-  color: #666;
-  font-weight: 400;
-}
-
-.srwc-auto-reset-status.disabled .srwc-status-schedule,
-.srwc-auto-reset-status.disabled .srwc-status-schedule strong,
-.srwc-auto-reset-status.disabled .srwc-next-reset-time {
-  color: #8d1a1a;
-}
-
-/*--------------------------- End Auto Reset Status Styles ---------------------------*/
+/*--------------------------- End Select2 Coupon Select Styles ---------------------------*/

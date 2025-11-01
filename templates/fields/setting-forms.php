@@ -3,7 +3,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<form method="post" action="options.php" enctype="multipart/form-data">
+<form method="post" action="options.php" enctype="multipart/form-data" class="srwc-settings-form">
     <table class="form-table">
         <tr class="heading">
             <th colspan="2">

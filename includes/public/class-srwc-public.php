@@ -17,8 +17,8 @@ if ( ! class_exists( 'SRWC_Public' ) ) :
 		 */
         public function __construct() {
             $this->settings = get_option( 'srwc_settings', array() );
-            add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
-            add_action( 'wp_footer', array( $this, 'display_wheel' ), 20 );
+            add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
+            add_action( 'wp_footer', [ $this, 'display_wheel' ], 20 );
         }
     
         public function enqueue_assets() {
@@ -67,7 +67,7 @@ if ( ! class_exists( 'SRWC_Public' ) ) :
                     'email_invalid'             => !empty($this->settings['email_invalid_message']) ? $this->settings['email_invalid_message'] : esc_html__( 'Please enter a valid email address.', 'spin-rewards-for-woocommerce' ),
                     'failed_generate_coupon'    => esc_html__( 'Failed to generate coupon.', 'spin-rewards-for-woocommerce' ),
                     'wait_spin'                 => !empty($this->settings['wait_spin_message']) ? $this->settings['wait_spin_message'] : esc_html__( 'You must wait {time} before spinning again.', 'spin-rewards-for-woocommerce' ),
-                    'spin_limit_exceeded'       => !empty($this->settings['spin_limit_email_message']) ? $this->settings['spin_limit_email_message'] : esc_html__( 'You’ve reached the limit of {limit} spins for this email address.', 'spin-rewards-for-woocommerce' ),
+                    'spin_limit_exceeded'       => !empty($this->settings['spin_limit_email_message']) ? $this->settings['spin_limit_email_message'] : esc_html__( 'You’ve reached your spin limit.', 'spin-rewards-for-woocommerce' ),
                     'gdpr_required'             => !empty($this->settings['gdpr_required_message']) ? $this->settings['gdpr_required_message'] : esc_html__( 'Please agree with our term and condition.', 'spin-rewards-for-woocommerce' ),
                 ),
             ) );
@@ -95,6 +95,7 @@ if ( ! class_exists( 'SRWC_Public' ) ) :
         }
 
         public function display_wheel() {
+            
             if ( empty( $this->settings['enable'] ) || $this->settings['enable'] !== 'yes' ) :
                 return;
             endif;

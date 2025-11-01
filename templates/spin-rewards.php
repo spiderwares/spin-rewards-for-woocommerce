@@ -1,6 +1,6 @@
 <?php 
 /**
- * Spin Wheel Template
+ * Spin Rewards Template
  * 
  */
 if ( ! defined( 'ABSPATH' ) ) exit;  
@@ -11,8 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <div class="srwc-wheel-modal">
   <div class="srwc-wheel-container">
-    
-    <!-- Firework Animation Container -->
     
     <!-- Left Side: Wheel -->
     <div class="srwc-wheel-left">
@@ -70,6 +68,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
         <?php $btn_text = !empty($settings['spin_button_text']) ? $settings['spin_button_text'] : 'Spin Now'; ?>
         <button class="srwc-spin-btn">
+          <span class="srwc-loader" style="display: none;"></span>
           <?php echo esc_html($btn_text); ?>
         </button>
       </div>
@@ -95,7 +94,25 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <!-- Float Spin Button -->
 <div class="srwc-floating-btn" data-hide-icon="<?php echo esc_attr(!empty($settings['hide_icon']) ? $settings['hide_icon'] : 'no'); ?>">
-  <div class="srwc-mini-wheel">
-      <div class="srwc-mini-wheel-inner"></div>
-  </div>
+    <?php if ( !empty($settings['custom_popup_icon_image']) ) : ?>
+        <?php 
+            $icon_img = esc_url($settings['custom_popup_icon_image']);
+            $is_svg   = (bool) preg_match('/\.svg(\?.*)?$/i', $icon_img);
+        ?>
+        <?php if ($is_svg) : ?>
+            <div class="srwc-mini-icon srwc-mini-icon--svg">
+                <div class="srwc-mini-icon-mask"></div>
+            </div>
+        <?php else : ?>
+            <div class="srwc-mini-icon">
+                <img src="<?php echo esc_url($icon_img); ?>" alt="spin icon" />
+            </div>
+        <?php endif; ?>
+    <?php else : ?>
+        <div class="srwc-mini-wheel">
+            <div class="srwc-mini-wheel-inner">
+                <canvas id="srwc-mini-wheel-canvas" width="70" height="70"></canvas>
+            </div>
+        </div>
+    <?php endif; ?>
 </div>

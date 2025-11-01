@@ -49,35 +49,6 @@ jQuery(function($) {
             return true;
         }
 
-        showWinMessage(chosen, label) {
-            const settings = srwc_frontend?.settings || {},
-                isWin      = chosen.coupon_type !== 'none';
-            
-            let message;
-            if (isWin) {
-                message = settings.win_message
-                    .replace('{coupon_label}', label ? '<b>' + label + '</b>' : '')
-                    .replace('{checkout}', '<a href="' + srwc_frontend.checkout_url + '">checkout</a>');
-                
-                // Show firework animation for wins
-                this.showFireworkAnimation();
-            } else {
-                message = settings.lose_message;
-            }
-            
-            // Hide the form and show message
-            srwc_frontend.frontend.modal.find('.srwc-form-controls').hide();
-            srwc_frontend.frontend.modal.find('.srwc-win-text').html(message);
-            srwc_frontend.frontend.modal.find('.srwc-win-message').show();
-            
-            this.autoHideWheel(settings);
-
-            if (typeof wp !== 'undefined' && wp.hooks) {
-                wp.hooks.doAction('srwcShowWinMessage', chosen, label, this);
-            }
-            
-        }
-
         autoHideWheel(settings) {
             const autoHideDelay = parseInt(settings.auto_hide_wheel) || 0;
             
@@ -90,6 +61,59 @@ jQuery(function($) {
                     srwc_frontend.frontend.closeWheel({ target: { id: 'srwc-wheel-modal' } });
                 }, autoHideDelay * 1000); 
             }
+        }  
+
+        recordLossSpin(chosen, label) {
+            $.ajax({
+                type: 'POST',
+                url: srwc_frontend.ajax_url,
+                data: {
+                    action: 'srwc_record_loss_spin',
+                    nonce: srwc_frontend.nonce,
+                    customer_email: $('.srwc-email').val(),
+                    customer_name: $('.srwc-name').val(),
+                    customer_mobile: $('.srwc-mobile').val(),
+                }
+            });
+        }
+
+        checkEmailLimit(email, callback) {
+            $.ajax({
+                type: 'POST',
+                url: srwc_frontend.ajax_url,
+                data: {
+                    action: 'srwc_check_email_limit',
+                    nonce: srwc_frontend.nonce,
+                    customer_email: email
+                },
+                success: (response) => {
+                    if (response.success) {
+                        srwc_frontend.frontend.modal.find('.srwc-email-error').hide().text('');
+                        if (typeof callback === 'function') callback();
+                    } else { 
+                        const errorMessage = srwc_frontend.messages.spin_limit_exceeded;
+                        srwc_frontend.frontend.modal.find('.srwc-email-error').text(errorMessage).show();
+                    }
+                }
+            });
+        }
+
+        slideProbability() {
+            const weightedslides = [];
+            
+            srwc_frontend.frontend.slides.forEach((slide, index) => {
+                const probability = parseFloat(slide.probability) || 0;
+                for (let i = 0; i < probability; i++) {
+                    weightedslides.push(index);
+                }
+            });
+            
+            if (weightedslides.length === 0) {
+                return Math.floor(Math.random() * srwc_frontend.frontend.slides.length);
+            }
+            
+            const randomIndex = Math.floor(Math.random() * weightedslides.length);
+            return weightedslides[randomIndex];
         }
 
         backgroundEffects() {
@@ -109,6 +133,7 @@ jQuery(function($) {
                 wp.hooks.doAction('srwcFireworkAnimation');
             }
         }   
+
     }
 
     srwc_frontend.form = new SRWC_Form();

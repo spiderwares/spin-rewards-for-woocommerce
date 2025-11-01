@@ -8,14 +8,18 @@ jQuery(function($) {
         }
 
         init() {
-            this.slides      = [];
-            this.modal       = $('.srwc-wheel-modal');
-            this.wheelInner  = null;
-            this.floatingBtn = $('.srwc-floating-btn');
+            this.slides         = [];
+            this.modal          = $('.srwc-wheel-modal');
+            this.wheelInner     = null;
+            this.floatingBtn    = $('.srwc-floating-btn');
+            this.miniWheelInner = $('.srwc-mini-wheel-inner');
+            this.afterspin      = 'srwc_show_again_until';
+            this.afterclose     = 'srwc_close_until';
             this.loadslides();
             this.bindEvents();
             this.floatingButton();
             this.popupTrigger();
+            this.buildMiniWheel();
             
             window.srwcFrontendInstance = this;
         }
@@ -40,7 +44,7 @@ jQuery(function($) {
             const settings   = srwc_frontend?.settings || {},
                 trigger      = settings.popup_trigger || 'show_wheel',
                 initialDelay = parseFloat(settings.initial_delay) || 0;
-        
+
             switch (trigger) {
                 case 'popup_icon':
                     break;
@@ -64,6 +68,7 @@ jQuery(function($) {
                 textColor  = "#fff",
                 fontFamily = "Poppins";
         
+            // Allow external filter hook
             if (typeof wp !== 'undefined' && wp.hooks) {
                 wp.hooks.doAction(
                     'srwcSpinWhel',
@@ -85,52 +90,42 @@ jQuery(function($) {
                     }
                 );
             }
+
+            // Calculate scale
+            const scale   = wheelSize / 100,
+                finalSize = baseSize * scale,
+                dpr       = window.devicePixelRatio || 1;
+            canvas.width  = finalSize * dpr;
+            canvas.height = finalSize * dpr;
+            canvas.style.width  = `${finalSize}px`;
+            canvas.style.height = `${finalSize}px`;
         
-            // Apply wheel size dynamically
-            const finalSize = (baseSize * wheelSize) / 100;
-            canvas.width = finalSize;
-            canvas.height = finalSize;
+            const ctx = canvas.getContext('2d');
+            ctx.scale(dpr, dpr);
         
             this.wheelInner = this.modal.find('.wheel-inner');
             this.wheelInner.empty().append(canvas);
         
-            const ctx       = canvas.getContext('2d'),
-                total       = this.slides.length,
-                centerX     = canvas.width / 2,
-                centerY     = canvas.height / 2,
-                radius      = (finalSize / 2) - 25,
-                textRadius  = radius - 80;
+            const total       = this.slides.length,
+                  centerX     = finalSize / 2,
+                  centerY     = finalSize / 2,
+                  radius      = (finalSize / 2) - (25 * scale),
+                  textRadius  = radius - (80 * scale),
+                  borderColor = settings.wheel_border_color || '#ffffff',
+                  dotColor    = settings.wheel_dot_color || '#000000',
+                  centerColor = settings.wheel_center_color || '#ffffff';
         
-            const borderColor = settings.wheel_border_color || '#ffffff',
-                  dotColor = settings.wheel_dot_color || '#000000';
-        
-            // Shadow + Border
-            ctx.save();
-            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-            ctx.strokeStyle = borderColor;
-            ctx.lineWidth = 15;
-            ctx.stroke();
-            ctx.restore();
-        
-            // Draw slides
+            // === Draw slides ===
             for (let i = 0; i < total; i++) {
                 const startAngle = (i * 2 * Math.PI) / total,
-                    endAngle = ((i + 1) * 2 * Math.PI) / total;
+                    endAngle     = ((i + 1) * 2 * Math.PI) / total;
         
-                // slide background
+                // Slice background
                 ctx.beginPath();
                 ctx.moveTo(centerX, centerY);
-                ctx.arc(centerX, centerY, radius - 4, startAngle, endAngle);
+                ctx.arc(centerX, centerY, radius - (4 * scale), startAngle, endAngle);
                 ctx.closePath();
                 ctx.fillStyle = this.slides[i].color || this.randomColor();
-                ctx.fill();
-        
-                // slide border dots
-                const dotX = centerX + Math.cos(startAngle) * radius,
-                    dotY = centerY + Math.sin(startAngle) * radius;
-                ctx.beginPath();
-                ctx.arc(dotX, dotY, 4, 0, 2 * Math.PI);
-                ctx.fillStyle = dotColor;
                 ctx.fill();
         
                 // Draw text
@@ -139,25 +134,134 @@ jQuery(function($) {
                 ctx.rotate(startAngle + (endAngle - startAngle) / 2);
                 ctx.textAlign = "center";
                 ctx.fillStyle = textColor;
-                ctx.font = `${fontSize}px ${fontFamily}`;
+        
+                const dynamicFontSize = Math.max((fontSize * scale), 6);
+                ctx.font = `${dynamicFontSize}px ${fontFamily}`;
+        
                 let label = this.slides[i].label || '';
                 ctx.fillText(label, textRadius, 5);
                 ctx.restore();
             }
+        
+            // === Border ===
+            const borderOffset = 5 * scale;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius + borderOffset, 0, Math.PI * 2);
+            ctx.lineWidth = 18 * scale;
+            ctx.strokeStyle = borderColor;
+            ctx.stroke();
+        
+            // === Dots ===
+            const dotOffset = 5 * scale,
+                dotBaseSize = Math.max(finalSize * 0.011 * scale, 0.8); 
+            this.slides.forEach((s, idx) => {
+                const start = (idx * 2 * Math.PI) / total,
+                    dotX = centerX + Math.cos(start) * (radius + dotOffset),
+                    dotY = centerY + Math.sin(start) * (radius + dotOffset);
+        
+                ctx.beginPath();
+                ctx.arc(dotX, dotY, dotBaseSize, 0, 2 * Math.PI);
+                ctx.fillStyle = dotColor;
+                ctx.fill();
+            });
+        
+            // === Center Circle ===
+            ctx.save();
+            const centerRadius = Math.max(50 * scale, 4); 
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, centerRadius, 0, Math.PI * 2);
+        
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.25)';
+            ctx.shadowBlur = 10 * scale;
+            ctx.fillStyle = centerColor;
+            ctx.fill();
+        
+            ctx.shadowColor = 'transparent';
+            ctx.shadowBlur = 0;
+            ctx.strokeStyle = centerColor;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            ctx.restore();
+        }
+        
+        buildMiniWheel() {
+            if (!this.miniWheelInner || !this.miniWheelInner.length) return;
+            if (!this.slides || !this.slides.length) return;
+        
+            // Get the existing canvas by ID
+            const miniCanvas = document.getElementById('srwc-mini-wheel-canvas');
+            if (!miniCanvas) return;
+        
+            const settings  = srwc_frontend?.settings || {},
+                borderColor = settings.wheel_border_color || '#d32f2f',
+                centerColor = settings.wheel_center_color || '#ffffff',
+                dotColor    = settings.wheel_dot_color || '#000000',
+                ctx         = miniCanvas.getContext('2d'),
+                size        = miniCanvas.width,
+                total       = this.slides.length,
+                centerX     = size / 2,
+                centerY     = size / 2,
+                radius      = (size / 2) - 6,
+                anglePer    = (Math.PI * 2) / total;
+        
+            for (let i = 0; i < total; i++) {
+                const start = i * anglePer,
+                    end     = start + anglePer;
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, start, end);
+                ctx.closePath();
+                ctx.fillStyle = this.slides[i].color || '#ffcc80';
+                ctx.fill();
+            }
+        
+            // Outer border
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius + 2, 0, Math.PI * 2);
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = borderColor;
+            ctx.stroke();
+
+            this.slides.forEach((s, idx) => {
+                const start = (idx * 2 * Math.PI) / total,
+                    dotX    = centerX + Math.cos(start) * (radius + 3),
+                    dotY    = centerY + Math.sin(start) * (radius + 3);
+                
+                ctx.beginPath();
+                ctx.arc(dotX, dotY, 2, 0, 2 * Math.PI);
+                ctx.fillStyle = dotColor;
+                ctx.fill();
+            });
+        
+            // Center circle
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 8, 0, Math.PI * 2);
+            ctx.fillStyle = centerColor;
+            ctx.fill();
         }
         
         openWheel(e) {
             e.preventDefault();
-        
-            const settings = srwc_frontend?.settings || {};
-            let delay      = 0;
-        
+            let delay   = 0;
+
+            const settings   = srwc_frontend?.settings || {},
+                spinagain    = +localStorage.getItem(this.afterspin) || 0,
+                closeagain   = +localStorage.getItem(this.afterclose) || 0,
+                nextAllowed  = Math.max(spinagain, closeagain);
+            if (Date.now() < nextAllowed) {
+                const delay = nextAllowed - Date.now();
+                this.floatingBtn.toggleClass('srwc-hidden', true);
+                localStorage.setItem('srwc_icon_hidden', 'true');
+
+                setTimeout(() => {
+                    this.floatingBtn.toggleClass('srwc-hidden', false);
+                    localStorage.setItem('srwc_icon_hidden', 'false');
+                }, delay);
+                return;
+            }
+
             if (settings.initial_delay) {
-                const parts = settings.initial_delay.split(','),
-                    min     = parseFloat(parts[0]) || 0,
-                    max     = parseFloat(parts[1]) || 0;
-        
-                delay = Math.random() * (max - min) + min;
+                delay = parseFloat(settings.initial_delay) || 0;
             }
         
             // Delay popup show
@@ -175,38 +279,48 @@ jQuery(function($) {
         closeWheel(e) {
             const settings = srwc_frontend?.settings || {};
         
-            if (e.target.id === 'srwc-wheel-modal' || $(e.target).hasClass('srwc-close') || $(e.target).hasClass('srwc-close-btn') || $(e.target).closest('.srwc-close-btn').length) {
+            if (e.target.id === 'srwc-wheel-modal' || 
+                $(e.target).hasClass('srwc-close') || 
+                $(e.target).hasClass('srwc-close-btn') || 
+                $(e.target).closest('.srwc-close-btn').length
+            ) {
         
-                if (this.autoHideTimer) {
-                    clearTimeout(this.autoHideTimer);
-                    this.autoHideTimer = null;
-                }
+                // if (this.autoHideTimer) {
+                //     clearTimeout(this.autoHideTimer);
+                //     this.autoHideTimer = null;
+                // }
         
                 this.modal.find('.srwc-wheel-container').removeClass('slide-in').addClass('slide-out');
-                
                 srwc_frontend.form.removeBackgroundEffects();
         
                 setTimeout(() => {
                     this.modal.hide();
                     this.modal.find('.srwc-wheel-container').removeClass('slide-out');
                     this.handleIconHide();
-        
-                    if (!this.hasSpin) {
-                        let timeOnClose = parseInt(settings.time_on_close) || 0,
-                            unit        = settings.time_on_close_unit || 'minutes',
-                            multiplier  = 1000; 
 
-                        if (unit === 'minutes') multiplier = 60 * 1000;
+                    if (!this.hasSpin) {
+                        let timeOnClose = parseInt(settings.time_on_close, 10),
+                            unit        = (settings.time_on_close_unit || 'minutes').toLowerCase(),
+                            multiplier  = 1000;
+
+                        if (unit === 'minutes') multiplier    = 60 * 1000;
                         else if (unit === 'hours') multiplier = 60 * 60 * 1000;
-                        else if (unit === 'days') multiplier = 24 * 60 * 60 * 1000;
-        
-                        if (timeOnClose > 0) {
+                        else if (unit === 'days') multiplier  = 24 * 60 * 60 * 1000;
+
+                        if (Number.isFinite(timeOnClose) && timeOnClose > 0) {
+                            const until = Date.now() + (timeOnClose * multiplier);
+                            localStorage.setItem(this.afterclose, String(until));
+                            localStorage.setItem('srwc_icon_hidden', 'true');
+                            this.floatingBtn.addClass('srwc-hidden');
+                            
                             setTimeout(() => {
+                                this.floatingBtn.removeClass('srwc-hidden');
+                                localStorage.setItem('srwc_icon_hidden', 'false');
                                 this.openWheel({ preventDefault: () => {} });
                             }, timeOnClose * multiplier);
                         }
                     }
-        
+
                     this.hasSpin = false;
                 }, 800);
             }
@@ -224,37 +338,13 @@ jQuery(function($) {
         
             const customerEmail = $('.srwc-email').val().trim();
             if (customerEmail) {
-                this.checkEmailLimit(customerEmail, () => {
+                srwc_frontend.form.checkEmailLimit(customerEmail, () => {
                     this.proceedWithSpin(settings, lastSpinKey, now, lastSpin, waitTime);
                 });
                 return;
             }
         
             this.proceedWithSpin(settings, lastSpinKey, now, lastSpin, waitTime);
-        }
-        
-        checkEmailLimit(email, callback) {
-            $.ajax({
-                type: 'POST',
-                url: srwc_frontend.ajax_url,
-                data: {
-                    action: 'srwc_check_email_limit',
-                    nonce: srwc_frontend.nonce,
-                    customer_email: email
-                },
-                success: (response) => {
-                    if (response.success) {
-                        this.modal.find('.srwc-email-error').hide().text('');
-                        if (typeof callback === 'function') callback();
-                    } else { 
-                        const settings = srwc_frontend?.settings || {},
-                            spinLimit  = settings.spin_per_email;
-                        let errorMessage = srwc_frontend.messages.spin_limit_exceeded;
-                        errorMessage     = errorMessage.replace('{limit}', spinLimit);
-                        this.modal.find('.srwc-email-error').text(errorMessage).show();
-                    }
-                }
-            });
         }
 
         proceedWithSpin(settings, lastSpinKey, now, lastSpin, waitTime) { 
@@ -265,20 +355,11 @@ jQuery(function($) {
                 let remaining;
             
                 switch (unit) {
-                    case 'seconds':
-                        remaining = Math.ceil(remainingTime / 1000);
-                        break;
-                    case 'minutes':
-                        remaining = Math.ceil(remainingTime / (60 * 1000));
-                        break;
-                    case 'hours':
-                        remaining = Math.ceil(remainingTime / (60 * 60 * 1000));
-                        break;
-                    case 'days':
-                        remaining = Math.ceil(remainingTime / (24 * 60 * 60 * 1000));
-                        break;
-                    default:
-                        remaining = Math.ceil(remainingTime / 1000);
+                    case 'seconds': remaining = Math.ceil(remainingTime / 1000); break;
+                    case 'minutes': remaining = Math.ceil(remainingTime / (60 * 1000)); break;
+                    case 'hours': remaining = Math.ceil(remainingTime / (60 * 60 * 1000)); break;
+                    case 'days': remaining = Math.ceil(remainingTime / (24 * 60 * 60 * 1000)); break;
+                    default: remaining = Math.ceil(remainingTime / 1000);
                 }
             
                 const waitMsgTemplate = srwc_frontend.messages.wait_spin,
@@ -295,11 +376,21 @@ jQuery(function($) {
                 speedMap      = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8 },
                 speed         = speedMap[settings.wheel_speed_spin || 'three'] || 3,
                 duration      = settings.wheel_time_duration || 4,
-                selectedslide = this.slideProbability(),
-                slideCenter   = (selectedslide * degreesPer) + (degreesPer / 2),
-                rotateTo      = (360 * speed) + (360 - slideCenter);
-        
-            spinBtn.prop('disabled', true).html('<span class="srwc-loader"></span>');
+                selectedslide = srwc_frontend.form.slideProbability(),
+                slideCenter   = (selectedslide * degreesPer) + (degreesPer / 2);
+
+            let pointerAngle = 0;
+
+            if (typeof wp !== 'undefined' && wp.hooks) {
+                wp.hooks.doAction('srwcWheelPointer', { settings, selected: selectedslide, slideCenter: slideCenter }, (data) => {
+                    pointerAngle = parseInt(data.pointerAngle) || 0;
+                });
+            }
+
+            const rotateTo = (360 * speed) + (360 - slideCenter) - pointerAngle,
+                loader     = $('.srwc-loader:first').clone().removeAttr('style').show();
+            spinBtn.prop('disabled', true).html(loader);
+
         
             this.wheelInner.css({
                 transition: `transform ${duration}s cubic-bezier(0.33,1,0.68,1)`,
@@ -307,21 +398,20 @@ jQuery(function($) {
             });
         
             setTimeout(() => {
-                // Use the selected slide directly since we calculated the rotation to point to it
                 const chosen = this.slides[selectedslide],
                     label    = this.labelDisplay(chosen.label || '', chosen);
         
-                if (['percent', 'fixed_product', 'fixed_cart'].includes(chosen.coupon_type)) {
+                if (['existing', 'percent', 'fixed_product', 'fixed_cart'].includes(chosen.coupon_type)) {
                     this.generateCoupon(chosen, (success, updatedChosen) => {
                         if (success) {
-                            srwc_frontend.form.showWinMessage(updatedChosen, label);
-                            this.handleShowAgain(settings.show_again);
+                            this.showWinMessage(updatedChosen, label);
+                            this.handleShowAgain(settings.show_again, settings.show_again_unit);
                         }
                     });
                 } else {
-                    this.recordLossSpin(chosen, label);
-                    srwc_frontend.form.showWinMessage(chosen, label);
-                    this.handleShowAgain(settings.show_again);
+                    srwc_frontend.form.recordLossSpin(chosen, label);
+                    this.showWinMessage(chosen, label);
+                    this.handleShowAgain(settings.show_again, settings.show_again_unit);
                 }
             }, duration * 1000);
         }
@@ -330,39 +420,53 @@ jQuery(function($) {
             return label;
         }
 
-        slideProbability() {
-            const weightedslides = [];
+        showWinMessage(chosen, label) {
+            const settings = srwc_frontend?.settings || {},
+                isWin      = chosen.coupon_type !== 'none';
             
-            this.slides.forEach((slide, index) => {
-                const probability = parseFloat(slide.probability) || 0;
-                for (let i = 0; i < probability; i++) {
-                    weightedslides.push(index);
-                }
-            });
-            
-            if (weightedslides.length === 0) {
-                return Math.floor(Math.random() * this.slides.length);
+            let message;
+            if (isWin) {
+                message = settings.win_message
+                    .replace('{coupon_label}', label ? '<b>' + label + '</b>' : '')
+                    .replace('{checkout}', '<a href="' + srwc_frontend.checkout_url + '">checkout</a>');
+                
+                srwc_frontend.form.showFireworkAnimation();
+            } else {
+                message = settings.lose_message;
             }
             
-            const randomIndex = Math.floor(Math.random() * weightedslides.length);
-            return weightedslides[randomIndex];
+            this.modal.find('.srwc-form-controls').hide();
+            this.modal.find('.srwc-win-text').html(message);
+            this.modal.find('.srwc-win-message').show();
+            
+            srwc_frontend.form.autoHideWheel(settings);
+
+            if (typeof wp !== 'undefined' && wp.hooks) {
+                wp.hooks.doAction('srwcShowWinMessage', chosen, label, this);
+            }
+            
         }
 
         handleShowAgain( delay, unit ) {
             delay = parseInt(delay) || 0;
             if (delay <= 0) return;
-        
-            let multiplier = 1000; 
-            if (unit === 'minutes') multiplier = 60 * 1000;
+
+            // Determine multiplier; default to minutes if unit missing
+            let multiplier = 1000;
+            if (unit === 'seconds') multiplier = 1000;
+            else if (unit === 'minutes' || !unit) multiplier = 60 * 1000;
             else if (unit === 'hours') multiplier = 60 * 60 * 1000;
             else if (unit === 'days') multiplier = 24 * 60 * 60 * 1000;
-        
+
+            const until = Date.now() + (delay * multiplier);
+            localStorage.setItem(this.afterspin, String(until));
+            localStorage.setItem('srwc_icon_hidden', 'true');
             this.floatingBtn.addClass('srwc-hidden');
-        
+
             setTimeout(() => {
                 this.floatingBtn.removeClass('srwc-hidden');
                 localStorage.setItem('srwc_icon_hidden', 'false');
-            }, delay * multiplier); 
+            }, delay * multiplier);
         }
 
         generateCoupon(chosen, callback) {
@@ -373,6 +477,7 @@ jQuery(function($) {
                     action: 'srwc_generate_coupon',
                     nonce: srwc_frontend.nonce,
                     coupon_type: chosen.coupon_type,
+                    coupon_code: chosen.coupon_code || '',
                     customer_email: $('.srwc-email').val(),
                     customer_name: $('.srwc-name').val(),
                     customer_mobile: $('.srwc-mobile').val(),
@@ -391,21 +496,8 @@ jQuery(function($) {
             });
         }
 
-        recordLossSpin(chosen, label) {
-            $.ajax({
-                type: 'POST',
-                url: srwc_frontend.ajax_url,
-                data: {
-                    action: 'srwc_record_loss_spin',
-                    nonce: srwc_frontend.nonce,
-                    customer_email: $('.srwc-email').val(),
-                    customer_name: $('.srwc-name').val(),
-                    customer_mobile: $('.srwc-mobile').val(),
-                }
-            });
-        }
-
         floatingButton() {
+
             const isHidden = localStorage.getItem('srwc_icon_hidden');
             if (isHidden === 'true') {
                 this.floatingBtn.addClass('srwc-hidden');

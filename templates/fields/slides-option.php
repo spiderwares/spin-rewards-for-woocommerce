@@ -4,11 +4,22 @@
  */
 
 // Prevent direct access to the file.
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <td colspan="2">
     <table class="srwc-slides-table">
+        <button type="button" class="srwc-preview-wheel">
+            <?php esc_html_e( 'Preview Spin Wheel', 'spin-rewards-for-woocommerce' ); ?>
+        </button>
+
+        <div class="srwc-info-box">
+            <ul>
+                <li><?php echo wp_kses_post( __( 'Use <code>{coupon_amount}</code> to display the value of a WooCommerce coupon.', 'spin-rewards-for-woocommerce' ) ); ?></li>
+                <li><?php echo wp_kses_post( __( 'You can add up to 6 slides in the free version. Upgrade to the Pro version to unlock unlimited slides.', 'spin-rewards-for-woocommerce' ) ); ?></li>
+            </ul>
+        </div>
+
         <thead>
             <tr>
                 <th class="srwc-index"><?php esc_html_e( 'Index', 'spin-rewards-for-woocommerce' ); ?></th>
@@ -17,7 +28,7 @@ defined( 'ABSPATH' ) || exit;
                 <th class="srwc-value"><?php esc_html_e( 'Value', 'spin-rewards-for-woocommerce' ); ?></th>
                 <th class="srwc-probability"><?php esc_html_e( 'Probability(%)', 'spin-rewards-for-woocommerce' ); ?></th>
                 <th class="srwc-color"><?php esc_html_e( 'Color', 'spin-rewards-for-woocommerce' ); ?></th>
-                <th><?php esc_html_e( 'Action', 'spin-rewards-for-woocommerce' ); ?></th>
+                <th class="srwc-action"><?php esc_html_e( 'Action', 'spin-rewards-for-woocommerce' ); ?></th>
             </tr>
         </thead>
         <tbody class="srwc-repeater-body">
@@ -32,20 +43,18 @@ defined( 'ABSPATH' ) || exit;
                         <option value="percent"><?php esc_html_e( 'Percentage discount', 'spin-rewards-for-woocommerce' ); ?></option>
                         <option value="fixed_product"><?php esc_html_e( 'Fixed product discount', 'spin-rewards-for-woocommerce' ); ?></option>
                         <option value="fixed_cart"><?php esc_html_e( 'Fixed cart discount', 'spin-rewards-for-woocommerce' ); ?></option>
-                        <option value="custom"><?php esc_html_e( 'Custom', 'spin-rewards-for-woocommerce' ); ?></option>
                     </select>
                 </td>
-                <td>
+                <td class="srwc-center">
                     <input type="text" class="srwc-slide-label" name="<?php echo esc_attr( $field['name'] ); ?>[label][]" value="Not Lucky" placeholder="<?php esc_attr_e( 'Enter label', 'spin-rewards-for-woocommerce' ); ?>">
                 </td>
-                <td>
+                <td class="srwc-center">
                     <input type="number" class="srwc-slide-value" name="<?php echo esc_attr( $field['name'] ); ?>[value][]" value="0" min="0" step="1">
                     <select class="srwc-coupon-select srwc-select2" name="<?php echo esc_attr( $field['name'] ); ?>[coupon_code][]" data-placeholder="<?php esc_attr_e( 'Enter Code', 'spin-rewards-for-woocommerce' ); ?>" style="display: none;">
                         <option value=""><?php esc_html_e( 'Enter Code', 'spin-rewards-for-woocommerce' ); ?></option>
                     </select>
-                    <input type="text" class="srwc-slide-custom-value" name="<?php echo esc_attr( $field['name'] ); ?>[custom_value][]" value="" placeholder="<?php esc_attr_e( 'Value/Code', 'spin-rewards-for-woocommerce' ); ?>" style="display: none;">
                 </td>
-                <td>
+                <td class="srwc-center">
                     <input type="number" class="srwc-slide-probability" name="<?php echo esc_attr( $field['name'] ); ?>[probability][]" value="17" min="0" max="100" step="1">
                 </td>
                 <td class="srwc-center">
@@ -65,30 +74,28 @@ defined( 'ABSPATH' ) || exit;
                         <td class="srwc-center">
                             <span class="srwc-slide-index"><?php echo esc_html( $index + 1 ); ?></span>
                         </td>
-                        <td>
+                        <td class="srwc-center">
                             <select class="srwc-coupon-type" name="<?php echo esc_attr( $field['name'] ); ?>[coupon_type][]">
                                 <option value="none" <?php selected( isset( $slide['coupon_type'] ) ? $slide['coupon_type'] : 'none', 'none' ); ?>><?php esc_html_e( 'None', 'spin-rewards-for-woocommerce' ); ?></option>
                                 <option value="existing" <?php selected( isset( $slide['coupon_type'] ) ? $slide['coupon_type'] : 'none', 'existing' ); ?>><?php esc_html_e( 'Existing coupon', 'spin-rewards-for-woocommerce' ); ?></option>
                                 <option value="percent" <?php selected( isset( $slide['coupon_type'] ) ? $slide['coupon_type'] : 'none', 'percent' ); ?>><?php esc_html_e( 'Percentage discount', 'spin-rewards-for-woocommerce' ); ?></option>
                                 <option value="fixed_product" <?php selected( isset( $slide['coupon_type'] ) ? $slide['coupon_type'] : 'none', 'fixed_product' ); ?>><?php esc_html_e( 'Fixed product discount', 'spin-rewards-for-woocommerce' ); ?></option>
                                 <option value="fixed_cart" <?php selected( isset( $slide['coupon_type'] ) ? $slide['coupon_type'] : 'none', 'fixed_cart' ); ?>><?php esc_html_e( 'Fixed cart discount', 'spin-rewards-for-woocommerce' ); ?></option>
-                                <option value="custom" <?php selected( isset( $slide['coupon_type'] ) ? $slide['coupon_type'] : 'none', 'custom' ); ?>><?php esc_html_e( 'Custom', 'spin-rewards-for-woocommerce' ); ?></option>
                             </select>
                         </td>
-                        <td>
+                        <td class="srwc-center">
                             <input type="text" class="srwc-slide-label" name="<?php echo esc_attr( $field['name'] ); ?>[label][]" value="<?php echo esc_attr( isset( $slide['label'] ) ? $slide['label'] : '' ); ?>" placeholder="<?php esc_attr_e( 'Enter label', 'spin-rewards-for-woocommerce' ); ?>">
                         </td>
-                        <td>
-                            <input type="number" class="srwc-slide-value" name="<?php echo esc_attr( $field['name'] ); ?>[value][]" value="<?php echo esc_attr( isset( $slide['value'] ) ? $slide['value'] : '0' ); ?>" min="0" step="1" style="<?php echo (isset( $slide['coupon_type'] ) && in_array($slide['coupon_type'], ['existing', 'custom'])) ? 'display: none;' : ''; ?>">
+                        <td class="srwc-center">
+                            <input type="number" class="srwc-slide-value" name="<?php echo esc_attr( $field['name'] ); ?>[value][]" value="<?php echo esc_attr( isset( $slide['value'] ) ? $slide['value'] : '0' ); ?>" min="0" step="1" style="<?php echo (isset( $slide['coupon_type'] ) && in_array($slide['coupon_type'], ['existing'])) ? 'display: none;' : ''; ?>">
                             <select class="srwc-coupon-select srwc-select2" name="<?php echo esc_attr( $field['name'] ); ?>[coupon_code][]" style="<?php echo (isset( $slide['coupon_type'] ) && $slide['coupon_type'] === 'existing') ? '' : 'display: none;'; ?>" data-placeholder="<?php esc_attr_e( 'Enter Code', 'spin-rewards-for-woocommerce' ); ?>">
                                 <option value=""><?php esc_html_e( 'Enter Code', 'spin-rewards-for-woocommerce' ); ?></option>
                                 <?php if (isset( $slide['coupon_code'] ) && !empty( $slide['coupon_code'] )) : ?>
                                     <option value="<?php echo esc_attr( $slide['coupon_code'] ); ?>" selected><?php echo esc_html( $slide['coupon_code'] ); ?></option>
                                 <?php endif; ?>
                             </select>
-                            <input type="text" class="srwc-slide-custom-value" name="<?php echo esc_attr( $field['name'] ); ?>[custom_value][]" value="<?php echo esc_attr( isset( $slide['custom_value'] ) ? $slide['custom_value'] : '' ); ?>" placeholder="<?php esc_attr_e( 'Value/Code', 'spin-rewards-for-woocommerce' ); ?>" style="<?php echo (isset( $slide['coupon_type'] ) && $slide['coupon_type'] === 'custom') ? '' : 'display: none;'; ?>">
                         </td>
-                        <td>
+                        <td class="srwc-center">
                             <input type="number" class="srwc-slide-probability" name="<?php echo esc_attr( $field['name'] ); ?>[probability][]" value="<?php echo esc_attr( isset( $slide['probability'] ) ? $slide['probability'] : '17' ); ?>" min="0" max="100" step="1">
                         </td>
                         <td class="srwc-center">
@@ -108,12 +115,23 @@ defined( 'ABSPATH' ) || exit;
         <tfoot>
             <tr class="srwc-slide-footer">
                 <td colspan="7">
-
                     <button class="srwc-add-repeater-row srwc-admin-button">
-                        <span><?php esc_html_e( 'Add slide', 'spin-rewards-for-woocommerce' ); ?></span>
+                        <span><?php esc_html_e( 'Add Slide', 'spin-rewards-for-woocommerce' ); ?></span>
                     </button>
 
                     <div id="srwc-update-rate-msg" class="srwc-error"></div>
+
+                    <div class="srwc-slides-note-wrap">
+                        <em class="srwc-slides-note-left"><?php esc_html_e( 'You can drag and drop slices to change their order.', 'spin-rewards-for-woocommerce' ); ?></em>
+                        <em class="srwc-slides-note-right">*<?php esc_html_e( 'The total Probability: 100 ( % )', 'spin-rewards-for-woocommerce' ); ?></em>
+                    </div>
+
+                    <div class="srwc-admin-preview">
+                        <div class="srwc-preview-container">
+                            <span class="srwc-preview-close">&times;</span>
+                            <canvas id="srwc-admin-wheel-canvas" width="400" height="400"></canvas>
+                        </div>
+                    </div>
                 </td>
             </tr>
         </tfoot>

@@ -6,6 +6,7 @@
  * Requires at least: 5.2
  * Requires PHP:      7.4
  * Author:            Cosmic
+ * Author URI:        https://cosmicinfosolutions.com/
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Requires Plugins:  woocommerce
@@ -14,7 +15,7 @@
  * @package Spin_Rewards_For_WooCommerce
  */
 
-defined( 'ABSPATH' ) || exit;
+ if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! defined( 'SRWC_FILE' ) ) :
     define( 'SRWC_FILE', __FILE__ ); // Define the plugin file path.
@@ -25,7 +26,7 @@ if ( ! defined( 'SRWC_BASENAME' ) ) :
 endif;
 
 if ( ! defined( 'SRWC_VERSION' ) ) :
-    define( 'SRWC_VERSION', time() ); // Define the plugin version.
+    define( 'SRWC_VERSION', '1.0.0' ); // Define the plugin version.
 endif;
 
 if ( ! defined( 'SRWC_PATH' ) ) :

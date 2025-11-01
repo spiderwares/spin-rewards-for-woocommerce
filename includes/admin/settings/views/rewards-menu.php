@@ -1,6 +1,6 @@
 <?php 
 // Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 ?>
 <div class="cosmic_page cosmic_settings_page wrap">

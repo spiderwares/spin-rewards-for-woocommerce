@@ -11,8 +11,8 @@ if ( ! class_exists( 'SRWC_Spin_Loss_Records' ) ) :
         public function __construct() {
             
             // AJAX handler for recording loss spins
-            add_action( 'wp_ajax_srwc_record_loss_spin', array( $this, 'record_loss_spin' ) );
-            add_action( 'wp_ajax_nopriv_srwc_record_loss_spin', array( $this, 'record_loss_spin' ) );
+            add_action( 'wp_ajax_srwc_record_loss_spin', [ $this, 'record_loss_spin' ] );
+            add_action( 'wp_ajax_nopriv_srwc_record_loss_spin', [ $this, 'record_loss_spin' ] );
         }
 
         /**
@@ -39,11 +39,11 @@ if ( ! class_exists( 'SRWC_Spin_Loss_Records' ) ) :
             // Create spin record for loss (no coupon, no email)
             if ( class_exists( 'SRWC_Spin_Records' ) ) :
                 $record_id = SRWC_Spin_Records::create_spin_record( array(
-                    'customer_email' => $customer_email,
-                    'customer_name'  => $customer_name,
+                    'customer_email'  => $customer_email,
+                    'customer_name'   => $customer_name,
                     'customer_mobile' => $customer_mobile,
-                    'coupon_code'    => '', // No coupon for loss
-                    'spin_date'      => current_time( 'mysql' )
+                    'coupon_code'     => '', 
+                    'spin_date'       => current_time( 'mysql' )
                 ) );
                 
                 if ( $record_id ) :

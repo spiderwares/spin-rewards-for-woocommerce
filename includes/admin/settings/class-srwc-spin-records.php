@@ -16,15 +16,12 @@ if( ! class_exists( 'SRWC_Spin_Records' ) ) :
 
         /**
          * Check if email has exceeded spin limit.
-         *
-         * @param string $email Customer email address
-         * @return bool|int Returns false if no limit or limit not exceeded, or number of spins used if limit exceeded
          */
         public static function check_email_spin_limit( $email ) {
             if ( empty( $email ) ) :
                 return false;
             endif;
-            $settings = get_option( 'srwc_settings', array() );
+            $settings   = get_option( 'srwc_settings', array() );
             $spin_limit = ! empty( $settings['spin_per_email'] ) ? absint( $settings['spin_per_email'] ) : 0;
 
             if ( $spin_limit <= 0 ) :
@@ -44,6 +41,35 @@ if( ! class_exists( 'SRWC_Spin_Records' ) ) :
                 )
             );
 
+            // If auto reset is enabled, only count spins after the last reset time
+            $auto_spin = ! empty( $settings['auto_spin'] ) ? absint( $settings['auto_spin'] ) : 0;
+
+            if ( $auto_spin > 0 ) :
+                $specific_time = ! empty( $settings['spin_specific_time'] ) && is_array( $settings['spin_specific_time'] ) ? $settings['spin_specific_time'] : array();
+                $hour   = isset( $specific_time['hour'] ) ? intval( $specific_time['hour'] ) : 0;
+                $minute = isset( $specific_time['minute'] ) ? intval( $specific_time['minute'] ) : 0;
+                $second = isset( $specific_time['second'] ) ? intval( $specific_time['second'] ) : 0;
+
+                // Compute the most recent daily reset time in site timezone
+                $timezone = function_exists( 'wp_timezone' ) ? wp_timezone() : new DateTimeZone( wp_timezone_string() );
+                $now      = new DateTime( 'now', $timezone );
+                $cutoff   = new DateTime( 'now', $timezone );
+                $cutoff->setTime( max( 0, min( 23, $hour ) ), max( 0, min( 59, $minute ) ), max( 0, min( 59, $second ) ) );
+
+                if ( $now < $cutoff ) :
+                    $cutoff->modify( '-1 day' );
+                endif;
+
+                $args['date_query'] = array(
+                    array(
+                        'after'     => $cutoff->format( 'Y-m-d H:i:s' ),
+                        'inclusive' => true,
+                    )
+                );
+
+            endif;
+
+
             $existing_spins = get_posts( $args );
             $spin_count = count( $existing_spins );
 
@@ -52,20 +78,17 @@ if( ! class_exists( 'SRWC_Spin_Records' ) ) :
 
         /**
          * Create spin record.
-         *
-         * @param array $data Spin record data.
-         * @return int|false Post ID if successful, false otherwise.
          */
         public static function create_spin_record( $data ) {
             $defaults = array(
-                'customer_email' => '',
-                'customer_name'  => '',
+                'customer_email'  => '',
+                'customer_name'   => '',
                 'customer_mobile' => '',
-                'win_label'      => '',
-                'coupon_code'    => '',
-                'coupon_type'    => '',
-                'coupon_value'   => '',
-                'spin_date'      => current_time( 'mysql' )
+                'win_label'       => '',
+                'coupon_code'     => '',
+                'coupon_type'     => '',
+                'coupon_value'    => '',
+                'spin_date'       => current_time( 'mysql' )
             );
 
             $data   = wp_parse_args( $data, $defaults );

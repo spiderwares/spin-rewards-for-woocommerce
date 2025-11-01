@@ -2,10 +2,19 @@
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'SRWC_Emails' ) ) :
+if ( ! class_exists( 'SRWC_Email' ) ) :
 
-	class SRWC_Emails {
+	/**
+	 * Class SRWC_Email
+	 * 
+	 * Handles the registration of the emails.
+	 */
+	class SRWC_Email {
 
+		/**
+		 * Constructor for the SRWC_Email class.
+		 * 
+		 */
 		public function __construct() {
 			add_filter( 'woocommerce_email_classes', [ $this, 'register_emails' ] );
 		}
@@ -14,7 +23,7 @@ if ( ! class_exists( 'SRWC_Emails' ) ) :
 
 			$settings = get_option( 'srwc_settings', array() );
 
-			if ( empty( $settings['enable_email'] ) || $settings['enable_email'] !== 'yes' ) :
+			if ( empty( $settings['enable_customer_email'] ) || $settings['enable_customer_email'] !== 'yes' ) :
 				return $emails;
             endif;
 
@@ -25,7 +34,7 @@ if ( ! class_exists( 'SRWC_Emails' ) ) :
 		}
 	}
 
-	new SRWC_Emails();
+	new SRWC_Email();
 
 endif;
 

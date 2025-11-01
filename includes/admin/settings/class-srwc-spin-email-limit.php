@@ -20,8 +20,8 @@ if( ! class_exists( 'SRWC_Spin_Email_Limit' ) ) :
         public function __construct() {
             $this->settings = get_option( 'srwc_settings', array() );
 
-            add_action( 'wp_ajax_srwc_check_email_limit', array( $this, 'check_email_limit' ) );
-            add_action( 'wp_ajax_nopriv_srwc_check_email_limit', array( $this, 'check_email_limit' ) );
+            add_action( 'wp_ajax_srwc_check_email_limit', [ $this, 'check_email_limit' ] );
+            add_action( 'wp_ajax_nopriv_srwc_check_email_limit', [ $this, 'check_email_limit' ] );
         }
 
         /**
@@ -40,10 +40,9 @@ if( ! class_exists( 'SRWC_Spin_Email_Limit' ) ) :
                 $spin_limit_check = SRWC_Spin_Records::check_email_spin_limit( $customer_email );
                 if ( $spin_limit_check !== false ) :
                     $spin_limit     = ! empty( $this->settings['spin_per_email'] ) ? absint( $this->settings['spin_per_email'] ) : 0;
-                    $custom_message = ! empty( $this->settings['spin_limit_email_message'] ) ? $this->settings['spin_limit_email_message'] : esc_html__( 'You’ve reached the limit of {limit} spins for this email address.', 'spin-rewards-for-woocommerce' );
-                    $message        = str_replace( '{limit}', $spin_limit, $custom_message );
+                    $custom_message = ! empty( $this->settings['spin_limit_email_message'] ) ? $this->settings['spin_limit_email_message'] : esc_html__( 'You’ve reached your spin limit.', 'spin-rewards-for-woocommerce' );
                     
-                    wp_send_json_error( array( 'message' => $message ) );
+                    wp_send_json_error( array( 'message' => $custom_message ) );
                 else :
                     wp_send_json_success( array( 'message' => 'Email is valid for spinning' ) );
                 endif;

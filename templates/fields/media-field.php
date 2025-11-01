@@ -5,7 +5,6 @@
 
  // Prevent direct access to the file.
 if ( ! defined( 'ABSPATH' ) ) exit;
-
 ?>
 
 <td>
@@ -17,9 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
                value="<?php echo esc_attr($field_Val); ?>" 
                readonly />
 
-        <div class="srwc-media-preview">
+        <div class="srwc-media-preview" data-img-style="width: 10rem;">
             <?php if ( ! empty($field_Val)) : ?>
-                <img src="<?php echo esc_url($field_Val); ?>" alt="Preview" />
+                <img class="srwc-media-img" src="<?php echo esc_url($field_Val); ?>" alt="Preview" />
             <?php endif; ?>
         </div>
 
@@ -27,13 +26,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             <span type="button" class="button srwc-media-upload">
                 <?php esc_html_e('Add Image', 'spin-rewards-for-woocommerce'); ?>
             </span>
-
-            <?php if ( ! empty($field_Val)) : ?>
-                <span type="button" class="button srwc-media-remove">
-                    <?php esc_html_e('Remove', 'spin-rewards-for-woocommerce'); ?>
+            <span type="button" class="button srwc-media-remove"<?php echo empty($field_Val) ? ' style="display:none;"' : ''; ?>>
+                <?php esc_html_e('Remove', 'spin-rewards-for-woocommerce'); ?>
             </span>
-            <?php endif; ?>
         </div>
-    
     </div>
+    <p><?php echo isset( $field['desc'] ) ? wp_kses_post( $field['desc'] ) : ''; ?></p>
 </td>

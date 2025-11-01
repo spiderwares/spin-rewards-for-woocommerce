@@ -11,10 +11,12 @@ foreach ( $fields as $field_Key => $field ) :
             $style = explode('.', $field['style'], 2); ?>
             style="<?php echo esc_attr( ( isset( $options[ $style[0] ] ) && $options[ $style[0] ] == $style[1] ) ? '' : 'display: none;' ); ?>" 
         <?php endif; ?> >
-       
-        <th scope="row" class="srwc-label <?php echo esc_attr( $field_type ); ?>" <?php echo ( $field_type === 'srwctitle' ) ? 'colspan="2"' : ''; ?>>
-            <?php echo esc_html( $field['title'] ); ?>
-        </th>
+
+        <?php if( $field['field_type'] != 'srwcslidesoption' ):  ?>
+            <th scope="row" class="mcwc-label <?php echo esc_attr( $field_type ); ?>" <?php echo ( $field_type === 'mcwctitle' ) ? 'colspan="2"' : ''; ?>>
+                <?php echo esc_html( $field['title'] ); ?>
+            </th>
+        <?php endif; ?>
         
         <?php
         
@@ -146,23 +148,13 @@ foreach ( $fields as $field_Key => $field ) :
                     );
                     break;
 
-                    case "srwctime":
-                        ob_start();
-                        wc_get_template(
-                            'fields/time-field.php',
-                            array(
-                                'field'     => $field,
-                                'field_Val' => $field_Val,
-                                'field_Key' => $field_Key,
-                            ),
-                            'spin-rewards-for-woocommerce/',
-                            SRWC_TEMPLATE_PATH
-                        );
-                        $html = ob_get_clean();
+                case "srwctime":
+                    ob_start();
+                    $html = ob_get_clean();
         
-                        // Apply Pro filter only for srwctime field
-                        echo apply_filters( 'srwc_time_field', $html, $field, $field_Val, $field_Key );
-                        break;
+					// Apply Pro filter only for srwctime field
+					echo wp_kses_post( apply_filters( 'srwc_time_field', $html, $field, $field_Val, $field_Key ) );
+                    break;
                 
             endswitch;
         ?>

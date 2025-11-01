@@ -1,8 +1,9 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Color picker field HTML
  */
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 <td>
     <input 

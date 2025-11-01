@@ -7,7 +7,7 @@
  */
 
 // Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Retrieve the spin wheel settings fields from the SRWC_Rewards_Fields class.

@@ -19,8 +19,9 @@ if( ! class_exists( 'SRWC_Spin_Metabox' ) ) :
          * Hooks into WordPress to register the spin metabox.
          */
         public function __construct() {
-            add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
-            add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
+            add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
+            add_action( 'save_post', [ $this, 'save_metabox_data' ] );
+            add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_styles' ] );
         }
 
         /**
@@ -59,6 +60,7 @@ if( ! class_exists( 'SRWC_Spin_Metabox' ) ) :
             $customer_name  = get_post_meta( $post->ID, 'srwc_customer_name', true );
             $win_label      = get_post_meta( $post->ID, 'srwc_win_label', true );
             $coupon_code    = get_post_meta( $post->ID, 'srwc_coupon_code', true );
+            $customer_mobile = get_post_meta( $post->ID, 'srwc_customer_mobile', true );
 
             if ( empty( $customer_name ) ) :
                 $customer_name = esc_html__( 'Sir/Ma\'am', 'spin-rewards-for-woocommerce' );
@@ -67,14 +69,40 @@ if( ! class_exists( 'SRWC_Spin_Metabox' ) ) :
             wc_get_template(
                 'spin-record.php',
                 array( 
-                    'customer_name'  => $customer_name,
-                    'win_label'      => $win_label,
-                    'coupon_code'    => $coupon_code,
-                    'settings'       => $settings,
+                    'customer_name'   => $customer_name,
+                    'customer_mobile' => $customer_mobile,
+                    'win_label'       => $win_label,
+                    'coupon_code'     => $coupon_code,
+                    'settings'        => $settings,
                  ),
                 'spin-rewards-for-woocommerce/',
                 SRWC_TEMPLATE_PATH
             );
+        }
+
+        public function save_metabox_data( $post_id ) {
+
+            // Avoid autosave, ajax, or if user lacks permission
+            if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+            if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) return;
+            if ( ! current_user_can( 'edit_post', $post_id ) ) return;
+
+            if ( ! isset( $_POST['spin_rewards_nonce'] ) || ! 
+            wp_verify_nonce( 
+                sanitize_text_field( wp_unslash( $_POST['spin_rewards_nonce'] ) ), 
+                'spin_rewards_save_nonce' 
+                ) 
+            ) :
+                return;
+            endif;
+
+            if ( isset( $_POST['srwc_customer_name'] ) ) :
+                update_post_meta( $post_id, 'srwc_customer_name', sanitize_text_field( wp_unslash( $_POST['srwc_customer_name'] ) ) );
+            endif;
+
+            if ( isset( $_POST['srwc_customer_mobile'] ) ) :
+                update_post_meta( $post_id, 'srwc_customer_mobile', sanitize_text_field( wp_unslash( $_POST['srwc_customer_mobile'] ) ) );
+            endif;
         }
 
     }

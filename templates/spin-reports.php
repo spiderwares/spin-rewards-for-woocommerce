@@ -44,7 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             
             <div class="srwc-actions">
                 <button type="button" id="export-emails" class="button button-primary">
-                    <?php esc_html_e( 'Export Emails', 'spin-rewards-for-woocommerce' ); ?>
+                    <?php esc_html_e( 'Export', 'spin-rewards-for-woocommerce' ); ?>
                 </button>
             </div>
         </div>

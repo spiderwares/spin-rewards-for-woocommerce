@@ -7,7 +7,7 @@
  */
 
 // Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Retrieve the general settings fields from the SRWC_Rewards_Fields class.
@@ -41,6 +41,3 @@ wc_get_template(
 // Add auto reset spins status display
 
 do_action( 'srwc_after_general_settings' );
-
-?>
-

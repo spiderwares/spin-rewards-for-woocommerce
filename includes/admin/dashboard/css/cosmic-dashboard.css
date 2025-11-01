@@ -6,7 +6,6 @@
 .cosmic_settings_page .cosmic_settings_page_nav .nav-tab-wrapper {
     border-color: #eee;
     border-left: 1px solid #dee2e6;
-    /* border-bottom: 2px solid #7f54b3 !important; */
 }
 
 .cosmic_settings_page .cosmic_settings_page_nav .nav-tab-wrapper a.nav-tab-active{
@@ -15,7 +14,6 @@
     color: #000000 !important;
     border-width: 2px 2px 0px 2px !important;
     border-radius: 5px 5px 0px 0px;
-    /* margin-bottom: -2px; */
 }
 
 .cosmic_settings_page_nav .nav-tab-wrapper {
@@ -35,8 +33,6 @@
     border-image: initial;
     padding: 10px 20px;
     background-color: #ffffff;
-    /* border-color: #7f54b3; */
-    /* border: none; */
     border-width: 0px;
 }
 
@@ -79,6 +75,7 @@
 }
 
 /*--------------------------- End Switch Field ---------------------------*/
+
 .cosmic_settings_page .cosmic_settings_page_content table .srwc-select select,
 .cosmic_settings_page .cosmic_settings_page_content table .srwc-text-field input[type="text"],
 .cosmic_settings_page .cosmic_settings_page_content table .srwc-number-field input[type="number"],

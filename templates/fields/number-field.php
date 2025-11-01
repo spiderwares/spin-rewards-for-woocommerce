@@ -1,18 +1,9 @@
 <?php
 /**
- *  Number Field Template
- */
-
-// Prevent direct access to the file.
-if ( ! defined( 'ABSPATH' ) ) exit;
-?>
-
-<?php
-/**
  * Number Field Template
  */
 
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <td>

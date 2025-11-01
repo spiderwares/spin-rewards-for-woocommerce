@@ -42,9 +42,7 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
         }
 
         /*
-        * Main SRWC_Admin_Menu Instance.
-        *
-        * Ensures only one instance of SRWC_Admin_Menu is loaded or can be loaded.
+        * Main SRWC_Admin_Menu Instance..
         *
         * @static
         * @return SRWC_Admin_Menu - Main instance.
@@ -90,7 +88,7 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
                 esc_html__( 'Spin Records', 'spin-rewards-for-woocommerce' ),
                 'manage_options',
                 'edit.php?post_type=srwc_spin_record',
-                '', // no callback needed
+                null, // no callback needed
                 'dashicons-awards',
                 30
             );
@@ -104,12 +102,8 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
                 'srwc-reports',
                 [ $this, 'reports_page_content' ]
             );
-
-            // Try Pro Version submenu under Spin Wheel Price
-            do_action( 'srwc_after_admin_menu' );
-
         } 
-        
+    
         /**
          * Enqueue admin styles.
          */
@@ -142,6 +136,7 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
                 array(), 
                 SRWC_VERSION 
             );
+
             wp_enqueue_style( 'woocommerce_admin_styles' );
 
             wp_enqueue_script( 
@@ -155,14 +150,18 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
             // Localize script for AJAX
             wp_localize_script( 'srwc-admin', 
                 'srwc_admin', array(
-                'ajax_url' => admin_url( 'admin-ajax.php' ),
-                'nonce'    => wp_create_nonce( 'srwc_admin_nonce' ),
-                'is_pro'   => $this->is_pro_version(),
-                'messages' => array(
-                    'min_slides' => esc_html__( 'You must have at least 3 slides.', 'spin-rewards-for-woocommerce' ),
-                    'max_slides' => esc_html__( 'You can only add up to 6 slides.', 'spin-rewards-for-woocommerce' ),
-                    'calculating' => esc_html__('Calculating...', 'spin-rewards-for-woocommerce'),
-                    'disabled'    => esc_html__('This function is currently DISABLED', 'spin-rewards-for-woocommerce'),
+                'ajax_url'        => admin_url( 'admin-ajax.php' ),
+                'nonce'           => wp_create_nonce( 'srwc_admin_nonce' ),
+                'is_pro'          => $this->is_pro_version(),
+                'settings'        => $this->settings,
+                'currency_symbol' => get_woocommerce_currency_symbol(),
+                'currency_code'   => get_woocommerce_currency(),
+                'messages'        => array(
+                    'min_slides'        => esc_html__( 'You must have at least 3 slides.', 'spin-rewards-for-woocommerce' ),
+                    'max_slides'        => esc_html__( 'You can only add up to 6 slides.', 'spin-rewards-for-woocommerce' ),
+                    'calculating'       => esc_html__('Calculating...', 'spin-rewards-for-woocommerce'),
+                    'disabled'          => esc_html__('This function is currently DISABLED', 'spin-rewards-for-woocommerce'),
+                    'probability_error' => esc_html__( 'The total probability must be 100%. Current probability is: ', 'spin-rewards-for-woocommerce' ),
                 ),
             ) );
         }
@@ -182,17 +181,6 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
 
         public function reports_page_content() {
             require_once SRWC_PATH . 'includes/admin/settings/views/spin-reports.php';
-        }
-
-        public function try_pro_page_content() {
-            ?>
-            <div class="wrap">
-                <h1><?php esc_html_e( 'Try Pro Version', 'spin-rewards-for-woocommerce' ); ?></h1>
-                <div class="notice notice-info">
-                    <p><strong><?php esc_html_e( 'This is pro version', 'spin-rewards-for-woocommerce' ); ?></strong></p>
-                </div>
-            </div>
-            <?php
         }
 
         public function is_pro_version() {
@@ -217,13 +205,12 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
                         if ( $i == 0 ) continue;
 
                         $formatted_slides[] = array(
-                            'coupon_type' => isset( $slides['coupon_type'][$i] ) ? sanitize_text_field( $slides['coupon_type'][$i] ) : 'none',
-                            'label'       => isset( $slides['label'][$i] ) ? sanitize_text_field( $slides['label'][$i] ) : '',
-                            'value'       => isset( $slides['value'][$i] ) ? floatval( $slides['value'][$i] ) : 0,
-                            'coupon_code' => isset( $slides['coupon_code'][$i] ) ? sanitize_text_field( $slides['coupon_code'][$i] ) : '',
-                            'custom_value' => isset( $slides['custom_value'][$i] ) ? sanitize_text_field( $slides['custom_value'][$i] ) : '',
-                            'probability' => isset( $slides['probability'][$i] ) ? floatval( $slides['probability'][$i] ) : 0,
-                            'color'       => isset( $slides['color'][$i] ) ? sanitize_hex_color( $slides['color'][$i] ) : '#ffe0b2',
+                            'coupon_type'  => isset( $slides['coupon_type'][$i] ) ? sanitize_text_field( $slides['coupon_type'][$i] ) : 'none',
+                            'label'        => isset( $slides['label'][$i] ) ? sanitize_text_field( $slides['label'][$i] ) : '',
+                            'value'        => isset( $slides['value'][$i] ) ? floatval( $slides['value'][$i] ) : 0,
+                            'coupon_code'  => isset( $slides['coupon_code'][$i] ) ? sanitize_text_field( $slides['coupon_code'][$i] ) : '',
+                            'probability'  => isset( $slides['probability'][$i] ) ? floatval( $slides['probability'][$i] ) : 0,
+                            'color'        => isset( $slides['color'][$i] ) ? sanitize_hex_color( $slides['color'][$i] ) : '#ffe0b2',
                         );
                     endfor;
                 endif;
