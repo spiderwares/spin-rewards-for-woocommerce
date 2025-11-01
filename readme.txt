@@ -23,19 +23,29 @@ Designed to be lightweight, extensible, and theme‑compatible.
 
 ⭐ Enable/disable the spin wheel globally
 ⭐ Frontend popup spin wheel with responsive, theme‑friendly UI
-⭐ Customizable wheel design: colors, labels, pointer, slices, and probability
-⭐ Offer instant discount coupons to winners (auto‑generated)
-⭐ GDPR-Friendly Display optional GDPR checkbox with customizable terms text.
-⭐ Coupon settings: type, amount, length, prefix, suffix, usage limits, expiry date etc.
-⭐ Collect email before spin with limits to prevent abuse
-⭐ Per‑email/guest spin limits and optional unique session controls
+⭐ Customizable wheel design: pointer color, center color, border color, dot color, background color, text color
+⭐ Customizable wheel slices: labels, discount types (percentage/fixed), amounts, and win probability
+⭐ Offer instant discount coupons to winners (auto‑generated via WooCommerce)
+⭐ GDPR-Friendly: optional GDPR checkbox with customizable consent message
+⭐ Coupon settings: type (percentage/fixed), length, prefix, suffix, expiry (in days), usage limits, minimum/maximum spend, include/exclude products & categories, free shipping, individual use, exclude sale items
+⭐ Collect email before spin with per-email spin limits
+⭐ Time-based spin cooldown (seconds, minutes, hours, days)
 ⭐ Email notifications for winners (customer)
-⭐ Automatic application or display of won coupon codes
-⭐ Detailed spin records and reports in admin
-⭐ Display rules (e.g., show on specific pages); easy on/off switch
-⭐ Conditional display tags support (is_cart(), is_checkout(), is_product(), etc.) with logical operators (||, &&, !)
-⭐ Localization of all frontend texts and labels
-⭐ Developer‑friendly with template overrides
+⭐ Win/lose messages with placeholders: {coupon_label}, {checkout}
+⭐ Automatic display of won coupon code after spin Detailed spin records and reports in admin panel
+⭐ Display rules: show on shop, home, blog pages via toggle
+⭐ Conditional display using WordPress tags: is_cart(), is_checkout(), is_product(), is_shop(), etc. with operators (||, &&, !)
+⭐ Localization: fully translatable frontend texts, validation messages, button labels
+⭐ Developer-friendly: template override support
+⭐ Responsive popup with customizable title, spin button text, and close button Customizable spin button: text color, background, hover color, border radius
+⭐ Customizable close button: text, font size, colors
+⭐ Background blend mode support
+⭐ Wheel pointer: center position with color customization
+⭐ Spin speed control (1–4 levels)
+⭐ Auto-hide wheel after spin (in seconds)
+⭐ Show/hide close button
+⭐ Validation messages: name, email, mobile, GDPR, spin limit, wait time
+⭐ Error message styling: color and font size
 
 == Installation ==
 
