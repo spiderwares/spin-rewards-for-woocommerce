@@ -62,7 +62,6 @@ if ( ! class_exists( 'SRWC_Public' ) ) :
                 'currency_symbol'   => get_woocommerce_currency_symbol(),
                 'messages'  => array(
                     'name_required'             => !empty($this->settings['name_required_message']) ? $this->settings['name_required_message'] : esc_html__( 'Please enter your name.', 'spin-rewards-for-woocommerce' ),
-                    'mobile_invalid'            => !empty($this->settings['mobile_invalid_message']) ? $this->settings['mobile_invalid_message'] : esc_html__( 'Please enter a valid mobile number.', 'spin-rewards-for-woocommerce' ),
                     'email_required'            => !empty($this->settings['email_required_message']) ? $this->settings['email_required_message'] : esc_html__( 'Please enter your email.', 'spin-rewards-for-woocommerce' ),
                     'email_invalid'             => !empty($this->settings['email_invalid_message']) ? $this->settings['email_invalid_message'] : esc_html__( 'Please enter a valid email address.', 'spin-rewards-for-woocommerce' ),
                     'failed_generate_coupon'    => esc_html__( 'Failed to generate coupon.', 'spin-rewards-for-woocommerce' ),

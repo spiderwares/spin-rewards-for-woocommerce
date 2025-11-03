@@ -103,6 +103,10 @@ if( ! class_exists( 'SRWC_Spin_Metabox' ) ) :
             if ( isset( $_POST['srwc_customer_mobile'] ) ) :
                 update_post_meta( $post_id, 'srwc_customer_mobile', sanitize_text_field( wp_unslash( $_POST['srwc_customer_mobile'] ) ) );
             endif;
+
+            if ( isset( $_POST['srwc_win_label'] ) ) :
+                update_post_meta( $post_id, 'srwc_win_label', sanitize_text_field( wp_unslash( $_POST['srwc_win_label'] ) ) );
+            endif;  
         }
 
     }

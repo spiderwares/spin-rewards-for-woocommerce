@@ -203,13 +203,13 @@ jQuery(function($) {
                 const __this = $(this);
                 
                 if (__this.is(':visible')) {
-                    let width = '100%';
+                    let width = '380px';
                     
                     if (__this.closest('.srwc-slides-table').length) {
                         width = '250px';
                     }
                     else {
-                        width = '350px';
+                        width = '380px';
                     }
                     
                     __this.select2({

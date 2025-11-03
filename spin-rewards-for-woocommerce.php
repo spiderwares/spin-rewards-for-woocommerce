@@ -6,7 +6,7 @@
  * Requires at least: 5.2
  * Requires PHP:      7.4
  * Author:            Cosmic
- * Author URI:        https://cosmicinfosolutions.com/
+ * Author URI:        https://cosmicinfosoftware.com/
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Requires Plugins:  woocommerce

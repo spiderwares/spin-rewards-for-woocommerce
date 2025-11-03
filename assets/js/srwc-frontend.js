@@ -74,7 +74,6 @@ jQuery(function($) {
                     'srwcSpinWhel',
                     {
                         settings,
-                        defaultWheelSize: baseSize,
                         defaultPercent: wheelSize,
                         defaultSize: fontSize,
                         defaultColor: textColor,
@@ -97,8 +96,6 @@ jQuery(function($) {
                 dpr       = window.devicePixelRatio || 1;
             canvas.width  = finalSize * dpr;
             canvas.height = finalSize * dpr;
-            canvas.style.width  = `${finalSize}px`;
-            canvas.style.height = `${finalSize}px`;
         
             const ctx = canvas.getContext('2d');
             ctx.scale(dpr, dpr);
@@ -111,7 +108,7 @@ jQuery(function($) {
                   centerY     = finalSize / 2,
                   radius      = (finalSize / 2) - (25 * scale),
                   textRadius  = radius - (80 * scale),
-                  borderColor = settings.wheel_border_color || '#ffffff',
+                  borderColor = settings.wheel_border_color || '#d6d6d6',
                   dotColor    = settings.wheel_dot_color || '#000000',
                   centerColor = settings.wheel_center_color || '#ffffff';
         
@@ -245,9 +242,25 @@ jQuery(function($) {
             let delay   = 0;
 
             const settings   = srwc_frontend?.settings || {},
-                spinagain    = +localStorage.getItem(this.afterspin) || 0,
-                closeagain   = +localStorage.getItem(this.afterclose) || 0,
-                nextAllowed  = Math.max(spinagain, closeagain);
+                showAgain    = parseInt(settings.show_again, 10) || 0,
+                timeOnClose  = parseInt(settings.time_on_close, 10) || 0;
+            
+            let spinagain = 0, closeagain = 0;
+            
+            if (showAgain > 0) {
+                spinagain = +localStorage.getItem(this.afterspin) || 0;
+            } else {
+                localStorage.removeItem(this.afterspin);
+            }
+            
+            if (timeOnClose > 0) {
+                closeagain = +localStorage.getItem(this.afterclose) || 0;
+            } else {
+                localStorage.removeItem(this.afterclose);
+            }
+            
+            const nextAllowed = Math.max(spinagain, closeagain);
+            
             if (Date.now() < nextAllowed) {
                 const delay = nextAllowed - Date.now();
                 this.floatingBtn.toggleClass('srwc-hidden', true);
@@ -465,6 +478,10 @@ jQuery(function($) {
         }
 
         generateCoupon(chosen, callback) {
+            const countryCode = $('#srwc_country_code option:selected').data('phone-code') || '',
+                phoneNumber   = $('.srwc-mobile').val() || '',
+                fullMobile    = countryCode && phoneNumber ? countryCode + ' ' + phoneNumber : phoneNumber;
+            
             $.ajax({
                 type: 'POST',
                 url: srwc_frontend.ajax_url,
@@ -475,7 +492,8 @@ jQuery(function($) {
                     coupon_code: chosen.coupon_code || '',
                     customer_email: $('.srwc-email').val(),
                     customer_name: $('.srwc-name').val(),
-                    customer_mobile: $('.srwc-mobile').val(),
+                    customer_mobile: fullMobile,
+                    country_code: countryCode,
                     win_label: chosen.label || '',
                     value: chosen.value
                 },

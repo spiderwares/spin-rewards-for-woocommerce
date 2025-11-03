@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             
             <div class="srwc-field">
                 <label><?php esc_html_e( 'Win Label', 'spin-rewards-for-woocommerce' ); ?></label>
-                <input type="text" value="<?php echo esc_attr( $win_label ); ?>" readonly/>
+                <input type="text" name="srwc_win_label" value="<?php echo esc_attr( $win_label ); ?>"/>
             </div>
         </div>
         

@@ -23,7 +23,7 @@ jQuery(function($) {
             }
 
             if (typeof wp !== 'undefined' && wp.hooks) {
-                const isValid = wp.hooks.applyFilters('srwcValidateMobile', true, mobileField, settings, srwc_frontend);
+                const isValid = wp.hooks.applyFilters('srwcValidateMobile', true, mobileField, settings);
                 if (!isValid) return false;
             }
         
@@ -64,6 +64,10 @@ jQuery(function($) {
         }  
 
         recordLossSpin(chosen, label) {
+            const countryCode = $('#srwc_country_code option:selected').data('phone-code') || '',
+                phoneNumber   = $('.srwc-mobile').val() || '',
+                fullMobile    = countryCode && phoneNumber ? countryCode + ' ' + phoneNumber : phoneNumber;
+            
             $.ajax({
                 type: 'POST',
                 url: srwc_frontend.ajax_url,
@@ -72,7 +76,8 @@ jQuery(function($) {
                     nonce: srwc_frontend.nonce,
                     customer_email: $('.srwc-email').val(),
                     customer_name: $('.srwc-name').val(),
-                    customer_mobile: $('.srwc-mobile').val(),
+                    customer_mobile: fullMobile,
+                    country_code: countryCode,
                 }
             });
         }

@@ -86,10 +86,11 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
 
             return apply_filters( 'srwc_general_fields', $fields );
         }
+
         /**
-         * Generates the popup settings fields for spin rewards configuration.
+         * Generates the popup fields for spin rewards configuration.
          *
-         * @return array The settings fields for the popup configuration.
+         * @return array The popup fields for the popup configuration.
          */
         public static function popup_field() {
 
@@ -152,7 +153,7 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                 'hide_icon' => array(
                     'title'      => esc_html__( 'Hide Icon', 'spin-rewards-for-woocommerce' ),
                     'field_type' => 'srwcswitch',
-                    'default'    => 'no',
+                    'default'    => 'yes',
                     'name'       => 'srwc_settings[hide_icon]',
                     'desc'       => esc_html__( 'Hide the popup icon once the user closes the wheel.', 'spin-rewards-for-woocommerce' ),
                 ),
@@ -274,6 +275,12 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
             return apply_filters( 'srwc_popup_fields', $fields );
         }
 
+        /**
+         * Generates the spin rewards fields for spin rewards configuration.
+         *
+         * @return array The spin rewards fields for the spin rewards configuration.
+         */
+
         public static function spin_rewards_field() {
 
             $fields = array(
@@ -336,6 +343,18 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                     'field_type' => 'srwcswitch',
                     'default'    => 'no',
                     'name'       => 'srwc_settings[user_mobile_require]',
+                    'style'      => 'user_mobile.yes',
+                    'extra_class'=> 'mobile_option',
+                ),
+
+                'user_mobile_country_code' => array(
+                    'title'      => esc_html__( 'Country Code', 'spin-rewards-for-woocommerce' ),
+                    'field_type' => 'srwcpro',
+                    'default'    => array( 'IN' ),
+                    'name'       => 'srwc_settings[user_mobile_country_code]',
+                    'multiple'   => true,
+                    'placeholder'=> esc_html__( 'Select country code...', 'spin-rewards-for-woocommerce' ),
+                    'desc'       => esc_html__( 'Select which country code to show in the mobile number field.', 'spin-rewards-for-woocommerce' ),
                     'style'      => 'user_mobile.yes',
                     'extra_class'=> 'mobile_option',
                 ),
@@ -500,6 +519,11 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
             return apply_filters( 'srwc_spin_rewards_fields', $fields );
         }
 
+        /**
+         * Generates the offer coupon fields for spin rewards configuration.
+         *
+         * @return array The offer coupon fields for the offer coupon configuration.
+         */
 
         public static function offer_coupon_field() {
 
@@ -692,6 +716,11 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
             return apply_filters( 'srwc_offer_coupon_fields', $fields );
         }
 
+        /**
+         * Generates the wheel design fields for spin rewards configuration.
+         *
+         * @return array The wheel design fields for the wheel design configuration.
+         */
         public static function wheel_design_field() {
 
             $fields = array( 
@@ -1065,6 +1094,11 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
             return apply_filters( 'srwc_wheel_design_fields', $fields );
         }
 
+        /**
+         * Generates the wheel slides fields for spin rewards configuration.
+         *
+         * @return array The wheel slides fields for the wheel slides configuration.
+         */
         public static function wheel_slides_field() {
 
             // Get default slides configuration from default options
@@ -1085,7 +1119,7 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
         }
 
         /**
-         * Generates the customer notification email settings fields.
+         * Generates the notification fields for spin rewards configuration.
          *
          * @return array The settings fields for customer notification emails.
          */
@@ -1121,6 +1155,11 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
             return apply_filters( 'srwc_notification_fields', $fields );
         }
 
+        /**
+         * Generates the email API fields for spin rewards configuration.
+         *
+         * @return array The email API fields for the email API configuration.
+         */
         public static function email_api_field() {
 
             $fields = array(
@@ -1207,6 +1246,11 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
             return apply_filters( 'srwc_email_api_fields', $fields );
         }
 
+        /**
+         * Generates the localization fields for spin rewards configuration.
+         *
+         * @return array The localization fields for the localization configuration.
+         */
         public static function localization_field() {
             $fields = array(
 

@@ -42,6 +42,7 @@ if ( ! class_exists( 'SRWC_Offer_Coupon' ) ) :
             $win_label       = isset( $_POST['win_label'] ) ? sanitize_text_field( wp_unslash( $_POST['win_label'] ) ) : '';
             $customer_name   = isset( $_POST['customer_name'] ) ? sanitize_text_field( wp_unslash( $_POST['customer_name'] ) ) : '';
             $customer_mobile = isset( $_POST['customer_mobile'] ) ? sanitize_text_field( wp_unslash( $_POST['customer_mobile'] ) ) : '';
+            $country_code    = isset( $_POST['country_code'] ) ? sanitize_text_field( wp_unslash( $_POST['country_code'] ) ) : '';
             $existing_code   = isset( $_POST['coupon_code'] ) ? sanitize_text_field( wp_unslash( $_POST['coupon_code'] ) ) : '';
         
             if ( ! empty( $_POST['customer_email'] ) ) :

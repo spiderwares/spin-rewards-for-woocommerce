@@ -13,7 +13,7 @@ return apply_filters(
             'initial_delay'                 => 0,
             'time_on_close'                 => 1,
             'show_again'                    => 24,
-            'hide_icon'                     => 'no',
+            'hide_icon'                     => 'yes',
             'shop_page'                     => 'yes',
             'home_page'                     => 'no',
             'blog_page'                     => 'no',
