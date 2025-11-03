@@ -54,7 +54,7 @@
 .srwc-wheel-left {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     width: 50%;
 }
 
