@@ -115,12 +115,13 @@ if ( ! class_exists( 'SRWC' ) ) :
                 $this->includes_public();
             endif;
             
+            require_once SRWC_PATH . 'includes/public/class-srwc-mailchimp.php';
             require_once SRWC_PATH . 'includes/admin/settings/class-srwc-options.php';
             require_once SRWC_PATH . 'includes/email/class-srwc-email.php';
             require_once SRWC_PATH . 'includes/public/class-srwc-offer-coupon.php';
             require_once SRWC_PATH . 'includes/public/class-srwc-spin-loss-records.php';
         }
-
+        
         /**
          * Include Admin required files.
          */
@@ -136,7 +137,7 @@ if ( ! class_exists( 'SRWC' ) ) :
             require_once SRWC_PATH . 'includes/admin/settings/class-srwc-spin-records.php';
             require_once SRWC_PATH . 'includes/admin/settings/class-srwc-spin-reports.php';
         }
-
+        
         /**
          * Include Public required files.
          */

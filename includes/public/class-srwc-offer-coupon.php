@@ -1,4 +1,6 @@
 <?php
+
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'SRWC_Offer_Coupon' ) ) :
@@ -138,9 +140,18 @@ if ( ! class_exists( 'SRWC_Offer_Coupon' ) ) :
                 ) );
             endif;
 
+            // Check for Mailchimp confirmation URL if double opt-in is enabled
+            $confirmation_url = '';
+            if ( ! empty( $customer_email ) ) :
+                $confirmation_url = get_transient( 'srwc_mailchimp_confirmation_url_' . md5( $customer_email ) );
+                if ( $confirmation_url ) :
+                    delete_transient( 'srwc_mailchimp_confirmation_url_' . md5( $customer_email ) );
+                endif;
+            endif;
+
             // Send emails
             WC()->mailer();
-            do_action( 'srwc_user_win_email', $customer_email, $coupon_code, $date_expires );
+            do_action( 'srwc_customer_win_email', $customer_email, $coupon_code, $date_expires, $confirmation_url );
             do_action( 'srwc_admin_email', $customer_email, $coupon_code, $date_expires );
 
             wp_send_json_success( array(

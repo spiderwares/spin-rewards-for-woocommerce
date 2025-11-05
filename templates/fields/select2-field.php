@@ -3,7 +3,7 @@
  * Select2 Field Template
  */
 
-// Prevent direct access.
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit; 
 ?>
 

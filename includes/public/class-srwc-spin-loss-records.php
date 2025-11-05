@@ -1,4 +1,6 @@
 <?php
+
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'SRWC_Spin_Loss_Records' ) ) :

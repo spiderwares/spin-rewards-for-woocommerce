@@ -1,8 +1,6 @@
 <?php
-/**
- * Register Spin Records for SRWC plugin
- */
 
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 if( ! class_exists( 'SRWC_Spin_Records' ) ) :
@@ -68,7 +66,6 @@ if( ! class_exists( 'SRWC_Spin_Records' ) ) :
                 );
 
             endif;
-
 
             $existing_spins = get_posts( $args );
             $spin_count = count( $existing_spins );

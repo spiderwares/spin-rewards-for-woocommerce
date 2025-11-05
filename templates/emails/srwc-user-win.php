@@ -36,4 +36,15 @@ if ( ! empty( $email_body ) ) : ?>
 
 </div>
 
+<?php if ( ! empty( $confirmation_url ) ) : ?>
+<div style="text-align: center;">
+    <div style="margin: 20px 0;">
+        <a href="<?php echo esc_url( $confirmation_url ); ?>" 
+           style="display: inline-block; background-color: #007bff; color: #ffffff; padding: 10px 15px; text-decoration: none; border-radius: 10px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+            <?php echo esc_html__( 'Please Confirm to Subscribe', 'spin-rewards-for-woocommerce' ); ?>
+        </a>
+    </div>
+</div>
+<?php endif; ?>
+
 <?php do_action( 'woocommerce_email_footer', $email ); 

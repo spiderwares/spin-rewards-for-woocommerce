@@ -1,8 +1,10 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit;
 /**
- * Pro version lock-only field
+ * Pro version field
  */
+
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 <td>
     <div class="srwc-pro-message">

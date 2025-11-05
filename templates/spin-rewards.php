@@ -3,6 +3,8 @@
  * Spin Rewards Template
  * 
  */
+
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit;  
 ?>
 
@@ -12,20 +14,17 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <div class="srwc-wheel-modal">
   <div class="srwc-wheel-container">
     
-    <!-- Left Side: Wheel -->
     <div class="srwc-wheel-left">
       <div class="srwc-wheel">
         <div class="wheel-inner">
           <canvas id="srwc_wheel_canvas"></canvas>
         </div>
-        <!-- Pointer -->
         <div class="srwc-pointer">
           <div class="srwc-pointer-cutout"></div>
         </div>
       </div>
     </div>
     
-    <!-- Right Side: Controls -->
     <div class="srwc-wheel-right">
       <div class="srwc-close">&times;</div>
       

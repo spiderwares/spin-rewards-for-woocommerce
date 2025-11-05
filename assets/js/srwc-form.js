@@ -139,6 +139,36 @@ jQuery(function($) {
             }
         }   
 
+        klaviyoSubscribe() {
+            if (typeof wp !== 'undefined' && wp.hooks) {
+                wp.hooks.doAction('srwcKlaviyoSubscribe');
+            }
+        }
+
+        mailchimpSubscribe() {
+            try {
+                const email     = $('.srwc-email').val().trim(),
+                    name        = $('.srwc-name').val().trim(),
+                    countryCode = $('#srwc_country_code option:selected').data('phone-code') || '',
+                    phoneNumber = $('.srwc-mobile').val() || '';
+
+                if (email) {
+                    $.ajax({
+                        type: 'POST',
+                        url: srwc_frontend.ajax_url,
+                        data: {
+                            action: 'srwc_mailchimp_subscribe',
+                            nonce: srwc_frontend.nonce,
+                            email: email,
+                            name: name,
+                            country_code: countryCode,
+                            mobile: phoneNumber
+                            }
+                        });
+                    }
+            } catch (e) {}
+        } 
+
     }
 
     srwc_frontend.form = new SRWC_Form();

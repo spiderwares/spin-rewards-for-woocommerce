@@ -3,8 +3,8 @@
  *  Switch Field Template
  */
 
- // Prevent direct access to the file.
- if ( ! defined( 'ABSPATH' ) ) exit;
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <td>

@@ -1,5 +1,6 @@
 <?php
 
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'SRWC_User_Win_Email' ) ) :
@@ -9,12 +10,16 @@ if ( ! class_exists( 'SRWC_User_Win_Email' ) ) :
 		protected $customer_email;
 		protected $coupon_code;
 		protected $date_expires;
+		protected $confirmation_url;
 
+		/**
+		 * Constructor for the class.
+		 */
 		public function __construct() {
 
-			$this->id             = 'srwc_user_win_email';
+			$this->id             = 'srwc_customer_win_email';
 			$this->customer_email = true;
-			$this->title          = esc_html__( 'SRWC: User Win Email', 'spin-rewards-for-woocommerce' );
+			$this->title          = esc_html__( 'SRWC: Customer Win Email', 'spin-rewards-for-woocommerce' );
 			$this->subject        = esc_html__( 'Congratulations! You won a discount coupon', 'spin-rewards-for-woocommerce' );
 			$this->heading        = esc_html__( 'Congratulations! You won a discount coupon', 'spin-rewards-for-woocommerce' );
 			$this->description    = esc_html__( 'Sent to customers when they win a coupon from the spin wheel.', 'spin-rewards-for-woocommerce' );
@@ -22,7 +27,7 @@ if ( ! class_exists( 'SRWC_User_Win_Email' ) ) :
 
 			$this->init_form_fields();
 
-			add_action( 'srwc_user_win_email', [ $this, 'trigger' ], 10, 5 );
+			add_action( 'srwc_customer_win_email', [ $this, 'trigger' ], 10, 4 );
 
 			parent::__construct();
 
@@ -38,13 +43,13 @@ if ( ! class_exists( 'SRWC_User_Win_Email' ) ) :
 		}
 
 		public function get_default_email_body() {
-            return __(
+            return esc_html__(
                 "Hi,\nYou have won a discount coupon by spinning the lucky wheel on our store! \nThank you! \n",
                 'spin-rewards-for-woocommerce'
             );
 		}
 
-		public function trigger( $customer_email, $coupon_code, $date_expires ) {
+		public function trigger( $customer_email, $coupon_code, $date_expires, $confirmation_url = '' ) {
 
 			if ( ! $this->is_enabled() ) :
 				return;
@@ -52,9 +57,10 @@ if ( ! class_exists( 'SRWC_User_Win_Email' ) ) :
 
 			$this->setup_locale();
 
-			$this->customer_email = $customer_email;
-			$this->coupon_code    = $coupon_code;
-			$this->date_expires   = $date_expires;
+			$this->customer_email   = $customer_email;
+			$this->coupon_code      = $coupon_code;
+			$this->date_expires     = $date_expires;
+			$this->confirmation_url = $confirmation_url;
 
 			$this->recipient = $this->customer_email;
 
@@ -76,11 +82,12 @@ if ( ! class_exists( 'SRWC_User_Win_Email' ) ) :
 			return wc_get_template_html(
 				$this->template_html,
 				array(      
-					'email_heading' => $this->get_heading(),
-					'email'         => $this,
-					'email_body'    => $email_body,
-					'coupon_code'   => $this->coupon_code,
-					'date_expires'  => $this->date_expires,
+					'email_heading'      => $this->get_heading(),
+					'email'              => $this,
+					'email_body'         => $email_body,
+					'coupon_code'        => $this->coupon_code,
+					'date_expires'       => $this->date_expires,
+					'confirmation_url'   => $this->confirmation_url,
 				),
 				'spin-rewards-for-woocommerce/',
 				SRWC_TEMPLATE_PATH

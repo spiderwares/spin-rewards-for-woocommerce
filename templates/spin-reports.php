@@ -3,6 +3,8 @@
  * Spin Reports Template
  * 
  */
+
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit;  
 ?>
 

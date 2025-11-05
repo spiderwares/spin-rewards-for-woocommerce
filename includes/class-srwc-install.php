@@ -4,6 +4,7 @@
  * Installation related functions and actions.
  */
 
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'SRWC_Install' ) ) :

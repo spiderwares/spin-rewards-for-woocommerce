@@ -3,6 +3,7 @@
  * Color picker field HTML
  */
 
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 <td>

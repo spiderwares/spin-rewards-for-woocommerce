@@ -62,11 +62,13 @@ jQuery(function($) {
                 settings = srwc_frontend?.settings || {};
         
             // Default base values
-            let baseSize   = 550,
-                wheelSize  = 100,
-                fontSize   = 20,
-                textColor  = "#fff",
-                fontFamily = "Poppins";
+            let baseSize    = 550,
+                wheelSize   = 100,
+                fontSize    = 20,
+                textColor   = "#fff",
+                borderColor = '#d6d6d6',
+                dotColor    = '#000000',
+                fontFamily  = "Poppins";
         
             // Allow external filter hook
             if (typeof wp !== 'undefined' && wp.hooks) {
@@ -77,7 +79,9 @@ jQuery(function($) {
                         defaultPercent: wheelSize,
                         defaultSize: fontSize,
                         defaultColor: textColor,
-                        defaultFontFamily: fontFamily
+                        defaultFontFamily: fontFamily,
+                        defaultBorderColor: borderColor,
+                        defaultDotColor: dotColor,
                     },
                     (data) => {
                         if (data) {
@@ -85,6 +89,8 @@ jQuery(function($) {
                             textColor  = data.color || textColor;
                             fontFamily = data.fontFamily || fontFamily;
                             wheelSize  = parseInt(data.wheelSize) || wheelSize;
+                            borderColor = data.borderColor || borderColor;
+                            dotColor = data.dotColor || dotColor;
                         }
                     }
                 );
@@ -108,8 +114,6 @@ jQuery(function($) {
                   centerY     = finalSize / 2,
                   radius      = (finalSize / 2) - (25 * scale),
                   textRadius  = radius - (80 * scale),
-                  borderColor = settings.wheel_border_color || '#d6d6d6',
-                  dotColor    = settings.wheel_dot_color || '#000000',
                   centerColor = settings.wheel_center_color || '#ffffff';
         
             // === Draw slides ===
@@ -377,6 +381,10 @@ jQuery(function($) {
             }
 
             localStorage.setItem(lastSpinKey, now);
+
+            srwc_frontend.form.klaviyoSubscribe();
+            srwc_frontend.form.mailchimpSubscribe();
+            
         
             const spinBtn     = this.modal.find('.srwc-spin-btn'),
                 total         = this.slides.length,
@@ -429,6 +437,7 @@ jQuery(function($) {
         }
 
         showWinMessage(chosen, label) {
+            
             const settings = srwc_frontend?.settings || {},
                 isWin      = chosen.coupon_type !== 'none';
             
@@ -450,7 +459,7 @@ jQuery(function($) {
             srwc_frontend.form.autoHideWheel(settings);
 
             if (typeof wp !== 'undefined' && wp.hooks) {
-                wp.hooks.doAction('srwcShowWinMessage', chosen, label, this);
+                wp.hooks.doAction('srwcApplyCoupon', chosen, label, this);
             }
             
         }

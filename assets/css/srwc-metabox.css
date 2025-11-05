@@ -1,3 +1,4 @@
+/*--------------------------- Spin Wheel Record Metabox ---------------------------*/
 .srwc-meta-box {
     background: #fff;
     border: 1px solid #e1e1e1;
@@ -70,3 +71,5 @@
         gap: 15px;
     }
 }
+
+/*--------------------------- End Spin Wheel Record Metabox ---------------------------*/

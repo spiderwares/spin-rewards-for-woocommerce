@@ -1,5 +1,6 @@
 <?php 
 
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 return apply_filters(
@@ -61,11 +62,6 @@ return apply_filters(
             'spin_button_text_color'        => '#ffffff',
             'spin_button_bg_color'          => '#ff9000',
             'spin_button_hover_bg_color'    => '#ffad42',
-            'show_close_button'             => 'no',
-            'close_button_text'             => 'Close Now',
-            'close_btn_font_size'           => 18,
-            'close_btn_text_color'          => '#000000',
-            'close_btn_hover_color'         => '#ffffff',
             'wheel_text_size'               => 18,
             'wheel_size'                    => 100,
             'display_currency'              => 'symbol',

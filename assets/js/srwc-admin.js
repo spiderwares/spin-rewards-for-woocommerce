@@ -88,7 +88,7 @@ jQuery(function($) {
 			const total     = slides.length,
 			    anglePer    = (Math.PI * 2) / total,
                 settings    = srwc_admin?.settings || {},
-                borderColor = settings.wheel_border_color || '#ffffff',
+                borderColor = settings.wheel_border_color || '#d6d6d6',
                 dotColor    = settings.wheel_dot_color || '#000000',
                 centerColor = settings.wheel_center_color || '#ffffff';
 

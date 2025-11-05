@@ -44,6 +44,7 @@ Designed to be lightweight, extensible, and theme‑compatible.
 ⭐ Spin speed control (1–4 levels)
 ⭐ Auto-hide wheel after spin (in seconds)
 ⭐ Show/hide close button
+⭐ Klaviyo Email & SMS Integration
 ⭐ Validation messages: name, email, mobile, GDPR, spin limit, wait time
 ⭐ Error message styling: color and font size
 

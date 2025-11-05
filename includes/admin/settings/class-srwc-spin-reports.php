@@ -67,9 +67,11 @@ if ( ! class_exists( 'SRWC_Spin_Reports' ) ) :
             if ( $show_name ) :
                 $headers[] = 'Name';
             endif;
+
             if ( $show_mobile ) :
                 $headers[] = 'Mobile Number';
             endif;
+            
             $headers[] = 'Spin Date';
             $headers[] = 'Win Label';
             $headers[] = 'Coupon Code';

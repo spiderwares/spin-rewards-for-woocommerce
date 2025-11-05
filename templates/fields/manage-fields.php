@@ -1,4 +1,6 @@
 <?php
+
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 foreach ( $fields as $field_Key => $field ) : 

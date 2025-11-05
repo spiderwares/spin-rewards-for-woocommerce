@@ -29,7 +29,7 @@ $options = get_option( 'srwc_settings', true );
 wc_get_template(
 	'fields/setting-forms.php',
 	array(
-		'title'   => 'Wheel slides',         // Section title.
+		'title'   => 'Wheel Slides',         // Section title.
 		'metaKey' => 'srwc_settings',   // Option meta key.
 		'fields'  => $fields,           // Field definitions.
 		'options' => $options,          // Saved option values.

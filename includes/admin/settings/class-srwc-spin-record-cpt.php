@@ -1,8 +1,6 @@
 <?php
-/**
- * Register Spin Rewards Records CPT for SRWC plugin
- */
 
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 if( ! class_exists( 'SRWC_Spin_Records_CPT' ) ) :

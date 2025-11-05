@@ -1,5 +1,6 @@
 <?php 
-// Prevent direct access to the file.
+
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
