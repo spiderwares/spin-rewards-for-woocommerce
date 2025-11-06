@@ -267,6 +267,7 @@ tbody.srwc-repeater-body.ui-sortable td {
 }
 
 /*--------------------------- Reports Cards ---------------------------*/
+
 .srwc-report-cards {
   display: flex;
   gap: 20px;
@@ -400,8 +401,33 @@ tbody.srwc-repeater-body.ui-sortable td {
   margin-left: 92.5rem;
 }
 
+/*--------------------------- End Reports Cards ---------------------------*/
+
+/*--------------------------- Select2 Coupon Select ---------------------------*/
+
+.srwc-coupon-select + .select2-container .select2-selection--single .select2-selection__placeholder {
+  text-align: left !important;
+}
+
+.srwc-coupon-select + .select2-container .select2-selection--single {
+  text-align: left !important;
+  height: 40px !important;
+  padding: 5px;
+}
+
+.srwc-coupon-select + .select2-container .select2-selection__rendered {
+  text-align: left !important;
+  padding-left: 8px !important;
+}
+
+.srwc-coupon-select + .select2-container .select2-selection--single .select2-selection__arrow {
+  height: 37px !important;
+}
+
+/*--------------------------- End Select2 Coupon Select ---------------------------*/
 
 /*--------------------------- Responsive Design ---------------------------*/
+
 @media (max-width: 768px) {
   .srwc-report-cards {
     flex-direction: column;
@@ -453,27 +479,4 @@ tbody.srwc-repeater-body.ui-sortable td {
   }
 }
 
-/*--------------------------- End Reports Page Styles ---------------------------*/
-
-/*--------------------------- Select2 Coupon Select Styles ---------------------------*/
-
-.srwc-coupon-select + .select2-container .select2-selection--single .select2-selection__placeholder {
-  text-align: left !important;
-}
-
-.srwc-coupon-select + .select2-container .select2-selection--single {
-  text-align: left !important;
-  height: 40px !important;
-  padding: 5px;
-}
-
-.srwc-coupon-select + .select2-container .select2-selection__rendered {
-  text-align: left !important;
-  padding-left: 8px !important;
-}
-
-.srwc-coupon-select + .select2-container .select2-selection--single .select2-selection__arrow {
-  height: 37px !important;
-}
-
-/*--------------------------- End Select2 Coupon Select Styles ---------------------------*/
+/*--------------------------- End Responsive Design ---------------------------*/

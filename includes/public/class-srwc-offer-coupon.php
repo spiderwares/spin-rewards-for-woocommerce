@@ -5,6 +5,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'SRWC_Offer_Coupon' ) ) :
 
+     /**
+	 * Class SRWC_Offer_Coupon
+     * 
+	 */
     class SRWC_Offer_Coupon {
 
         /**
@@ -14,10 +18,17 @@ if ( ! class_exists( 'SRWC_Offer_Coupon' ) ) :
 		 */
         public $settings;
 
-        /**
-		 * Initialize hooks.
-		 */
+         /**
+         * Constructor for the class.
+         */
         public function __construct() {
+            $this->events_handler();
+        }
+
+        /**
+         * Initialize hooks and filters.
+         */
+        public function events_handler(){
             $this->settings = get_option( 'srwc_settings', array() );
 
             // AJAX handler

@@ -5,6 +5,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'SRWC_Helpers' ) ) :
 
+    /**
+	 * Class SRWC_Helpers
+     * 
+	 */
     class SRWC_Helpers {
 
         /**

@@ -72,6 +72,8 @@
     display: block; 
 }
 
+/*--------------------------- End Spin Wheel Modal ---------------------------*/
+
 /*--------------------------- Loader ---------------------------*/
 
 .srwc-loader {
@@ -245,7 +247,7 @@
 
 /*--------------------------- End Mini Spin Wheel ---------------------------*/
 
-/*--------------------------- GDPR Checkbox Styles ---------------------------*/
+/*--------------------------- GDPR Checkbox ---------------------------*/
 
 .srwc-gdpr-label {
     display: flex;
@@ -271,7 +273,7 @@
     display: none;
 }
 
-/*--------------------------- End GDPR Checkbox Styles ---------------------------*/
+/*--------------------------- End GDPR Checkbox ---------------------------*/
 
 /*----------------------------- Close Button -----------------------------*/
 
@@ -281,14 +283,6 @@
     right: -5px;
     z-index: 10;
 }
-
-/* @media (max-width: 1280px) {
-    .srwc-close-bottom {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 20px;
-    }
-} */
 
 .srwc-close-btn {
     border: none;
@@ -308,7 +302,6 @@
 }
 
 /*----------------------------- End Close Button -----------------------------*/
-
 
 @media (max-width: 1024px) {
     .srwc-wheel-left {

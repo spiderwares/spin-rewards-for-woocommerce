@@ -13,10 +13,17 @@ if ( ! class_exists( 'SRWC_Email' ) ) :
 	class SRWC_Email {
 
 		/**
-		 * Constructor for the SRWC_Email class.
+		 * Constructor for the class.
 		 * 
 		 */
 		public function __construct() {
+			$this->events_handler();
+		}
+
+		/**
+         * Initialize hooks and filters.
+         */
+		public function events_handler(){
 			add_filter( 'woocommerce_email_classes', [ $this, 'register_emails' ] );
 		}
 

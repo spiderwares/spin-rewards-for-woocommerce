@@ -5,20 +5,30 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'SRWC_Spin_Reports' ) ) :
 
+    /**
+	 * Class SRWC_Spin_Reports
+     * 
+	 */
     class SRWC_Spin_Reports {
 
-        public $settings;       
+        /**
+		 * Plugin settings.
+		 *
+		 * @var array
+		 */
+        public $settings;  
+
         /**
          * Constructor for the class.
          */
         public function __construct() {
-            $this->event_handler();
+            $this->events_handler();
         }
         
         /**
          * Initialize hooks and filters.
          */
-        private function event_handler() {
+        private function events_handler() {
             $this->settings = get_option( 'srwc_settings', array() );
 
             // AJAX handler to export emails

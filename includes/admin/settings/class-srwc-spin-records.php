@@ -43,10 +43,10 @@ if( ! class_exists( 'SRWC_Spin_Records' ) ) :
             $auto_spin = ! empty( $settings['auto_spin'] ) ? absint( $settings['auto_spin'] ) : 0;
 
             if ( $auto_spin > 0 ) :
-                $specific_time = ! empty( $settings['spin_specific_time'] ) && is_array( $settings['spin_specific_time'] ) ? $settings['spin_specific_time'] : array();
-                $hour   = isset( $specific_time['hour'] ) ? intval( $specific_time['hour'] ) : 0;
-                $minute = isset( $specific_time['minute'] ) ? intval( $specific_time['minute'] ) : 0;
-                $second = isset( $specific_time['second'] ) ? intval( $specific_time['second'] ) : 0;
+                $specific_time  = ! empty( $settings['spin_specific_time'] ) && is_array( $settings['spin_specific_time'] ) ? $settings['spin_specific_time'] : array();
+                $hour           = isset( $specific_time['hour'] ) ? intval( $specific_time['hour'] ) : 0;
+                $minute         = isset( $specific_time['minute'] ) ? intval( $specific_time['minute'] ) : 0;
+                $second         = isset( $specific_time['second'] ) ? intval( $specific_time['second'] ) : 0;
 
                 // Compute the most recent daily reset time in site timezone
                 $timezone = function_exists( 'wp_timezone' ) ? wp_timezone() : new DateTimeZone( wp_timezone_string() );
@@ -68,7 +68,7 @@ if( ! class_exists( 'SRWC_Spin_Records' ) ) :
             endif;
 
             $existing_spins = get_posts( $args );
-            $spin_count = count( $existing_spins );
+            $spin_count     = count( $existing_spins );
 
             return ( $spin_count >= $spin_limit ) ? $spin_count : false;
         }

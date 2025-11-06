@@ -5,6 +5,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'SRWC_User_Win_Email' ) ) :
 
+	/**
+	 * Class SRWC_User_Win_Email
+	 * 
+	 */
 	class SRWC_User_Win_Email extends WC_Email {
 
 		protected $customer_email;

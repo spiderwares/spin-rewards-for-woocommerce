@@ -17,13 +17,13 @@ if ( ! class_exists( 'SRWC_Coupon_Handler' ) ) :
          * Constructor for the class.
          */
         public function __construct() {
-            $this->event_handler();
+            $this->events_handler();
         }
         
         /**
          * Initialize hooks and filters.
          */
-        public function event_handler() {
+        public function events_handler() {
             add_action( 'wp_ajax_srwc_get_coupons', [ $this, 'handle_get_coupons' ] );    
             add_action( 'wp_ajax_nopriv_srwc_get_coupons', [ $this, 'handle_get_coupons' ] );
         }

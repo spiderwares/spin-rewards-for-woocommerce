@@ -5,6 +5,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'SRWC_Public' ) ) :
 
+     /**
+	 * Class SRWC_Public
+     * 
+	 */
     class SRWC_Public {
 
         /**
@@ -14,10 +18,17 @@ if ( ! class_exists( 'SRWC_Public' ) ) :
 		 */
         public $settings;
 
-         /**
-		 * Initialize hooks.
-		 */
+        /**
+         * Constructor for the class.
+         */
         public function __construct() {
+            $this->events_handler();
+        }
+
+        /**
+         * Initialize hooks and filters.
+         */
+        public function events_handler(){
             $this->settings = get_option( 'srwc_settings', array() );
             add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
             add_action( 'wp_footer', [ $this, 'display_wheel' ], 20 );

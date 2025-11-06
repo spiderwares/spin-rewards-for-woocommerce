@@ -31,14 +31,14 @@ if ( ! class_exists( 'SRWC' ) ) :
          * Constructor for the class.
          */
         public function __construct() {
-            $this->event_handler();
+            $this->events_handler();
             $this->includes();
         }
 
         /**
          * Initialize hooks and filters.
          */
-        private function event_handler() {
+        private function events_handler() {
             // Register plugin activation hook
             register_activation_hook( SRWC_FILE, array( 'SRWC_Install', 'install' ) );
 

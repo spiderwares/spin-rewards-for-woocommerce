@@ -20,19 +20,23 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
          */
         protected static $instance = null;
 
-
+        /**
+		 * Plugin settings.
+		 *
+		 * @var array
+		 */
         public $settings;
         /**
          * Constructor for the class.
          */
         public function __construct() {
-            $this->event_handler();
+            $this->events_handler();
         }
         
         /**
          * Initialize hooks and filters.
          */
-        private function event_handler() {
+        private function events_handler() {
             // menu\
             $this->settings = get_option( 'srwc_settings', [] );
             add_action( 'admin_init', [ $this, 'register_settings' ] );

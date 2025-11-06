@@ -5,6 +5,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'SRWC_Mailchimp' ) ) :
 
+     /**
+	 * Class SRWC_Mailchimp
+     * 
+	 */
     class SRWC_Mailchimp {
 
         /**
@@ -14,9 +18,16 @@ if ( ! class_exists( 'SRWC_Mailchimp' ) ) :
         protected $settings;
 
         /**
-         * Constructor for class.
+         * Constructor for the class.
          */
         public function __construct() {
+            $this->events_handler();
+        }
+
+        /**
+         * Initialize hooks and filters.
+         */
+        public function events_handler(){
             $this->settings = get_option( 'srwc_settings', array() );
 
             // Subscribe user

@@ -13,10 +13,16 @@ if( ! class_exists( 'SRWC_Spin_Records_CPT' ) ) :
     class SRWC_Spin_Records_CPT {
 
         /**
-         * Constructor for the SRWC_Spin_Records_CPT class.
-         * 
+         * Constructor for the class.
          */
         public function __construct() {
+            $this->events_handler();
+        }
+
+        /**
+         * Initialize hooks and filters.
+         */
+        public function events_handler(){
             add_action( 'init', [ $this, 'register_spin_records_cpt' ] );
             add_action( 'init', [ $this, 'flush_rules' ], 99 );
             add_filter( 'manage_srwc_spin_record_posts_columns', [ $this, 'add_columns' ] );

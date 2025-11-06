@@ -15,38 +15,37 @@ Grow sales and email signups with a customizable spin‑the‑wheel game that in
 
 == Description ==
 
-Spin Rewards for WooCommerce adds an engaging spin‑the‑wheel experience to your store. Encourage visitors to play, win discounts, and shop immediately. Fully customizable design, slides, and reward probabilities, plus automated coupon creation, email collection, and detailed reports.
+**Spin Rewards for WooCommerce** adds an engaging spin‑the‑wheel experience to your store. Encourage visitors to play, win discounts, and shop immediately. Fully customizable design, slides, and reward probabilities, plus automated coupon creation, email collection, and detailed reports.
 
 Designed to be lightweight, extensible, and theme‑compatible.
 
 == Key Features ==
 
 ⭐ Enable/disable the spin wheel globally
-⭐ Frontend popup spin wheel with responsive, theme‑friendly UI
-⭐ Customizable wheel design: pointer color, center color, border color, dot color, background color, text color
+⭐ Collect email before spin with per-email spin limits
+⭐ Customizable wheel design: pointer color, center color, background color, text color
 ⭐ Customizable wheel slices: labels, discount types (percentage/fixed), amounts, and win probability
 ⭐ Offer instant discount coupons to winners (auto‑generated via WooCommerce)
 ⭐ GDPR-Friendly: optional GDPR checkbox with customizable consent message
 ⭐ Coupon settings: type (percentage/fixed), length, prefix, suffix, expiry (in days), usage limits, minimum/maximum spend, include/exclude products & categories, free shipping, individual use, exclude sale items
-⭐ Collect email before spin with per-email spin limits
-⭐ Time-based spin cooldown (seconds, minutes, hours, days)
-⭐ Email notifications for winners (customer)
 ⭐ Win/lose messages with placeholders: {coupon_label}, {checkout}
 ⭐ Automatic display of won coupon code after spin Detailed spin records and reports in admin panel
 ⭐ Display rules: show on shop, home, blog pages via toggle
 ⭐ Conditional display using WordPress tags: is_cart(), is_checkout(), is_product(), is_shop(), etc. with operators (||, &&, !)
-⭐ Localization: fully translatable frontend texts, validation messages, button labels
 ⭐ Developer-friendly: template override support
 ⭐ Responsive popup with customizable title, spin button text, and close button Customizable spin button: text color, background, hover color, border radius
 ⭐ Customizable close button: text, font size, colors
 ⭐ Background blend mode support
-⭐ Wheel pointer: center position with color customization
+⭐ Wheel pointer center position with color customization
 ⭐ Spin speed control (1–4 levels)
 ⭐ Auto-hide wheel after spin (in seconds)
 ⭐ Show/hide close button
+⭐ Email notifications for winners (customer)
 ⭐ Klaviyo Email & SMS Integration
 ⭐ Validation messages: name, email, mobile, GDPR, spin limit, wait time
+⭐ Localization: fully translatable frontend texts, validation messages, button labels
 ⭐ Error message styling: color and font size
+⭐ Frontend popup spin wheel with responsive, theme‑friendly UI
 
 == Installation ==
 
@@ -98,7 +97,6 @@ Yes. The plugin is compatible with WooCommerce HPOS.
 * Email collection and per‑email spin limits.
 * Localization and notification settings.
 * Spin records and reports for admins.
-* HPOS compatibility.
 
 == Upgrade Notice ==
 

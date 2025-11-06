@@ -12,11 +12,17 @@ if( ! class_exists( 'SRWC_Spin_Metabox' ) ) :
      */
     class SRWC_Spin_Metabox {
 
-        /**
-         * Constructor for the SRWC_Spin_Metabox class.
-         * Hooks into WordPress to register the spin metabox.
+         /**
+         * Constructor for the class.
          */
         public function __construct() {
+            $this->events_handler();
+        }
+
+        /**
+         * Initialize hooks and filters.
+         */
+        public function events_handler(){
             add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
             add_action( 'save_post', [ $this, 'save_metabox_data' ] );
             add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_styles' ] );
@@ -54,10 +60,10 @@ if( ! class_exists( 'SRWC_Spin_Metabox' ) ) :
          */
         public function render_spin_wheel_metabox( $post ) {
 
-            $settings       = get_option( 'srwc_settings', array() );
-            $customer_name  = get_post_meta( $post->ID, 'srwc_customer_name', true );
-            $win_label      = get_post_meta( $post->ID, 'srwc_win_label', true );
-            $coupon_code    = get_post_meta( $post->ID, 'srwc_coupon_code', true );
+            $settings        = get_option( 'srwc_settings', array() );
+            $customer_name   = get_post_meta( $post->ID, 'srwc_customer_name', true );
+            $win_label       = get_post_meta( $post->ID, 'srwc_win_label', true );
+            $coupon_code     = get_post_meta( $post->ID, 'srwc_coupon_code', true );
             $customer_mobile = get_post_meta( $post->ID, 'srwc_customer_mobile', true );
 
             if ( empty( $customer_name ) ) :

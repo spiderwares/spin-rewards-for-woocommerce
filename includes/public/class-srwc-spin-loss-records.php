@@ -5,13 +5,24 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'SRWC_Spin_Loss_Records' ) ) :
 
+     /**
+	 * Class SRWC_Spin_Loss_Records
+     * 
+	 */
     class SRWC_Spin_Loss_Records {
 
-        /**
-		 * Initialize hooks.
-		 */
+         /**
+         * Constructor for the class.
+         */
         public function __construct() {
-            
+            $this->events_handler();
+        }
+
+        /**
+         * Initialize hooks and filters.
+         */
+        public function events_handler(){
+
             // AJAX handler for recording loss spins
             add_action( 'wp_ajax_srwc_record_loss_spin', [ $this, 'record_loss_spin' ] );
             add_action( 'wp_ajax_nopriv_srwc_record_loss_spin', [ $this, 'record_loss_spin' ] );

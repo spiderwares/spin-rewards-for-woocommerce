@@ -8,17 +8,30 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 if( ! class_exists( 'SRWC_Spin_Email_Limit' ) ) :
 
+    /**
+	 * Class SRWC_Spin_Email_Limit
+     * 
+	 */
     class SRWC_Spin_Email_Limit {
 
         /**
-         * Initialize hooks for AJAX endpoints
-         */
+		 * Plugin settings.
+		 *
+		 * @var array
+		 */
         public $settings;
 
         /**
          * Initialize hooks for AJAX endpoints
          */
         public function __construct() {
+            $this->events_handler();
+        }
+
+        /**
+         * Initialize hooks and filters.
+         */
+        public function events_handler(){
             $this->settings = get_option( 'srwc_settings', array() );
 
             add_action( 'wp_ajax_srwc_check_email_limit', [ $this, 'check_email_limit' ] );
