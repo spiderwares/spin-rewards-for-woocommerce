@@ -34,10 +34,11 @@ $wheel_pointer_image        = !empty($settings['wheel_pointer_image']) ? $settin
 $close_btn_text_color        = !empty($settings['close_btn_text_color']) ? $settings['close_btn_text_color'] : '#ff4444';
 
 ?>
-.srwc-email {
+.srwc-form-controls .srwc-email {
     border-radius: <?php echo esc_html( $email_border ); ?>px;
 }
-.srwc-input {
+
+.srwc-form-controls .srwc-name {
     border-radius: <?php echo esc_html( $name_border ); ?>px;
 }
 .srwc-win-text {

@@ -889,7 +889,7 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                 'wheel_border_color' => array(
                     'title'      => esc_html__( 'Wheel Border Color', 'spin-rewards-for-woocommerce' ),
                     'field_type' => 'srwcpro',
-                    'default'    => '#ffffff',
+                    'default'    => '#d6d6d6',
                     'name'       => 'srwc_settings[wheel_border_color]',
                 ),
 

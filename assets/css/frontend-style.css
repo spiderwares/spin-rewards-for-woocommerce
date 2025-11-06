@@ -262,10 +262,12 @@
     margin-right: 8px;
     margin-top: 3px;
     flex-shrink: 0;
+    cursor: pointer;
 }
 
 .srwc-gdpr-text {
     flex: 1;
+    cursor: default;
 }
 
 .srwc-gdpr-error {
