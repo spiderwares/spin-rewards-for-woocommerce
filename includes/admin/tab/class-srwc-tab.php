@@ -1,8 +1,8 @@
 <?php
 /**
- * Cosmic Dashboard Class
+ * SRWC Tab Class
  *
- * Handles the admin dashboard setup and related functionalities.
+ * Handles the admin tab setup and related functionalities.
  *
  * @package Spin_Rewards_For_WooCommerce
  */
@@ -10,17 +10,17 @@
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'Cosmic_Dashboard' ) ) {
+if ( ! class_exists( 'SRWC_Tab' ) ) {
 
 	/**
-	 * Class Cosmic_Dashboard
+	 * Class SRWC_Tab
 	 *
-	 * Initializes the admin dashboard for Cosmic.
+	 * Initializes the admin tab for SRWC.
 	 */
-	class Cosmic_Dashboard {
+	class SRWC_Tab {
 
 		/**
-		 * Constructor for Cosmic_Dashboard class.
+		 * Constructor for SRWC_Tab class.
 		 * Initializes the event handler.
 		 */
 		public function __construct() {
@@ -35,14 +35,14 @@ if ( ! class_exists( 'Cosmic_Dashboard' ) ) {
 		}
 
 		/**
-		 * Enqueue admin-specific styles for the dashboard.
+		 * Enqueue admin-specific styles for the tab.
 		 */
 		public function enqueue_scripts() {
 			
-			// Enqueue the Cosmic dashboard CSS.
+			// Enqueue the SRWC tab CSS.
 			wp_enqueue_style(
-				'cosmic-dashboard',
-				SRWC_URL . 'includes/admin/dashboard/css/cosmic-dashboard.css',
+				'srwc-tab',
+				SRWC_URL . 'includes/admin/tab/css/srwc-tab.css',
 				[],
 				SRWC_VERSION 
 			);
@@ -51,6 +51,6 @@ if ( ! class_exists( 'Cosmic_Dashboard' ) ) {
 
 	}
 
-	// Instantiate the Cosmic_Dashboard class.
-	new Cosmic_Dashboard();
+	// Instantiate the SRWC_Tab class.
+	new SRWC_Tab();
 }

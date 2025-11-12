@@ -1,7 +1,7 @@
 <?php
 /**
- * Settings Tab: Spin Wheel
- * Loads the Spin Wheel settings section in the plugin settings page.
+ * Settings Tab: Spin Rewards	
+ * Loads the Spin Rewards settings section in the plugin settings page.
  * 
  * @package Spin_Rewards_For_WooCommerce
  */
@@ -10,8 +10,8 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Retrieve the spin wheel settings fields from the SRWC_Rewards_Fields class.
- * @var array $fields Array of spin wheel settings fields.
+ * Retrieve the spin rewards settings fields from the SRWC_Rewards_Fields class.
+ * @var array $fields Array of spin rewards settings fields.
  * 
  */
 $fields = SRWC_Rewards_Fields::spin_rewards_field();
@@ -24,12 +24,12 @@ $fields = SRWC_Rewards_Fields::spin_rewards_field();
 $options = get_option( 'srwc_settings', true );
 
 /**
- * Load the settings form template for the Spin Wheel settings tab.
+ * Load the settings form template for the Spin Rewards settings tab.
  */
 wc_get_template(
 	'fields/setting-forms.php',
 	array(
-		'title'   => 'Spin Rewards',         // Section title.
+		'title'   => 'Spin Rewards',     // Section title.
 		'metaKey' => 'srwc_settings',   // Option meta key.
 		'fields'  => $fields,           // Field definitions.
 		'options' => $options,          // Saved option values.

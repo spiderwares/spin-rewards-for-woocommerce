@@ -37,8 +37,8 @@ if ( ! class_exists( 'SRWC_Public' ) ) :
         public function enqueue_assets() {
             
             wp_enqueue_style( 
-                'frontend-style', 
-                SRWC_URL . 'assets/css/frontend-style.css', 
+                'srwc-frontend-style', 
+                SRWC_URL . 'assets/css/srwc-frontend-style.css', 
                 array(), 
                 SRWC_VERSION 
             );
@@ -87,7 +87,7 @@ if ( ! class_exists( 'SRWC_Public' ) ) :
             $dynamic_css = $this->dynamic_css();
 
             if ( ! empty( $dynamic_css ) ) :
-                wp_add_inline_style( 'frontend-style', $dynamic_css );
+                wp_add_inline_style( 'srwc-frontend-style', $dynamic_css );
             endif;
         }
 

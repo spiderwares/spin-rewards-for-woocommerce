@@ -1,13 +1,15 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit;
-
 /**
  * SRWC User Win Email Template
- */
+ */ 
+
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 do_action( 'woocommerce_email_header', $email_heading, $email );
 
 if ( ! empty( $email_body ) ) : ?>
+
 <div style="margin: 20px 0; font-size: 16px; line-height: 1.6; color: #333;">
     <?php echo wp_kses_post( wpautop( wptexturize( $email_body ) ) ); ?>
 </div>

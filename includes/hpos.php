@@ -1,4 +1,6 @@
 <?php
+
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 use Automattic\WooCommerce\Utilities\FeaturesUtil;

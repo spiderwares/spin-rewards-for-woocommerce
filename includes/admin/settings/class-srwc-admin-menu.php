@@ -37,7 +37,7 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
          * Initialize hooks and filters.
          */
         private function events_handler() {
-            // menu\
+            // menu
             $this->settings = get_option( 'srwc_settings', [] );
             add_action( 'admin_init', [ $this, 'register_settings' ] );
             add_action( 'admin_menu', [ $this, 'admin_menu' ] );
@@ -136,7 +136,7 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
 
             wp_enqueue_style( 
                 'srwc-admin-style', 
-                SRWC_URL . 'assets/css/admin-style.css', 
+                SRWC_URL . 'assets/css/srwc-admin-style.css', 
                 array(), 
                 SRWC_VERSION 
             );
@@ -174,12 +174,9 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
          * Content for the admin menu page.
          */
         public function admin_menu_content() {
-
-            if ( isset( $_GET['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['nonce'] ) ), 'srwc_admin_nonce' ) ) :
-                wp_die( esc_html__( 'Security check failed.', 'spin-rewards-for-woocommerce' ) );
-            endif;
-
-            $active_tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'general';
+            
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Tab navigation parameter, not form processing.
+            $active_tab = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'general';
             require_once SRWC_PATH . 'includes/admin/settings/views/rewards-menu.php';
         }
 

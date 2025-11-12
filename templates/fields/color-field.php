@@ -1,6 +1,6 @@
 <?php
 /**
- * Color picker field HTML
+ * Color picker field
  */
 
 // Exit if accessed directly.

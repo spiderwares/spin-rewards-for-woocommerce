@@ -1,7 +1,7 @@
 <?php
 /**
- * Settings Tab: General
- * Loads the General settings section in the plugin settings page.
+ * Settings Tab: Notification
+ * Loads the Notification settings section in the plugin settings page.
  * 
  * @package Spin_Rewards_For_WooCommerce
  */
@@ -10,8 +10,8 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Retrieve the general settings fields from the SRWC_Rewards_Fields class.
- * @var array $fields Array of general settings fields.
+ * Retrieve the notification settings fields from the SRWC_Rewards_Fields class.
+ * @var array $fields Array of notification settings fields.
  * 
  */
 $fields = SRWC_Rewards_Fields::notification_field();
@@ -24,7 +24,7 @@ $fields = SRWC_Rewards_Fields::notification_field();
 $options = get_option( 'srwc_settings', true );
 
 /**
- * Load the settings form template for the General settings tab.
+ * Load the settings form template for the Notification settings tab.
  */
 wc_get_template(
 	'fields/setting-forms.php',

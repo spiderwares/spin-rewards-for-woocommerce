@@ -15,7 +15,7 @@ foreach ( $fields as $field_Key => $field ) :
         <?php endif; ?> >
 
         <?php if( $field['field_type'] != 'srwcslidesoption' ):  ?>
-            <th scope="row" class="mcwc-label <?php echo esc_attr( $field_type ); ?>" <?php echo ( $field_type === 'mcwctitle' ) ? 'colspan="2"' : ''; ?>>
+            <th scope="row" class="srwc-label <?php echo esc_attr( $field_type ); ?>" <?php echo ( $field_type === 'srwctitle' ) ? 'colspan="2"' : ''; ?>>
                 <?php echo esc_html( $field['title'] ); ?>
             </th>
         <?php endif; ?>

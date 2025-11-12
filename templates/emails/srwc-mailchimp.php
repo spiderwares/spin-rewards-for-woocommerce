@@ -48,6 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         background-color: #0056b3;
     }
 </style>
+
 <body>
     <div class="confirmation-container">
         <div class="success-icon">✓</div>

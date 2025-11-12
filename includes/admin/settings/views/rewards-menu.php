@@ -1,8 +1,9 @@
 <?php 
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit;
-
 ?>
+
 <div class="cosmic_page cosmic_settings_page wrap">
 
     <h2 class="srwc_notice_wrapper"></h2>

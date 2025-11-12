@@ -82,10 +82,6 @@ $close_btn_text_color        = !empty($settings['close_btn_text_color']) ? $sett
     background: <?php echo esc_html( $btn_bg_hover_color ); ?>;
 }
 
-.srwc-spin-btn {
-    border-radius: <?php echo esc_html( $spin_button_border ); ?>px;
-}
-
 .srwc-floating-btn {
     <?php
     switch($icon_position) {

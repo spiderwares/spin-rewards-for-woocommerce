@@ -127,7 +127,7 @@ if ( ! class_exists( 'SRWC' ) ) :
          */
         public function includes_admin() {
             require_once SRWC_PATH . 'includes/class-srwc-install.php';
-            require_once SRWC_PATH . 'includes/admin/dashboard/class-cosmic-dashboard.php';
+            require_once SRWC_PATH . 'includes/admin/tab/class-srwc-tab.php';
             require_once SRWC_PATH . 'includes/admin/settings/class-srwc-admin-menu.php';
             require_once SRWC_PATH . 'includes/admin/settings/class-srwc-coupon-handler.php';
             require_once SRWC_PATH . 'includes/admin/settings/class-srwc-setting-fields.php';

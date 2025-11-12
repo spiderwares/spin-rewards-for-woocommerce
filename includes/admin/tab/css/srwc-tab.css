@@ -5,7 +5,6 @@
 
 .cosmic_settings_page .cosmic_settings_page_nav .nav-tab-wrapper {
     border-color: #eee;
-    border-left: 1px solid #dee2e6;
 }
 
 .cosmic_settings_page .cosmic_settings_page_nav .nav-tab-wrapper a.nav-tab-active{
@@ -14,6 +13,7 @@
     color: #000000 !important;
     border-width: 2px 2px 0px 2px !important;
     border-radius: 5px 5px 0px 0px;
+    background-color: #ffffff;
 }
 
 .cosmic_settings_page_nav .nav-tab-wrapper {
@@ -32,13 +32,12 @@
     border-style: solid;
     border-image: initial;
     padding: 10px 20px;
-    background-color: #ffffff;
+    background-color: #e6e6e6;
     border-width: 0px;
 }
 
 .cosmic_settings_page .cosmic_settings_page_content {
     border-width: 0 1px 1px 1px;
-    border-style: solid;
     border-color: #eee;
     background-color: #fff;
     display: inline-block;

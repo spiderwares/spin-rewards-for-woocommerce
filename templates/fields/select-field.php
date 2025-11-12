@@ -1,6 +1,6 @@
 <?php
 /**
- *  Select Field Template
+ * Select Field Template
  */
 
 // Exit if accessed directly.

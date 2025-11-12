@@ -1,4 +1,3 @@
-
 <?php 
 /**
  * Spin Record Template
@@ -40,4 +39,5 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         </div>
     </div>
 </div>
-<?php wp_nonce_field( 'spin_rewards_save_nonce', 'spin_rewards_nonce' ); ?>
+
+<?php wp_nonce_field( 'spin_rewards_save_nonce', 'spin_rewards_nonce' );
