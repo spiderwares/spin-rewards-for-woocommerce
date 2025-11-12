@@ -91,12 +91,7 @@ if( ! class_exists( 'SRWC_Spin_Metabox' ) ) :
             if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) return;
             if ( ! current_user_can( 'edit_post', $post_id ) ) return;
 
-            if ( ! isset( $_POST['spin_rewards_nonce'] ) || ! 
-            wp_verify_nonce( 
-                sanitize_text_field( wp_unslash( $_POST['spin_rewards_nonce'] ) ), 
-                'spin_rewards_save_nonce' 
-                ) 
-            ) :
+            if ( ! isset( $_POST['spin_rewards_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['spin_rewards_nonce'] ) ), 'spin_rewards_save_nonce' )) :
                 return;
             endif;
 

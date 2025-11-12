@@ -84,7 +84,7 @@ jQuery(function($) {
 
         checkEmailLimit(email, callback) {
             $.ajax({
-                type: 'GET',
+                type: 'POST',
                 url: srwc_frontend.ajax_url,
                 data: {
                     action: 'srwc_check_email_limit',

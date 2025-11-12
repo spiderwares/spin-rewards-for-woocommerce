@@ -40,7 +40,10 @@ if ( ! class_exists( 'SRWC_Spin_Reports' ) ) :
          * AJAX handler to export emails
          */
         public function export_emails() {
-            check_ajax_referer( 'srwc_admin_nonce', 'nonce' );
+
+            if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'srwc_admin_nonce' ) ) :
+                wp_die( esc_html__( 'Security check failed.', 'spin-rewards-for-woocommerce' ) );
+            endif;
         
             $from_date = isset( $_POST['from_date'] ) ? sanitize_text_field( wp_unslash( $_POST['from_date'] ) ) : '';
             $to_date   = isset( $_POST['to_date'] ) ? sanitize_text_field( wp_unslash( $_POST['to_date'] ) ) : '';
