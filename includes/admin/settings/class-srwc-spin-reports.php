@@ -44,6 +44,10 @@ if ( ! class_exists( 'SRWC_Spin_Reports' ) ) :
             if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'srwc_admin_nonce' ) ) :
                 wp_die( esc_html__( 'Security check failed.', 'spin-rewards-for-woocommerce' ) );
             endif;
+
+            if ( ! current_user_can( 'manage_options' ) ) :
+                wp_die( esc_html__( 'Permission denied. You are not allowed to perform this action.', 'spin-rewards-for-woocommerce' ) );
+            endif;
         
             $from_date = isset( $_POST['from_date'] ) ? sanitize_text_field( wp_unslash( $_POST['from_date'] ) ) : '';
             $to_date   = isset( $_POST['to_date'] ) ? sanitize_text_field( wp_unslash( $_POST['to_date'] ) ) : '';

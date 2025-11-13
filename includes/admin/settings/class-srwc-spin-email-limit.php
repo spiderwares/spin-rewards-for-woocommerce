@@ -43,8 +43,13 @@ if( ! class_exists( 'SRWC_Spin_Email_Limit' ) ) :
          */
         public function check_email_limit() {
             
+            // Verify nonce for security
             if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'srwc_nonce' ) ) :
                 wp_die( esc_html__( 'Security check failed.', 'spin-rewards-for-woocommerce' ) );
+            endif;
+
+            if ( ! current_user_can( 'manage_options' ) ) :
+                wp_die( esc_html__( 'Permission denied. You are not allowed to perform this action.', 'spin-rewards-for-woocommerce' ) );
             endif;
 
             if ( ! empty( $_POST['customer_email'] ) ) :
