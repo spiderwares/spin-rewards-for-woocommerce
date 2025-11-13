@@ -35,17 +35,17 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             <div class="srwc-date-filters">
                 <div class="srwc-date-field">
                     <label><?php esc_html_e( 'From', 'spin-rewards-for-woocommerce' ); ?></label>
-                    <input type="date" id="from-date" name="from_date" class="srwc-date-input">
+                    <input type="date" id="srwc-from-date" name="from_date" class="srwc-date-input">
                 </div>
                 
                 <div class="srwc-date-field">
                     <label><?php esc_html_e( 'To', 'spin-rewards-for-woocommerce' ); ?></label>
-                    <input type="date" id="to-date" name="to_date" class="srwc-date-input">
+                    <input type="date" id="srwc-to-date" name="to_date" class="srwc-date-input">
                 </div>
             </div>
             
             <div class="srwc-actions">
-                <button type="button" id="export-emails" class="button button-primary">
+                <button type="button" id="srwc-export-emails" class="button button-primary">
                     <?php esc_html_e( 'Export', 'spin-rewards-for-woocommerce' ); ?>
                 </button>
             </div>

@@ -43,8 +43,7 @@ if( ! class_exists( 'SRWC_Spin_Email_Limit' ) ) :
          */
         public function check_email_limit() {
             
-            // Verify nonce for security
-            if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'srwc_nonce' ) ) :
+            if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'srwc_nonce' ) ) :
                 wp_die( esc_html__( 'Security check failed.', 'spin-rewards-for-woocommerce' ) );
             endif;
 

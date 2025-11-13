@@ -22,7 +22,7 @@ jQuery(function($) {
             $(document.body).on( 'click', '.srwc-media-remove', this.removeMedia.bind(this) );
             $(document.body).on( 'change', '.srwc-coupon-type', this.toggleCouponSelect.bind(this) );
             $(document.body).on( 'change', '.srwc-coupon-select', this.loadCouponOptions.bind(this) );
-			$(document.body).on( 'click', '#export-emails', this.exportEmails.bind(this) );
+			$(document.body).on( 'click', '#srwc-export-emails', this.exportEmails.bind(this) );
 			$(document.body).on( 'click', '.srwc-preview-wheel', this.renderAdminPreview.bind(this) );
 			$(document.body).on( 'click', '.srwc-preview-close', this.closeAdminPreview.bind(this) );
 			$(document.body).on( 'submit', '.srwc-settings-form', this.totalProbability.bind(this));
@@ -330,12 +330,13 @@ jQuery(function($) {
 
         exportEmails() {
             // Export emails
-            const fromDate = $('#from-date').val(),
-                toDate     = $('#to-date').val(),
+            const fromDate = $('#srwc-from-date').val(),
+                toDate     = $('#srwc-to-date').val(),
     
                 form = $('<form>', {
                 method: 'POST',
                 action: srwc_admin.ajax_url,
+                nonce: srwc_admin.nonce
             });
     
             form.append($('<input>', { type: 'hidden', name: 'action', value: 'srwc_export_emails' }));
