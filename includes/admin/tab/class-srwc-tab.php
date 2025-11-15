@@ -43,7 +43,7 @@ if ( ! class_exists( 'SRWC_Tab' ) ) {
 			wp_enqueue_style(
 				'srwc-tab',
 				SRWC_URL . 'includes/admin/tab/css/srwc-tab.css',
-				[],
+				array(),
 				SRWC_VERSION 
 			);
 

@@ -24,5 +24,5 @@ if ( ! defined( 'ABSPATH' ) ) exit;
     wp_editor( $field_Val, $editor_id, $editor_settings );
     ?>
     
-    <p class="description"><?php echo isset( $field['desc'] ) ? wp_kses_post( $field['desc'] ) : ''; ?></p>
+    <p><?php echo isset( $field['desc'] ) ? wp_kses_post( $field['desc'] ) : ''; ?></p>
 </td>

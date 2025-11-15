@@ -22,6 +22,7 @@ $icon_position      = !empty($settings['icon_display_position']) ? $settings['ic
 $hide_icon          = !empty($settings['hide_icon']) ? $settings['hide_icon'] : 'no';
 
 $btn_text_color             = !empty($settings['spin_button_text_color']) ? $settings['spin_button_text_color'] : '#ffffff';
+$btn_hover_text_color       = !empty($settings['spin_button_text_hover_color']) ? $settings['spin_button_text_hover_color'] : '#ffffff';
 $btn_bg_color               = !empty($settings['spin_button_bg_color']) ? $settings['spin_button_bg_color'] : '#111111';
 $btn_bg_hover_color         = !empty($settings['spin_button_hover_bg_color']) ? $settings['spin_button_hover_bg_color'] : '#000000';
 $wheel_pointer_color        = !empty($settings['wheel_pointer_color']) ? $settings['wheel_pointer_color'] : '#000000';
@@ -76,6 +77,10 @@ $close_btn_text_color        = !empty($settings['close_btn_text_color']) ? $sett
 .srwc-spin-btn {
     background: <?php echo esc_html( $btn_bg_color ); ?>;
     color: <?php echo esc_html( $btn_text_color ); ?>;
+}
+
+.srwc-spin-btn:hover {
+    color: <?php echo esc_html( $btn_hover_text_color ); ?>;
 }
 
 .srwc-spin-btn:hover{

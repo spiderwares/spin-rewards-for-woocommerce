@@ -1,13 +1,15 @@
-.cosmic_page .card {
+/*--------------------------- Tab Field ---------------------------*/
+
+.srwc_page .card {
     border-color: #eee;
     max-width: 100%;
 }
 
-.cosmic_settings_page .cosmic_settings_page_nav .nav-tab-wrapper {
+.srwc_settings_page .srwc_settings_page_nav .nav-tab-wrapper {
     border-color: #eee;
 }
 
-.cosmic_settings_page .cosmic_settings_page_nav .nav-tab-wrapper a.nav-tab-active{
+.srwc_settings_page .srwc_settings_page_nav .nav-tab-wrapper a.nav-tab-active{
     border-color: #7f54b3;
     border-bottom-color: #ffffff;
     color: #000000 !important;
@@ -16,11 +18,11 @@
     background-color: #ffffff;
 }
 
-.cosmic_settings_page_nav .nav-tab-wrapper {
+.srwc_settings_page .srwc_settings_page_nav .nav-tab-wrapper {
     border-bottom: 0 !important;
 }
 
-.cosmic_settings_page .cosmic_settings_page_nav .nav-tab-wrapper a {
+.srwc_settings_page .srwc_settings_page_nav .nav-tab-wrapper a {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -36,7 +38,7 @@
     border-width: 0px;
 }
 
-.cosmic_settings_page .cosmic_settings_page_content {
+.srwc_settings_page .srwc_settings_page_content {
     border-width: 0 1px 1px 1px;
     border-color: #eee;
     background-color: #fff;
@@ -45,57 +47,51 @@
     margin: 0;
 }
 
-.cosmic_settings_page .cosmic_settings_page_content table tr.heading {
+.srwc_settings_page .srwc_settings_page_content table tr.heading {
     border-bottom: 1px dashed #eeeeee;
 }
 
-.cosmic_settings_page .cosmic_settings_page_content table {
+.srwc_settings_page .srwc_settings_page_content table {
     margin: 0;
     padding: 0;
     border-spacing: 0;
     border-collapse: unset;
 }
 
-.cosmic_settings_page .cosmic_settings_page_content table tr th,
-.cosmic_settings_page .cosmic_settings_page_content table tr td {
+.srwc_settings_page .srwc_settings_page_content table tr th,
+.srwc_settings_page .srwc_settings_page_content table tr td {
     padding: 15px 20px;
     border-bottom: 1px dashed #eee;
 }
 
-.cosmic_settings_page .cosmic_settings_page_content table tr th,
-.cosmic_settings_page .cosmic_settings_page_content table tr td {
+.srwc_settings_page .srwc_settings_page_content table tr th,
+.srwc_settings_page .srwc_settings_page_content table tr td {
     padding: 15px 20px;
     border-bottom: 1px dashed #eee;
 }
 
-.cosmic_settings_page .cosmic_settings_page_content table tr.submit p {
+.srwc_settings_page .srwc_settings_page_content table tr.submit p {
     margin: 0;
     padding: 0;
 }
 
+/*---------------------------End Tab Field ---------------------------*/
+
 /*--------------------------- End Switch Field ---------------------------*/
 
-.cosmic_settings_page .cosmic_settings_page_content table .srwc-select select,
-.cosmic_settings_page .cosmic_settings_page_content table .srwc-text-field input[type="text"],
-.cosmic_settings_page .cosmic_settings_page_content table .srwc-number-field input[type="number"],
-.cosmic_settings_page .cosmic_settings_page_content table .srwc-time-input-group input[type="number"] {
+.srwc_settings_page .srwc_settings_page_content table .srwc-select select,
+.srwc_settings_page .srwc_settings_page_content table .srwc-text-field input[type="text"],
+.srwc_settings_page .srwc_settings_page_content table .srwc-number-field input[type="number"],
+.srwc_settings_page .srwc_settings_page_content table .srwc-time-input-group input[type="number"] {
     min-width: 350px;
     padding: 3px 10px;
     border-radius: 2px;
 }
 
-.cosmic_settings_page .cosmic_settings_page_content table .jpwc_rep_wrapper input[type="text"],
-.cosmic_settings_page .cosmic_settings_page_content table .jpwc_rep_wrapper input[type="number"] {
-    min-width: 200px;
-    padding: 3px 10px;
-    border-radius: 2px;
-}
-
-.cosmic_settings_page .cosmic_settings_page_content table .heading th {
+.srwc_settings_page .srwc_settings_page_content table .heading th {
     border-left: 2px solid black;
     font-size: 16px;
     padding: 12px 20px;
-    /* background-color: #eceafb; */
 }
 
 /*--------------------------- Switch Field ---------------------------*/
@@ -206,11 +202,3 @@
 } 
 
 /*--------------------------- End Number Field ---------------------------*/
-
-/*--------------------------- Pro Version ---------------------------*/
-
-.srwc-pro-message {
-    color: #c9356e;
-}
-  
-/*--------------------------- End Pro Version ---------------------------*/

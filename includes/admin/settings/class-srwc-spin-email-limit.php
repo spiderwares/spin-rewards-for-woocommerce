@@ -48,10 +48,6 @@ if( ! class_exists( 'SRWC_Spin_Email_Limit' ) ) :
                 wp_die( esc_html__( 'Security check failed.', 'spin-rewards-for-woocommerce' ) );
             endif;
 
-            if ( ! current_user_can( 'manage_options' ) ) :
-                wp_die( esc_html__( 'Permission denied. You are not allowed to perform this action.', 'spin-rewards-for-woocommerce' ) );
-            endif;
-
             if ( ! empty( $_POST['customer_email'] ) ) :
                 $customer_email = sanitize_email( wp_unslash( $_POST['customer_email'] ) );
                 

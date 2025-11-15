@@ -156,7 +156,6 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
                 'srwc_admin', array(
                 'ajax_url'        => admin_url( 'admin-ajax.php' ),
                 'nonce'           => wp_create_nonce( 'srwc_admin_nonce' ),
-                'is_pro'          => $this->is_pro_version(),
                 'settings'        => $this->settings,
                 'currency_symbol' => get_woocommerce_currency_symbol(),
                 'currency_code'   => get_woocommerce_currency(),
@@ -182,12 +181,6 @@ if ( ! class_exists( 'SRWC_Admin_Menu' ) ) :
 
         public function reports_page_content() {
             require_once SRWC_PATH . 'includes/admin/settings/views/spin-reports.php';
-        }
-
-        public function is_pro_version() {
-            if ( class_exists( 'SRWC_Pro' ) ) :
-                return true;
-            endif;
         }
 
         public function filter_data_before_update( $value, $old_value, $option ) {

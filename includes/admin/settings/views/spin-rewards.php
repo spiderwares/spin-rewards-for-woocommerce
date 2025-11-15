@@ -29,7 +29,7 @@ $options = get_option( 'srwc_settings', true );
 wc_get_template(
 	'fields/setting-forms.php',
 	array(
-		'title'   => 'Spin Rewards',     // Section title.
+		'title'   => 'Spin Rewards Fields',     // Section title.
 		'metaKey' => 'srwc_settings',   // Option meta key.
 		'fields'  => $fields,           // Field definitions.
 		'options' => $options,          // Saved option values.

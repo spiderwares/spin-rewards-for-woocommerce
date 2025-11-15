@@ -4,12 +4,12 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="cosmic_page cosmic_settings_page wrap">
+<div class="srwc_page srwc_settings_page wrap">
 
     <h2 class="srwc_notice_wrapper"></h2>
 
     <!-- Navigation tabs for plugin settings -->
-    <div class="cosmic_settings_page_nav">
+    <div class="srwc_settings_page_nav">
         <h2 class="nav-tab-wrapper">
 
             <!-- General settings tab -->
@@ -75,11 +75,19 @@ if ( ! defined( 'ABSPATH' ) ) exit;
                 <?php esc_html_e( 'Localization', 'spin-rewards-for-woocommerce' ); ?>
             </a>
 
+            <?php  if( ! class_exists( 'SRWC_Pro' ) ): ?>
+                <a href="<?php echo esc_url( admin_url( 'admin.php?page=cosmic-srwc&tab=features' ) ); ?>" 
+                class="<?php echo esc_attr( $active_tab === 'features' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">
+                    <img src="<?php echo esc_url( SRWC_URL . 'assets/img/features.svg'); ?>" />
+                    <?php esc_html_e( 'Features', 'spin-rewards-for-woocommerce' ); ?>
+                </a>
+            <?php endif; ?>
+
         </h2>
     </div>
 
     <!-- Content area for the active settings tab -->
-    <div class="cosmic_settings_page_content">
+    <div class="srwc_settings_page_content">
         <?php
         // Load the content for the currently active tab dynamically.
         require_once SRWC_PATH . 'includes/admin/settings/views/' . $active_tab . '.php';

@@ -52,38 +52,6 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                     'desc'       => esc_html__( 'Set the minimum time a customer must wait before spinning the wheel again.', 'spin-rewards-for-woocommerce' ),
                 ),
 
-                'auto_spin' => array(
-                    'title'      => esc_html__( 'Auto Reset Spins', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => 0,
-                    'name'       => 'srwc_settings[auto_spin]',
-                    'desc'       => esc_html__( 'Set the frequency of spins to reset. 0 means no reset.', 'spin-rewards-for-woocommerce' ),
-                    'unit'       => array(
-                        'days'    => esc_html__( 'Day\'s', 'spin-rewards-for-woocommerce' ),
-                    ),
-                    'unit_selected' => 'days',
-                    'unit_disabled' => true,
-                ),
-
-                'spin_specific_time' => array(
-                    'title'      => esc_html__( 'Reset spins at specific time', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'name'       => 'srwc_settings[spin_specific_time]',
-                    'default'    => array(
-                        'hour'   => 0,
-                        'minute' => 0,
-                        'second' => 0
-                    ),
-                    'desc'       => esc_html__( 'Set the specific time when spins should be reset daily.', 'spin-rewards-for-woocommerce' ),
-                    'unit'       => array(
-                        'hour'    => esc_html__( 'Hour', 'spin-rewards-for-woocommerce' ),
-                        'minute'  => esc_html__( 'Minute', 'spin-rewards-for-woocommerce' ),
-                        'second'  => esc_html__( 'Second', 'spin-rewards-for-woocommerce' ),
-                    ),
-                    'unit_selected' => 'hour',
-                    'unit_disabled' => true,
-                ),
-
             );
 
             return apply_filters( 'srwc_general_fields', $fields );
@@ -250,26 +218,6 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                     'disabled_options'   => array( 'middle-left', 'middle-right' ),
                 ),
 
-                'custom_popup_icon_image' => array(
-                    'title'      => esc_html__( 'Custom Popup Icon', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => '',
-                    'name'       => 'srwc_settings[custom_popup_icon_image]',
-                ),
-
-                'custom_icon_color' => array(
-                    'title'       => esc_html__( 'Custom Icon Color', 'spin-rewards-for-woocommerce' ),
-                    'field_type'  => 'srwcpro', 
-                    'default'     => '#ffffff',
-                    'name'        => 'srwc_settings[custom_icon_color]',
-                ),
-
-                'custom_icon_bg_color' => array(
-                    'title'       => esc_html__( 'Custom Icon Background', 'spin-rewards-for-woocommerce' ),
-                    'field_type'  => 'srwcpro', 
-                    'default'     => '#dd3333',
-                    'name'        => 'srwc_settings[custom_icon_bg_color]',
-                ),
             );
 
             return apply_filters( 'srwc_popup_fields', $fields );
@@ -330,48 +278,6 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                     'unit_disabled' => true,
                 ),
 
-                'user_mobile' => array(
-                    'title'      => esc_html__( 'Mobile Required', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => 'yes',
-                    'name'       => 'srwc_settings[user_mobile]',
-                    'data_show'  => '.mobile_option',
-                ),
-
-                'user_mobile_require' => array(
-                    'title'      => esc_html__( 'Mobile Required', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcswitch',
-                    'default'    => 'no',
-                    'name'       => 'srwc_settings[user_mobile_require]',
-                    'style'      => 'user_mobile.yes',
-                    'extra_class'=> 'mobile_option',
-                ),
-
-                'user_mobile_country_code' => array(
-                    'title'      => esc_html__( 'Country Code', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => array( 'IN' ),
-                    'name'       => 'srwc_settings[user_mobile_country_code]',
-                    'multiple'   => true,
-                    'placeholder'=> esc_html__( 'Select country code...', 'spin-rewards-for-woocommerce' ),
-                    'desc'       => esc_html__( 'Select which country code to show in the mobile number field.', 'spin-rewards-for-woocommerce' ),
-                    'style'      => 'user_mobile.yes',
-                    'extra_class'=> 'mobile_option',
-                ),
-
-                'mobile_border' => array(
-                    'title'      => esc_html__( 'Mobile Number Border Radius', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => 10,
-                    'name'       => 'srwc_settings[mobile_border]',
-                    'desc'       => esc_html__( 'Set the border width for the name input field.', 'spin-rewards-for-woocommerce' ),
-                    'unit'       => array(
-                        'px' => esc_html__( 'PX', 'spin-rewards-for-woocommerce' ),
-                    ),
-                    'unit_selected' => 'px',
-                    'unit_disabled' => true,
-                ),
-
                 'after_spining' => array(
                     'title'         => esc_html__('After Spinning', 'spin-rewards-for-woocommerce'),
                     'field_type'    => 'srwctitle',
@@ -392,17 +298,6 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                     'unit_disabled' => true,
                 ),
 
-                'win_animation' => array(
-                    'title'      => esc_html__( 'Winning effect', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => 'none',
-                    'name'       => 'srwc_settings[win_animation]',
-                    'options'    => array(
-                        'none'  => esc_html__( 'None', 'spin-rewards-for-woocommerce' ),
-                        'fire'  => esc_html__( 'Firework', 'spin-rewards-for-woocommerce' ),
-                    ),
-                ),
-
                 'win_message' => array(
                     'title'      => esc_html__( 'Win Message', 'spin-rewards-for-woocommerce' ),
                     'field_type' => 'srwceditor',
@@ -417,75 +312,6 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                     'field_type' => 'srwceditor',
                     'default'    => esc_html__( 'OOPS! No luck this time. Try again!', 'spin-rewards-for-woocommerce' ),
                     'name'       => 'srwc_settings[lose_message]',
-                ),
-
-                'coupon_settings' => array(
-                    'title'         => esc_html__('Apply Coupon Settings', 'spin-rewards-for-woocommerce'),
-                    'field_type'    => 'srwctitle',
-                    'extra_class'   => 'heading',
-                    'default'       => '',
-                ),
-
-                'apply_coupon_button' => array(
-                    'title'      => esc_html__( 'Apply Coupon Button', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => 'no',
-                    'name'       => 'srwc_settings[apply_coupon_button]',
-                    'desc'       => esc_html__( 'Show Apply Coupon button for coupon prize', 'spin-rewards-for-woocommerce' ),
-                ),
-
-                'apply_coupon_text' => array(
-                    'title'      => esc_html__( 'Apply Coupon Text', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => 'Apply Coupon',
-                    'name'       => 'srwc_settings[apply_coupon_text]',
-                    'desc'       => esc_html__( 'Text to display on the Apply Coupon button', 'spin-rewards-for-woocommerce' ),
-                ),
-
-                'apply_coupon_redirect'  => array(
-                    'title'      => esc_html__( 'Apply Coupon Redirect', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => '',
-                    'name'       => 'srwc_settings[apply_coupon_redirect]',
-                ),
-
-                'apply_coupon_text_color' => array(
-                    'title'       => esc_html__( 'Apply Coupon Text Color', 'spin-rewards-for-woocommerce' ),
-                    'field_type'  => 'srwcpro', 
-                    'default'     => '#ffffff',
-                    'name'        => 'srwc_settings[apply_coupon_text_color]',
-                ),
-
-                'apply_coupon_bg_color' => array(
-                    'title'       => esc_html__( 'Apply Coupon Background Color', 'spin-rewards-for-woocommerce' ),
-                    'field_type'  => 'srwcpro', 
-                    'default'     => '#ffffff',
-                    'name'        => 'srwc_settings[apply_coupon_bg_color]',
-                ),
-
-                'apply_coupon_font_size' => array(
-                    'title'       => esc_html__( 'Apply Coupon Font Size', 'spin-rewards-for-woocommerce' ),
-                    'field_type'  => 'srwcpro', 
-                    'default'     => 16,
-                    'name'        => 'srwc_settings[apply_coupon_font_size]',
-                    'unit'       => array(
-                        'px' => esc_html__( 'PX', 'spin-rewards-for-woocommerce' ),
-                    ),
-                    'unit_selected' => 'px',
-                    'unit_disabled' => true,
-                ),
-
-                'apply_coupon_border' => array(
-                    'title'       => esc_html__( 'Apply Coupon Border Radius', 'spin-rewards-for-woocommerce' ),
-                    'field_type'  => 'srwcpro', 
-                    'default'     => 10,
-                    'name'        => 'srwc_settings[apply_coupon_border]',
-                    'desc'       => esc_html__( 'Set the border width for the apply coupon button.', 'spin-rewards-for-woocommerce' ),
-                    'unit'       => array(
-                        'px' => esc_html__( 'PX', 'spin-rewards-for-woocommerce' ),
-                    ),
-                    'unit_selected' => 'px',
-                    'unit_disabled' => true,
                 ),
 
                 'gdpr_title' => array(
@@ -594,14 +420,6 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                                     ' <a href="https://woocommerce.com/document/free-shipping/" target="_blank">' . 
                                     esc_html__( 'free shipping method', 'spin-rewards-for-woocommerce' ) . '</a>'.
                                     esc_html__( ' must be enabled in your shipping zone and be set to require "a valid free shipping coupon" (see the "Free Shipping Requires" setting).', 'spin-rewards-for-woocommerce' ),
-                ),
-
-                'email_restrictions' => array(
-                    'title'      => esc_html__( 'Email Restrictions', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => 'no',
-                    'name'       => 'srwc_settings[email_restrictions]',
-                    'desc'       => esc_html__( 'Add the customer’s email address to the coupon’s allowed emails.', 'spin-rewards-for-woocommerce' ),
                 ),
 
                 'individual_use_only' => array(
@@ -743,85 +561,6 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                     'disabled_options'   => array( 'five', 'six', 'seven', 'eight' ),
                 ),
 
-                'wheel_time_duration' => array(
-                    'title'      => esc_html__( 'Wheel Time Duration', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => 3,
-                    'name'       => 'srwc_settings[wheel_time_duration]',
-                ),
-
-                'wheel_text_size' => array(
-                    'title'      => esc_html__( 'Adjust Wheel Text Size', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => 18,
-                    'name'       => 'srwc_settings[wheel_text_size]',
-                    'unit'       => array(
-                        'percentage'    => esc_html__( '%', 'spin-rewards-for-woocommerce' ),
-                    ),
-                    'unit_selected' => 'px',
-                ),
-
-                'wheel_text_font_family' => array(
-                    'title'      => esc_html__( 'Wheel Font Family', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => 'Helvetica',
-                    'name'       => 'srwc_settings[wheel_text_font_family]',
-                    'options'    => array(
-                        'arial'                => esc_html__( 'Arial', 'spin-rewards-for-woocommerce' ),
-                        'calibri'              => esc_html__( 'Calibri', 'spin-rewards-for-woocommerce' ),
-                        'cambria'              => esc_html__( 'Cambria', 'spin-rewards-for-woocommerce' ),
-                        'comic-sans-ms'        => esc_html__( 'Comic Sans MS', 'spin-rewards-for-woocommerce' ),
-                        'consolas'             => esc_html__( 'Consolas', 'spin-rewards-for-woocommerce' ),
-                        'courier-new'          => esc_html__( 'Courier New', 'spin-rewards-for-woocommerce' ),
-                        'georgia'              => esc_html__( 'Georgia', 'spin-rewards-for-woocommerce' ),
-                        'helvetica'            => esc_html__( 'Helvetica', 'spin-rewards-for-woocommerce' ),
-                        'impact'               => esc_html__( 'Impact', 'spin-rewards-for-woocommerce' ),
-                        'lucida-console'       => esc_html__( 'Lucida Console', 'spin-rewards-for-woocommerce' ),
-                        'lucida-sans'          => esc_html__( 'Lucida Sans', 'spin-rewards-for-woocommerce' ),
-                        'monaco'               => esc_html__( 'Monaco', 'spin-rewards-for-woocommerce' ),
-                        'open-sans'            => esc_html__( 'Open Sans', 'spin-rewards-for-woocommerce' ),
-                        'palatino-linotype'    => esc_html__( 'Palatino Linotype', 'spin-rewards-for-woocommerce' ),
-                        'poppins'              => esc_html__( 'Poppins', 'spin-rewards-for-woocommerce' ),
-                        'roboto'               => esc_html__( 'Roboto', 'spin-rewards-for-woocommerce' ),
-                        'sans-serif'           => esc_html__( 'Sans Serif', 'spin-rewards-for-woocommerce' ),
-                        'segoe-ui'             => esc_html__( 'Segoe UI', 'spin-rewards-for-woocommerce' ),
-                        'tahoma'               => esc_html__( 'Tahoma', 'spin-rewards-for-woocommerce' ),
-                        'times-new-roman'      => esc_html__( 'Times New Roman', 'spin-rewards-for-woocommerce' ),
-                        'trebuchet-ms'         => esc_html__( 'Trebuchet MS', 'spin-rewards-for-woocommerce' ),
-                        'ubuntu'               => esc_html__( 'Ubuntu', 'spin-rewards-for-woocommerce' ),
-                        'verdana'              => esc_html__( 'Verdana', 'spin-rewards-for-woocommerce' ),
-                    ),
-                ),
-
-                'wheel_text_color' => array(
-                    'title'      => esc_html__( 'Wheel Text Color', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => '#ffffff',
-                    'name'       => 'srwc_settings[wheel_text_color]',
-                ),
-
-                'wheel_size' => array(
-                    'title'      => esc_html__( 'Adjust Wheel Size', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => 100,
-                    'name'       => 'srwc_settings[wheel_size]',
-                    'unit'       => array(
-                        'percentage'    => esc_html__( '%', 'spin-rewards-for-woocommerce' ),
-                    ),
-                    'unit_selected' => 'percentage',
-                ),
-
-                'display_currency' => array(
-                    'title'      => esc_html__( 'Display Currency', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => '',
-                    'name'       => 'srwc_settings[display_currency]',
-                    'options'    => array(
-                        'symbol'         => esc_html__( 'Symbol ($, ₹, €, £...)', 'spin-rewards-for-woocommerce' ),
-                        'currency_code'  => esc_html__( 'Currency Code (USD, RS, EUR, GBP...)', 'spin-rewards-for-woocommerce' ),
-                    ),
-                ),
-
                 'wheel_pointer' => array(
                     'title'      => esc_html__( 'Wheel Pointer Position', 'spin-rewards-for-woocommerce' ),
                     'field_type' => 'srwcselect',
@@ -862,7 +601,7 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                 ),
 
                 'wheel_pointer_cutout_color' => array(
-                    'title'      => esc_html__( 'Wheel Pointer Color', 'spin-rewards-for-woocommerce' ),
+                    'title'      => esc_html__( 'Wheel Pointer Cutout Color', 'spin-rewards-for-woocommerce' ),
                     'field_type' => 'srwccolor',
                     'default'    => '#ffffff',
                     'name'       => 'srwc_settings[wheel_pointer_cutout_color]',
@@ -870,34 +609,11 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                     'extra_class'=> 'wheel_pointer_cutout_color_option',
                 ),
 
-                'wheel_pointer_image' => array(
-                    'title'      => esc_html__( 'Wheel Pointer Image', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => '',
-                    'name'       => 'srwc_settings[wheel_pointer_image]',
-                    'style'      => 'wheel_pointer_type.custom',
-                    'extra_class'=> 'wheel_pointer_image_option',
-                ),
-
                 'wheel_center_color' => array(
                     'title'      => esc_html__( 'Wheel Center Color', 'spin-rewards-for-woocommerce' ),
                     'field_type' => 'srwccolor',
                     'default'    => '#ffffff',
                     'name'       => 'srwc_settings[wheel_center_color]',
-                ),
-
-                'wheel_border_color' => array(
-                    'title'      => esc_html__( 'Wheel Border Color', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => '#d6d6d6',
-                    'name'       => 'srwc_settings[wheel_border_color]',
-                ),
-
-                'wheel_dot_color' => array(
-                    'title'      => esc_html__( 'Wheel Dot Color', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => '#000000',
-                    'name'       => 'srwc_settings[wheel_dot_color]',
                 ),
 
                 'background_image' => array(
@@ -953,7 +669,7 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                 ),
 
                 'text_color' => array(
-                    'title'      => esc_html__( 'Text Color', 'spin-rewards-for-woocommerce' ),
+                    'title'      => esc_html__( 'Win & Loss Text Color', 'spin-rewards-for-woocommerce' ),
                     'field_type' => 'srwccolor',
                     'default'    => '#000000',
                     'name'       => 'srwc_settings[text_color]',
@@ -974,36 +690,18 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                     'desc'       => esc_html__( 'Text to display on the Spin Wheel button.', 'spin-rewards-for-woocommerce' ),
                 ),
 
-                'spin_button_text_size' => array(
-                    'title'      => esc_html__( 'Spin Button Text Size', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => 16,
-                    'name'       => 'srwc_settings[spin_button_text_size]',
-                    'unit'       => array(
-                        'px'            => esc_html__( 'PX', 'spin-rewards-for-woocommerce' ),
-                        'percentage'    => esc_html__( '%', 'spin-rewards-for-woocommerce' ),
-                    ),
-                    'unit_selected' => 'px',
-                ),
-
-                'spin_button_border' => array(
-                    'title'      => esc_html__( 'Spin Button Border Radius', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => 10,
-                    'name'       => 'srwc_settings[spin_button_border]',
-                    'desc'       => esc_html__( 'Set the border width for the spin button.', 'spin-rewards-for-woocommerce' ),
-                    'unit'       => array(
-                        'px' => esc_html__( 'PX', 'spin-rewards-for-woocommerce' ),
-                    ),
-                    'unit_selected' => 'px',
-                    'unit_disabled' => true,
-                ),
-
                 'spin_button_text_color' => array(
                     'title'      => esc_html__( 'Spin Button Text Color', 'spin-rewards-for-woocommerce' ),
                     'field_type' => 'srwccolor',
                     'default'    => '#ffffff',
                     'name'       => 'srwc_settings[spin_button_text_color]',
+                ),
+
+                'spin_button_text_hover_color' => array(
+                    'title'      => esc_html__( 'Spin Button Text Hover Color', 'spin-rewards-for-woocommerce' ),
+                    'field_type' => 'srwccolor',
+                    'default'    => '#ffffff',
+                    'name'       => 'srwc_settings[spin_button_text_hover_color]',
                 ),
 
                 'spin_button_bg_color' => array(
@@ -1019,76 +717,6 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                     'default'    => '#ffad42',
                     'name'       => 'srwc_settings[spin_button_hover_bg_color]',
                 ),
-
-                'show_close_button' => array(
-                    'title'      => esc_html__( 'Show Close Button', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => 'yes',
-                    'name'       => 'srwc_settings[show_close_button]',
-                    'desc'       => esc_html__( 'Enable to show the close button at the bottom of the spin wheel.', 'spin-rewards-for-woocommerce' ),
-                    'data_show'  => '.close_button_text_option',
-                ),
-
-                'close_button_text' => array(
-                    'title'      => esc_html__( 'Close Button Text', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => esc_html__( 'Close Now', 'spin-rewards-for-woocommerce' ),
-                    'name'       => 'srwc_settings[close_button_text]',
-                    'desc'       => esc_html__( 'Text to display on the Close button.', 'spin-rewards-for-woocommerce' ),
-                    'style'      => 'show_close_button.yes',
-                    'extra_class'=> 'close_button_text_option',
-                ),
-
-                'close_btn_font_size' => array(
-                    'title'      => esc_html__( 'Close Button Font Size', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => 18,
-                    'name'       => 'srwc_settings[close_btn_font_size]',
-                    'desc'       => esc_html__( 'Font size of the close button.', 'spin-rewards-for-woocommerce' ),
-                    'style'      => 'show_close_button.yes',
-                    'extra_class'=> 'close_button_text_option',
-                ),
-
-                'close_btn_text_color' => array(
-                    'title'      => esc_html__( 'Close Button Text Color', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => '#ff4444',
-                    'name'       => 'srwc_settings[close_btn_text_color]',
-                    'desc'       => esc_html__( 'Text color of the close button.', 'spin-rewards-for-woocommerce' ),
-                    'style'      => 'show_close_button.yes',
-                    'extra_class'=> 'close_button_text_option',
-                ),
-
-                'close_btn_hover_color' => array(
-                    'title'      => esc_html__( 'Close Button Hover Color', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => '#ffffff',
-                    'name'       => 'srwc_settings[close_btn_hover_color]',
-                    'desc'       => esc_html__( 'Text color when hovering over the close button.', 'spin-rewards-for-woocommerce' ),
-                    'style'      => 'show_close_button.yes',
-                    'extra_class'=> 'close_button_text_option',
-                ),
-
-                'spin_bg_effects' => array(
-                    'title'      => esc_html__( 'Background Effects', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => 'none',
-                    'name'       => 'srwc_settings[spin_bg_effects]',
-                    'options'    => array(
-                        'none'          => esc_html__( 'None', 'spin-rewards-for-woocommerce' ),
-                        'ballloons'     => esc_html__( 'Balloons', 'spin-rewards-for-woocommerce' ),
-                        'batman'        => esc_html__( 'Batman', 'spin-rewards-for-woocommerce' ),
-                        'halloween'     => esc_html__( 'Halloween', 'spin-rewards-for-woocommerce' ),
-                        'heart'         => esc_html__( 'Heart', 'spin-rewards-for-woocommerce' ),
-                        'hearts'        => esc_html__( 'Hearts', 'spin-rewards-for-woocommerce' ),
-                        'leaf'          => esc_html__( 'Falling Leaves', 'spin-rewards-for-woocommerce' ),
-                        'pumpkins'      => esc_html__( 'Pumpkins', 'spin-rewards-for-woocommerce' ),
-                        'smile'         => esc_html__( 'Smile', 'spin-rewards-for-woocommerce' ),
-                        'snowflake'     => esc_html__( 'Snowflake', 'spin-rewards-for-woocommerce' ),
-                        'star'          => esc_html__( 'Star', 'spin-rewards-for-woocommerce' ),
-                    ),
-                ),
-
             );
 
             return apply_filters( 'srwc_wheel_design_fields', $fields );
@@ -1133,21 +761,6 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                     'default'    => 'yes',
                     'name'       => 'srwc_settings[enable_customer_email]',
                     'desc'       => esc_html__( 'Send an email notification to the customer when they win a coupon from the spin rewards.', 'spin-rewards-for-woocommerce' ),
-                ),
-
-                'admin_notification_title' => array(
-                    'title'         => esc_html__('Admin Notification', 'spin-rewards-for-woocommerce'),
-                    'field_type'    => 'srwctitle',
-                    'extra_class'   => 'heading',
-                    'default'       => '',
-                ),
-
-                'enable_admin_email' => array(
-                    'title'      => esc_html__( 'Enable Admin Notification', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => 'yes',
-                    'name'       => 'srwc_settings[enable_admin_email]',
-                    'desc'       => esc_html__( 'Send an email notification to the site admin when a customer wins a coupon from the spin rewards.', 'spin-rewards-for-woocommerce' ),
                 ),
 
             );
@@ -1203,37 +816,6 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                     'placeholder'=> esc_html__( 'Select lists...', 'spin-rewards-for-woocommerce' ),
                     'style'      => 'enable_mailchimp.yes',
                     'extra_class'=> 'enable_mailchimp',
-                ),
-
-                'klaviyo_heading' => array(
-                    'title'         => esc_html__('Klaviyo', 'spin-rewards-for-woocommerce'),
-                    'field_type'    => 'srwctitle',
-                    'extra_class'   => 'heading',
-                    'default'       => '',
-                ),
-
-                'klaviyo_enable' => array(
-                    'title'      => esc_html__( 'Enable Klaviyo', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => 'no',
-                    'name'       => 'srwc_settings[klaviyo_enable]',
-                    'desc'       => esc_html__( 'Subscribe users to Klaviyo on spin.', 'spin-rewards-for-woocommerce' ),
-                ),
-
-                'klaviyo_private_key' => array(
-                    'title'      => esc_html__( 'Klaviyo Private API Key', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => '',
-                    'name'       => 'srwc_settings[klaviyo_private_key]',
-                    'desc'       => esc_html__( '**The API key for connecting with your Klaviyo account. Get your API key ', 'spin-rewards-for-woocommerce' ) . '<a href="https://www.klaviyo.com/account#api-keys-tab" target="_blank">' . esc_html__( 'here', 'spin-rewards-for-woocommerce' ) . '</a>.',
-                ),
-
-                'klaviyo_list_id' => array(
-                    'title'      => esc_html__( 'Klaviyo List ID', 'spin-rewards-for-woocommerce' ),
-                    'field_type' => 'srwcpro',
-                    'default'    => '',
-                    'name'       => 'srwc_settings[klaviyo_list_id]',
-                    'desc'       => esc_html__( 'The List ID to subscribe users to.', 'spin-rewards-for-woocommerce' ),
                 ),
             );
 

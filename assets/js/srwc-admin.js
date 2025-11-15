@@ -164,20 +164,25 @@ jQuery(function($) {
 
         addRepeaterRow(e) {
             e.preventDefault();
-            const table      = $(e.currentTarget).closest('table'),
-                tbody        = table.find('tbody'),
-                template     = table.find('.srwc-repeater-template').clone(),
-                existingRows = tbody.find('tr.srwc-slide-row').length,
-                isPro        = srwc_admin.is_pro || false;
-            
-            if (!isPro && existingRows >= 6) {
+        
+            const table        = $(e.currentTarget).closest('table'),
+                  tbody        = table.find('tbody'),
+                  template     = table.find('.srwc-repeater-template').clone(),
+                  existingRows = tbody.find('tr.srwc-slide-row').length,
+                  slideLimit   = (typeof window.srwc_slide_limit !== "undefined");
+        
+            if (!slideLimit && existingRows >= 6) {
                 alert(srwc_admin.messages.max_slides);
                 return false;
             }
-
-            template.removeClass('srwc-repeater-template').addClass('srwc-slide-row').show();
+        
+            template
+                .removeClass('srwc-repeater-template')
+                .addClass('srwc-slide-row')
+                .show();
+        
             tbody.append(template);
-            
+        
             this.updateIndexNumbers(table);
             this.initColorPickers();
         }
@@ -335,8 +340,7 @@ jQuery(function($) {
     
                 form = $('<form>', {
                 method: 'POST',
-                action: srwc_admin.ajax_url,
-                nonce: srwc_admin.nonce
+                action: srwc_admin.ajax_url
             });
     
             form.append($('<input>', { type: 'hidden', name: 'action', value: 'srwc_export_emails' }));

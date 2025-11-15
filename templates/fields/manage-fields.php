@@ -76,19 +76,6 @@ foreach ( $fields as $field_Key => $field ) :
                     );
                     break;
 
-                case "srwcpro":
-                    wc_get_template(
-                        'fields/pro-field.php',
-                        array(
-                            'field'      => $field,
-                            'field_Val'  => $field_Val,
-                            'field_Key'  => $field_Key
-                        ),
-                        'spin-rewards-for-woocommerce/',
-                        SRWC_TEMPLATE_PATH
-                    );
-                    break;
-
                 case "srwctext":
                     wc_get_template(
                         'fields/text-field.php', 

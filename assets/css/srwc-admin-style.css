@@ -1,4 +1,4 @@
-/*--------------------------- Settings Page ---------------------------*/
+  /*--------------------------- Settings Page ---------------------------*/
 
 .srwc-settings-page .form-table th {
   width: 200px;
@@ -425,6 +425,94 @@ tbody.srwc-repeater-body.ui-sortable td {
 }
 
 /*--------------------------- End Select2 Coupon Select ---------------------------*/
+
+/*--------------------------- Features Comparison ---------------------------*/
+
+.srwc-features-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.srwc-features-table .srwc-free-version {
+  background: #cff5d2;
+  color: #000000;
+  padding: 15px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.srwc-features-table .srwc-pro-version {
+  background: #2E7D32;
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.srwc-features-table .srwc-feature {
+  background: #F5F5F5;
+  color: #1d2327;
+  text-align: left;
+  width: 30%;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.srwc-features-table td:first-child{
+  text-align: left;
+}
+
+.srwc-features-table td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.srwc-features-table .srwc-check {
+  color: #00a32a;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.srwc-features-table .srwc-cross {
+  color: #d63638;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.srwc-features-header {
+  padding: 20px;
+  background: #fff;
+  border-left: 2px solid #000000;
+}
+
+.srwc-features-header h2 {
+  margin: 0 0 10px 0;
+  color: #1d2327;
+}
+
+.srwc-features-header p {
+  margin: 0;
+  color: #646970;
+}
+
+.srwc-features-table tbody tr td {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.srwc-message { 
+  margin-top: 20px;
+  padding: 20px; 
+  background: #fff3cd; 
+  border-left: 4px solid #ffc107; 
+}
+
+/*--------------------------- End Features Comparison ---------------------------*/
 
 /*--------------------------- Responsive Design ---------------------------*/
 
