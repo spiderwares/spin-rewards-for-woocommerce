@@ -20,11 +20,15 @@ Designed to be lightweight, extensible, and theme‑compatible.
 
 == External Services ==
 
-This plugin includes the following open-source libraries:
+This plugin includes the following open-source libraries and third-party integrations:
 
 1. **[Select2](https://select2.org/)**  
    A jQuery-based replacement for select boxes that supports searching, tagging, remote data sets, and infinite scrolling.  
    **License:** MIT
+
+2. **[Mailchimp](https://mailchimp.com/)**  
+   Email marketing and automation platform used for email list management and subscriber integration.  
+   **License:** Proprietary (Third-party service)
 
 == Key Features ==
 
