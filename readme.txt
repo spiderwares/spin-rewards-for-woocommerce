@@ -9,15 +9,22 @@ Stable tag: 1.0.0
 Version: 1.0.0
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Tags: woocommerce, spin wheel, coupons, discounts, rewards
+Tags: woocommerce, spin wheel, coupons, discounts, spin rewards
 
 Grow sales and email signups with a customizable spin‑the‑wheel game that instantly awards discount coupons in WooCommerce.
 
 == Description ==
 
 **Spin Rewards for WooCommerce** adds an engaging spin‑the‑wheel experience to your store. Encourage visitors to play, win discounts, and shop immediately. Fully customizable design, slides, and reward probabilities, plus automated coupon creation, email collection, and detailed reports.
-
 Designed to be lightweight, extensible, and theme‑compatible.
+
+== External Services ==
+
+This plugin includes the following open-source libraries:
+
+1. **[Select2](https://select2.org/)**  
+   A jQuery-based replacement for select boxes that supports searching, tagging, remote data sets, and infinite scrolling.  
+   **License:** MIT
 
 == Key Features ==
 
