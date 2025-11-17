@@ -32,6 +32,7 @@ if ( ! class_exists( 'SRWC_Public' ) ) :
             $this->settings = get_option( 'srwc_settings', array() );
             add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
             add_action( 'wp_footer', [ $this, 'display_wheel' ], 20 );
+            add_action( 'woocommerce_applied_coupon', [ $this, 'limit_coupon_use_once' ] );
         }
     
         public function enqueue_assets() {
@@ -148,6 +149,39 @@ if ( ! class_exists( 'SRWC_Public' ) ) :
             );
         }
 
+        /**
+         * Prevent applying the same coupon more than once.
+         */
+        public function limit_coupon_use_once( $new_coupon ) {
+
+            if ( ! WC()->cart ) return;
+        
+            // Get limit
+            $limit = isset( $this->settings['apply_coupon_limit'] ) ? absint( $this->settings['apply_coupon_limit'] ) : 1;
+    
+            if ( $limit === 0 ) return;
+        
+            $applied = WC()->cart->get_applied_coupons();
+            while ( count( $applied ) > $limit ) :
+                $remove = array_shift( $applied );
+                if ( strtolower( $remove ) !== strtolower( $new_coupon ) ) :
+                    WC()->cart->remove_coupon( $remove );
+                endif;
+        
+                $applied = WC()->cart->get_applied_coupons();
+            endwhile;
+        
+            if ( count( $applied ) > $limit ) :
+                wc_add_notice(
+                    sprintf( __( 'Maximum %d coupon(s) allowed. Extra coupons removed.', 'spin-rewards-for-woocommerce' ), $limit ),
+                    'error'
+                );
+            endif;
+        
+            WC()->cart->calculate_totals();
+        }
+              
+        
     }
 
     new SRWC_Public();

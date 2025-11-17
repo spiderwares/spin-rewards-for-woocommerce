@@ -454,6 +454,14 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                     'desc'       => esc_html__( 'The maximum spend to use the coupon.', 'spin-rewards-for-woocommerce' ),
                 ),
 
+                'apply_coupon_limit' => array(
+                    'title'      => esc_html__( 'Apply Coupon Limit', 'spin-rewards-for-woocommerce' ),
+                    'field_type' => 'srwcnumber',
+                    'default'    => 1,
+                    'name'       => 'srwc_settings[apply_coupon_limit]',
+                    'desc'       => esc_html__( 'The maximum number of times a coupon can be applied to an order.', 'spin-rewards-for-woocommerce' ),
+                ),
+
                 'include_products' => array(
                     'title'      => esc_html__( 'Include Products', 'spin-rewards-for-woocommerce' ),
                     'field_type' => 'srwcselect2',

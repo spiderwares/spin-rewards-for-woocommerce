@@ -43,6 +43,7 @@ return apply_filters(
             'exclude_sale'                  => 'no',
             'minimum_spend'                 => '',
             'maximum_spend'                 => '',
+            'apply_coupon_limit'            => 1,
             'limit_coupon'                  => 1,
             'limit_coupon_to_x_items'       => 1,
             'limit_coupon_per_user'         => 1,
