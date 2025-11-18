@@ -52,11 +52,33 @@ This plugin includes the following open-source libraries and third-party integra
 ⭐ Auto-hide wheel after spin (in seconds)
 ⭐ Show/hide close button
 ⭐ Email notifications for winners (customer)
-⭐ Klaviyo Email & SMS Integration
+⭐ Mailchimp Email & SMS Integration
 ⭐ Validation messages: name, email, mobile, GDPR, spin limit, wait time
 ⭐ Localization: fully translatable frontend texts, validation messages, button labels
 ⭐ Error message styling: color and font size
 ⭐ Frontend popup spin wheel with responsive, theme‑friendly UI
+
+== Pro Features ==
+
+⭐ Auto Spin Reset – automatically reset daily spin limits or schedule resets at a specific time (hour, minute, second).   
+⭐ Advanced Popup Triggers – display popup on scroll, exit intent, or via a floating icon trigger.  
+⭐ Custom Popup Icon – upload your own icon, logo, or image to use as the popup trigger.  
+⭐ Popup Icon Styling – set custom icon position, size, color, and background color.  
+⭐ Mobile Number Field – collect customer phone numbers (optional or required) with country code selector.  
+⭐ Mobile Validation – custom validation messages and input formatting for better lead quality.  
+⭐ Apply Coupon Button – show “Apply Coupon” after spin with custom text, color, border radius, and redirect URL.  
+⭐ Winning Animation – show a celebratory firework animation when users win.  
+⭐ Enhanced Wheel Design – control wheel speed (1–8), spin duration, border color, dot color and wheel size (percentage).  
+⭐ Text & Font Control – set wheel text size, color, and font family for each segment.  
+⭐ Pointer Customization – choose pointer type (color or image) and adjust its color or upload custom graphic.  
+⭐ Currency Display – display either currency symbol or currency code on wheel segments.    
+⭐ Advanced Style Settings – control popup layout, border radius, background blend mode, and button hover effects.  
+⭐ Background Effects - apply animated backgrounds to the popup for more engaging visuals.   
+⭐ Email Restrictions – restrict generated coupons for the winner’s email address only.  
+⭐ Klaviyo Integration – connect with Klaviyo using Private API Key and List ID to sync customer emails automatically.  
+⭐ Admin Notifications – receive instant email alerts whenever a customer wins a coupon.
+⭐ Responsive – mobile-friendly popup and wheel layout that fits any WooCommerce theme.  
+⭐ Developer-Friendly – supports template overrides for full frontend customization. 
 
 == Installation ==
 
@@ -64,7 +86,7 @@ This plugin includes the following open-source libraries and third-party integra
 2. Log in to your WordPress dashboard and go to Plugins > Add New.
 3. Click Upload Plugin, choose the ZIP, and click Install Now.
 4. Activate the plugin.
-5. Navigate to WooCommerce > Spin Rewards to configure design, prizes, and behavior.
+5. Navigate to Wordpress Dashboard > WooCommerce > Spin Rewards to configure design, prizes, and behavior.
 
 == Usage ==
 
@@ -93,11 +115,17 @@ Yes. The plugin is compatible with WooCommerce HPOS.
 
 == Screenshots ==
 
-1. Spin wheel popup on the storefront.
-2. Wheel design and slice configuration in admin.
-3. Slides/intro content settings.
-4. Coupon and email settings.
-5. Spin records and performance reports.
+1. General Setting.
+2. Popup Setting.
+3. Spin Rewards Setting.
+4. Wheel Slides Setting.
+5. Wheel Design Setting.
+6. Email Notification Setting.
+7. Email API Setting.
+8. Localization Setting.
+9. Frontend Spin Wheel in user.
+10. Spin Reports
+11. Spin Records
 
 == Changelog ==
 
