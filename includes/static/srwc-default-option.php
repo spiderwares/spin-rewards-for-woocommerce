@@ -47,7 +47,7 @@ return apply_filters(
             'limit_coupon'                  => 1,
             'limit_coupon_to_x_items'       => 1,
             'limit_coupon_per_user'         => 1,
-            'wheel_speed_spin'              => '3',
+            'wheel_speed_spin'              => '5',
             'wheel_pointer'                 => 'center',
             'wheel_pointer_color'           => '#f70707',
             'wheel_pointer_type'            => 'color',

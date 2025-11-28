@@ -15,6 +15,8 @@ jQuery(function($) {
             this.miniWheelInner = $('.srwc-mini-wheel-inner');
             this.afterspin      = 'srwc_show_again_until';
             this.afterclose     = 'srwc_close_until';
+            this.cookieName     = 'srwc_cookie';
+            this.selectedThemeColor = null;
             this.loadslides();
             this.bindEvents();
             this.floatingButton();
@@ -24,10 +26,34 @@ jQuery(function($) {
             window.srwcFrontendInstance = this;
         }
 
+        /**
+         * Get cookie value by name
+         */
+        getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) {
+                return parts.pop().split(';').shift();
+            }
+            return null;
+        }
+
+        /**
+         * Set cookie with name, value and expiry days
+         */
+        setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = `expires=${date.toUTCString()}`;
+            document.cookie = `${name}=${value};${expires};path=/`;
+        }
+
         bindEvents() {
             $(document.body).on( 'click', '.srwc-open-wheel, .srwc-floating-btn', this.openWheel.bind(this) );
             $(document.body).on( 'click', '.srwc-close, .srwc-close-btn, .srwc-wheel-modal', this.closeWheel.bind(this) );
             $(document.body).on( 'click', '.srwc-spin-btn', this.spinWheel.bind(this) );
+            $(document.body).on( 'click', '.srwc-option-link', this.handleNotDisplayOption.bind(this) );
+            $(document.body).on( 'click', '.srwc-color-palette', this.handleColorSelection.bind(this) );
         }
 
         loadslides() {
@@ -106,7 +132,7 @@ jQuery(function($) {
             const ctx = canvas.getContext('2d');
             ctx.scale(dpr, dpr);
         
-            this.wheelInner = this.modal.find('.wheel-inner');
+            this.wheelInner = this.modal.find('.srwc-wheel-inner');
             this.wheelInner.empty().append(canvas);
         
             const total       = this.slides.length,
@@ -243,6 +269,15 @@ jQuery(function($) {
         
         openWheel(e) {
             e.preventDefault();
+            
+            // Check cookie first - if exists, don't show popup
+            const cookieValue = this.getCookie(this.cookieName);
+            if (cookieValue) {
+                this.floatingBtn.toggleClass('srwc-hidden', true);
+                localStorage.setItem('srwc_icon_hidden', 'true');
+                return;
+            }
+
             let delay   = 0;
 
             const settings   = srwc_frontend?.settings || {},
@@ -294,48 +329,107 @@ jQuery(function($) {
         }
 
         closeWheel(e) {
-            const settings = srwc_frontend?.settings || {};
+            const settings = srwc_frontend?.settings || {},
+                target   = $(e.target);
         
-            if (e.target.id === 'srwc-wheel-modal' || 
-                $(e.target).hasClass('srwc-close') || 
-                $(e.target).hasClass('srwc-close-btn') || 
-                $(e.target).closest('.srwc-close-btn').length
+            if (
+                e.target.id === 'srwc-wheel-modal' || 
+                target.hasClass('srwc-close') || 
+                target.hasClass('srwc-close-btn') || 
+                target.closest('.srwc-close-btn').length
             ) {
-        
-                this.modal.find('.srwc-wheel-container').removeClass('slide-in').addClass('slide-out');
-                srwc_frontend.form.removeBackgroundEffects();
-        
-                setTimeout(() => {
-                    this.modal.hide();
-                    this.modal.find('.srwc-wheel-container').removeClass('slide-out');
-                    this.handleIconHide();
-
-                    if (!this.hasSpin) {
-                        let timeOnClose = parseInt(settings.time_on_close, 10),
-                            unit        = (settings.time_on_close_unit || 'minutes').toLowerCase(),
-                            multiplier  = 1000;
-
-                        if (unit === 'minutes') multiplier    = 60 * 1000;
-                        else if (unit === 'hours') multiplier = 60 * 60 * 1000;
-                        else if (unit === 'days') multiplier  = 24 * 60 * 60 * 1000;
-
-                        if (Number.isFinite(timeOnClose) && timeOnClose > 0) {
-                            const until = Date.now() + (timeOnClose * multiplier);
-                            localStorage.setItem(this.afterclose, String(until));
-                            localStorage.setItem('srwc_icon_hidden', 'true');
-                            this.floatingBtn.addClass('srwc-hidden');
-                            
-                            setTimeout(() => {
-                                this.floatingBtn.removeClass('srwc-hidden');
-                                localStorage.setItem('srwc_icon_hidden', 'false');
-                                this.openWheel({ preventDefault: () => {} });
-                            }, timeOnClose * multiplier);
-                        }
-                    }
-
-                    this.hasSpin = false;
-                }, 800);
+                this.performWheelClose(settings);
             }
+        }
+
+        handleNotDisplayOption(e) {
+            e.preventDefault();
+            const target = $(e.currentTarget),
+                option   = target.data('option'),
+                settings = srwc_frontend?.settings || {};
+            
+            if (!option) {
+                this.performWheelClose(settings);
+                return;
+            }
+            
+            // Handle different options with cookies
+            switch(option) {
+                case 'never':
+                    // Set cookie "never_show_again" with 30 days expiry
+                    this.setCookie(this.cookieName, 'never_show_again', 30);
+                    this.floatingBtn.addClass('srwc-hidden');
+                    localStorage.setItem('srwc_icon_hidden', 'true');
+                    this.performWheelClose(settings, false);
+                    break;
+                    
+                case 'remind_later':
+                    // Set cookie "reminder_later" with 1 day expiry
+                    this.setCookie(this.cookieName, 'reminder_later', 1);
+                    this.floatingBtn.addClass('srwc-hidden');
+                    localStorage.setItem('srwc_icon_hidden', 'true');
+                    this.performWheelClose(settings, false);
+                    break;
+                    
+                case 'no_thanks':
+                    // Set cookie "closed" with expiry from time_on_close setting
+                    let timeOnClose = parseInt(settings.time_on_close, 10) || 1,
+                        unit = (settings.time_on_close_unit || 'days').toLowerCase(),
+                        days = 1; // Default to 1 day
+                    
+                    // Convert to days
+                    if (unit === 'minutes') days = timeOnClose / (24 * 60);
+                    else if (unit === 'hours') days = timeOnClose / 24;
+                    else if (unit === 'days') days = timeOnClose;
+                    
+                    // Minimum 1 day
+                    days = Math.max(days, 1);
+                    
+                    this.setCookie(this.cookieName, 'closed', days);
+                    this.floatingBtn.addClass('srwc-hidden');
+                    localStorage.setItem('srwc_icon_hidden', 'true');
+                    this.performWheelClose(settings, false);
+                    break;
+                    
+                default:
+                    this.performWheelClose(settings);
+            }
+        }
+
+        performWheelClose(settings) {
+            this.modal.find('.srwc-wheel-container').removeClass('slide-in').addClass('slide-out');
+            srwc_frontend.form.removeBackgroundEffects();
+    
+            setTimeout(() => {
+                this.modal.hide();
+                this.modal.find('.srwc-wheel-container').removeClass('slide-out');
+                this.handleIconHide();
+    
+                if (!this.hasSpin) {
+                    let timeOnClose = parseInt(settings.time_on_close, 10),
+                        unit        = (settings.time_on_close_unit || 'minutes').toLowerCase(),
+                        multiplier  = 1000;
+    
+                    if (unit === 'minutes') multiplier    = 60 * 1000;
+                    else if (unit === 'hours') multiplier = 60 * 60 * 1000;
+                    else if (unit === 'days') multiplier  = 24 * 60 * 60 * 1000;
+    
+                    if (Number.isFinite(timeOnClose) && timeOnClose > 0) {
+                        const until = Date.now() + (timeOnClose * multiplier);
+                        localStorage.setItem(this.afterclose, String(until));
+                        localStorage.setItem('srwc_icon_hidden', 'true');
+                        this.floatingBtn.addClass('srwc-hidden');
+                        
+                        setTimeout(() => {
+                            this.floatingBtn.removeClass('srwc-hidden');
+                            localStorage.setItem('srwc_icon_hidden', 'false');
+                            this.openWheel({ preventDefault: () => {} });
+                        }, timeOnClose * multiplier);
+                    }
+                }
+    
+                this.hasSpin = false;
+            }, 800);
         }
         
         spinWheel(e) {
@@ -389,7 +483,7 @@ jQuery(function($) {
             const spinBtn     = this.modal.find('.srwc-spin-btn'),
                 total         = this.slides.length,
                 degreesPer    = 360 / total,
-                speedMap      = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8 },
+                speedMap      = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10 },
                 speed         = speedMap[settings.wheel_speed_spin || 'three'] || 3,
                 duration      = settings.wheel_time_duration || 4,
                 selectedslide = srwc_frontend.form.slideProbability(),
@@ -532,6 +626,85 @@ jQuery(function($) {
                 this.floatingBtn.addClass('srwc-hidden');
                 localStorage.setItem('srwc_icon_hidden', 'true');
             }
+        }
+
+        handleColorSelection(e) {
+            e.preventDefault();
+            
+            const __this      = $(e.currentTarget),
+                selectedColor = __this.data('color');
+            
+            if (!selectedColor) return;
+            
+            // Update active state
+            $('.srwc-color-palette').removeClass('active');
+            __this.addClass('active');
+            
+            this.selectedThemeColor = selectedColor;
+            
+            const isGradient = selectedColor.includes('gradient') || selectedColor.includes('linear-gradient'),
+                bgStyles     = isGradient ? { 'background': selectedColor } : { 'background-color': selectedColor };
+            this.modal.find('.srwc-wheel-container').css(bgStyles);
+            
+            // Generate color variations for slides
+            const slideColors = this.generateColorVariations(selectedColor, this.slides.length);
+            
+            this.slides.forEach((slide, index) => {
+                slide.color = slideColors[index];
+            });
+            
+            // Rebuild wheel with new colors
+            this.buildWheel();
+            this.buildMiniWheel();
+        }
+
+        generateColorVariations(baseColor, count) {
+            const colors = [],
+             base        = this.hexToRgb(baseColor);
+            
+            if (!base) {
+                for (let i = 0; i < count; i++) {
+                    colors.push(this.randomColor());
+                }
+                return colors;
+            }
+            
+            // Generate variations by adjusting brightness and saturation
+            for (let i = 0; i < count; i++) {
+                const factor     = (i / count) * 0.6 + 0.4,
+                    brightness   = (i % 3) * 0.2; // Vary brightness
+                
+                let r = Math.min(255, Math.max(0, base.r * factor + brightness * 255)),
+                    g = Math.min(255, Math.max(0, base.g * factor + brightness * 255)),
+                    b = Math.min(255, Math.max(0, base.b * factor + brightness * 255));
+                
+                // Add some variation
+                const variation = (i % 2 === 0) ? 1.1 : 0.9;
+                r = Math.min(255, Math.max(0, r * variation));
+                g = Math.min(255, Math.max(0, g * variation));
+                b = Math.min(255, Math.max(0, b * variation));
+                
+                colors.push(this.rgbToHex(Math.round(r), Math.round(g), Math.round(b)));
+            }
+            
+            return colors;
+        }
+
+        hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+
+        rgbToHex(r, g, b) {
+            return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+        }
+
+        randomColor() {
+            return '#' + Math.floor(Math.random()*16777215).toString(16);
         }     
 
     }

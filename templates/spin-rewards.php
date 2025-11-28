@@ -11,12 +11,20 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <!-- Background Effects -->
 <div class="srwc-bg-effects"></div>
 
-<div class="srwc-wheel-modal">
+<?php
+$custom_css_class = !empty($settings['custom_css_class']) ? esc_attr($settings['custom_css_class']) : '';
+$modal_class  = 'srwc-wheel-modal';
+if (!empty($custom_css_class)) :
+    $modal_class .= ' ' . $custom_css_class;
+endif;
+?>
+
+<div class="<?php echo esc_attr($modal_class); ?>">
   <div class="srwc-wheel-container">
     
     <div class="srwc-wheel-left">
       <div class="srwc-wheel">
-        <div class="wheel-inner">
+        <div class="srwc-wheel-inner">
           <canvas id="srwc_wheel_canvas"></canvas>
         </div>
         <div class="srwc-pointer">
@@ -76,6 +84,25 @@ if ( ! defined( 'ABSPATH' ) ) exit;
       <div class="srwc-win-message">
         <div class="srwc-win-text"></div>
       </div>
+
+      <!-- Not Display Wheel Again Options -->
+      <?php if (!empty($settings['not_display_wheel_again']) && $settings['not_display_wheel_again'] === 'yes') :
+          $never_text         = !empty($settings['not_display_option_never']) ? $settings['not_display_option_never'] : '';
+          $remind_later_text  = !empty($settings['not_display_option_remind_later']) ? $settings['not_display_option_remind_later'] : '';
+          $no_thanks_text     = !empty($settings['not_display_option_no_thanks']) ? $settings['not_display_option_no_thanks'] : '';
+        ?>
+        <div class="srwc-not-display-options">
+          <span class="srwc-option-link" data-option="never">
+            <?php echo esc_html($never_text); ?>
+          </span>
+          <span class="srwc-option-link" data-option="remind_later">
+            <?php echo esc_html($remind_later_text); ?>
+          </span>
+          <span class="srwc-option-link" data-option="no_thanks">
+            <?php echo esc_html($no_thanks_text); ?>
+          </span>
+        </div>
+      <?php endif; ?>
       
       <!-- Close Button at Bottom -->
       <?php if (!empty($settings['show_close_button']) && $settings['show_close_button'] === 'yes') : ?>
@@ -89,16 +116,36 @@ if ( ! defined( 'ABSPATH' ) ) exit;
       <?php endif; ?>
     </div>
   </div>
+  
+  <!-- Color Picker - Right Side -->
+  <div class="srwc-color-picker-section">
+    <div class="srwc-color-picker-wrapper">
+      <div class="srwc-color-picker-grid">
+        <?php
+        // Define color palette (6x4 grid = 24 colors)
+        $color_palette = array(
+          '#b71c1c', '#311b92', '#F2CD04', '#00907D', '#1E90FF', '#7B68EE',
+          '#FF69B4', '#FF4500', '#FF8C00', '#22B522', '#4682B4', '#5FB05F',
+          '#BA55D3', '#4a148c', '#1b5e20', '#0d47a1', '#004d40', '#FF6347',
+          '#827717', '#f57f17', '#e65100', '#3e2723', '#263238', '#000000',
+        );
+        
+        foreach ($color_palette as $index => $color) :
+        ?>
+          <div class="srwc-color-palette" data-color="<?php echo esc_attr($color); ?>" style="background-color: <?php echo esc_attr($color); ?>;"></div>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Float Spin Button -->
 <div class="srwc-floating-btn" data-hide-icon="<?php echo esc_attr(!empty($settings['hide_icon']) ? $settings['hide_icon'] : 'no'); ?>">
-    <?php if ( !empty($settings['custom_popup_icon_image']) ) : ?>
-        <?php 
+    <?php if ( !empty($settings['custom_popup_icon_image']) ) :
             $icon_img = esc_url($settings['custom_popup_icon_image']);
             $is_svg   = (bool) preg_match('/\.svg(\?.*)?$/i', $icon_img);
-        ?>
-        <?php if ($is_svg) : ?>
+            
+        if ($is_svg) : ?>
             <div class="srwc-mini-icon srwc-mini-icon--svg">
                 <div class="srwc-mini-icon-mask"></div>
             </div>
@@ -106,8 +153,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             <div class="srwc-mini-icon">
                 <img src="<?php echo esc_url($icon_img); ?>" alt="spin icon" />
             </div>
-        <?php endif; ?>
-    <?php else : ?>
+        <?php endif;
+    else : ?>
         <div class="srwc-mini-wheel">
             <div class="srwc-mini-wheel-inner">
                 <canvas id="srwc-mini-wheel-canvas" width="70" height="70"></canvas>

@@ -36,6 +36,7 @@
     padding: 10px 20px;
     background-color: #e6e6e6;
     border-width: 0px;
+    border-radius: 5px 5px 0 0;
 }
 
 .srwc_settings_page .srwc_settings_page_content {
@@ -194,7 +195,7 @@
     border-left: 1px solid #d1d5db;
     font-size: 14px;
     display: inline-block;
-    min-width: 80px;
+    min-width: 60px;
     text-align: center;
     font-weight: 700;
     border-radius: 0 5px 5px 0;

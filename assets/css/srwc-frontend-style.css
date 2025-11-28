@@ -12,7 +12,7 @@
 
 .srwc-wheel-container {
     box-sizing: border-box;
-    max-width: 1200px;
+    max-width: 1150px;
     width: 100%;
     height: 100vh;
     overflow-y: auto;
@@ -41,6 +41,7 @@
     padding: 30px;
     transform: translateX(-100%);
     transition: transform 0.7s ease-out;
+    box-shadow: 3px 0 12px #000;
 }
 
 .srwc-wheel-container.slide-in {
@@ -62,7 +63,7 @@
     position: relative;
 }
 
-.wheel-inner canvas {
+.srwc-wheel-inner canvas {
     max-width: 550px;
     max-height: 550px;
     width: 100%;
@@ -164,7 +165,7 @@
     border: none !important;
     cursor: pointer !important;
     font-family: 'Poppins', sans-serif !important;
-    font-weight: 600 !important;
+    font-weight: 400 !important;
     line-height: 1.5 !important;
     transition: all 0.3s ease !important;
 }
@@ -175,8 +176,9 @@
 }
 
 .srwc-error {
+    margin-top: -12px;
     display: none;
-    font-weight: 400;       
+    font-weight: 600;       
 }
 
 .srwc-win-message {
@@ -200,12 +202,9 @@
 /*--------------------------- End Win & Loss Message ---------------------------*/
 
 .srwc-title {
-    text-align: center;
-    text-transform: uppercase;
     letter-spacing: 1px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    font-size: 24px;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 15px;
     line-height: 1.2;
     color: #fff;
     margin-bottom: 20px;
@@ -220,9 +219,9 @@
 .srwc-close {
     position: absolute;
     cursor: pointer;
-    right: 15px;
-    top: 10px;
-    font-size: 30px;
+    right: 0px;
+    top: -10px;
+    font-size: 45px;
     line-height: 1;
     color: #fff;
     z-index: 10;
@@ -245,6 +244,31 @@
     display: flex;
 }
 
+.srwc-mini-wheel-inner {
+    animation: slowSpin 4s linear infinite;
+    transform-origin: center center;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.srwc-mini-wheel-inner canvas {
+    transform-origin: center center;
+}
+
+@keyframes slowSpin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
 /*--------------------------- End Mini Spin Wheel ---------------------------*/
 
 /*--------------------------- GDPR Checkbox ---------------------------*/
@@ -263,11 +287,17 @@
     margin-top: 3px;
     flex-shrink: 0;
     cursor: pointer;
+    color: #000000 !important;
+    accent-color: #000000 !important;
 }
 
 .srwc-gdpr-text {
     flex: 1;
     cursor: default;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.4;
+    letter-spacing: 0.5px;
 }
 
 .srwc-gdpr-error {
@@ -305,11 +335,164 @@
 
 /*----------------------------- End Close Button -----------------------------*/
 
+/*----------------------------- Not Display Wheel Again Options -----------------------------*/
+
+.srwc-not-display-options {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+    justify-content: flex-start;
+}
+
+.srwc-option-link {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+/*----------------------------- End Not Display Wheel Again Options -----------------------------*/
+
+/*----------------------------- Color Picker -----------------------------*/
+
+.srwc-color-picker-section {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.srwc-color-picker-wrapper {
+    min-width: 50px;
+    position: relative;
+    transition: all 0.3s ease;
+    margin-right: -28px;
+}
+
+.srwc-color-picker-grid {
+    display: flex;
+    flex-direction: column;
+    width: 50px;
+}
+
+.srwc-color-palette {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #fff;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
+    position: relative;
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    pointer-events: auto;
+    display: block;
+}
+
+.srwc-color-palette:nth-child(n+5) {
+    opacity: 0;
+    display: none;
+    pointer-events: none;
+}
+
+.srwc-color-picker-wrapper:hover {
+    min-width: 320px;
+}
+
+.srwc-color-picker-wrapper:hover .srwc-color-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    width: 320px;
+    margin-right: -27px;
+}
+
+.srwc-color-picker-wrapper:hover .srwc-color-palette {
+    opacity: 1;
+    transform: translateX(0) scale(1) !important;
+    pointer-events: auto;
+    position: relative;
+    display: block;
+    animation: slideIn 0.5s ease-in-out;
+}
+
+.srwc-color-picker-wrapper:hover .srwc-color-palette:nth-child(n+5) {
+    opacity: 0;
+    display: block;
+    animation: slideIn 0.5s ease-in-out forwards;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(0.5);
+    }
+}
+
+.srwc-color-palette::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.srwc-color-palette.active::after {
+    opacity: 1;
+}
+
+/*----------------------------- End Color Picker -----------------------------*/
+
 @media (max-width: 1024px) {
     .srwc-wheel-left {
         width: 100% !important;
     }
     .srwc-wheel-right {
         width: 100% !important;
+        position: relative;
+        padding-right: 80px;
+    }
+    .srwc-color-picker-section {
+        position: absolute;
+        right: 0;
+        top: 40px;
+        transform: none;
+        margin-top: 0;
+        width: auto;
+        display: block;
+    }
+    .srwc-color-picker-wrapper {
+        margin-right: 0;
+        min-width: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .srwc-wheel-right {
+        padding-right: 0;
+    }
+    .srwc-color-picker-section {
+        position: relative;
+        right: auto;
+        top: auto;
+        margin-top: 15px;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    .srwc-color-picker-wrapper {
+        max-width: 60px;
     }
 }

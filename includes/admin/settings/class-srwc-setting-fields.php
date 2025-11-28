@@ -159,6 +159,7 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                     'desc'       => esc_html__( 'Show popup icon only on Blog page.', 'spin-rewards-for-woocommerce' ),
                 ),
 
+
                 'conditional_tags' => array(
                     'title'      => esc_html__( 'Conditional Tags', 'spin-rewards-for-woocommerce' ),
                     'field_type' => 'srwctext',
@@ -301,7 +302,7 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                 'win_message' => array(
                     'title'      => esc_html__( 'Win Message', 'spin-rewards-for-woocommerce' ),
                     'field_type' => 'srwceditor',
-                    'default'    => esc_html__( 'Congratulations! You have won a {coupon_label} discount coupon. The coupon has been sent to the email address you provided when spinning. Redeem it at checkout {checkout} now!', 'spin-rewards-for-woocommerce' ),
+                    'default'    => esc_html__( 'Congratulations! You have won a {coupon_label} discount coupon! We’ve sent the coupon to the email address you used during the spin. Use it at {checkout} and enjoy your savings!', 'spin-rewards-for-woocommerce' ),
                     'name'       => 'srwc_settings[win_message]',
                     'desc'       =>esc_html__( '{coupon_label} - Label of coupon that customers win' , 'spin-rewards-for-woocommerce' ) . '<br>' .
                                    esc_html__( '{checkout} - Link to checkout page' , 'spin-rewards-for-woocommerce' ),
@@ -557,16 +558,18 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                     'default'    => 'five',
                     'name'       => 'srwc_settings[wheel_speed_spin]',
                     'options'    => array(
-                        'one'   => esc_html__( '1', 'spin-rewards-for-woocommerce' ),
-                        'two'   => esc_html__( '2', 'spin-rewards-for-woocommerce' ),
-                        'three' => esc_html__( '3', 'spin-rewards-for-woocommerce' ),
-                        'four'  => esc_html__( '4', 'spin-rewards-for-woocommerce' ),
-                        'five'  => esc_html__( '5 (pro)', 'spin-rewards-for-woocommerce' ),
+                        'one'   => esc_html__( '1 (pro)', 'spin-rewards-for-woocommerce' ),
+                        'two'   => esc_html__( '2 (pro)', 'spin-rewards-for-woocommerce' ),
+                        'three' => esc_html__( '3 (pro)', 'spin-rewards-for-woocommerce' ),
+                        'four'  => esc_html__( '4 (pro)', 'spin-rewards-for-woocommerce' ),
+                        'five'  => esc_html__( '5', 'spin-rewards-for-woocommerce' ),
                         'six'   => esc_html__( '6 (Pro)', 'spin-rewards-for-woocommerce' ),
                         'seven' => esc_html__( '7 (Pro)', 'spin-rewards-for-woocommerce' ),
                         'eight' => esc_html__( '8 (Pro)', 'spin-rewards-for-woocommerce' ),
+                        'nine'  => esc_html__( '9 (Pro)', 'spin-rewards-for-woocommerce' ),
+                        'ten'   => esc_html__( '10 (Pro)', 'spin-rewards-for-woocommerce' ),
                     ),
-                    'disabled_options'   => array( 'five', 'six', 'seven', 'eight' ),
+                    'disabled_options'   => array( 'one', 'two', 'three', 'four', 'six', 'seven', 'eight', 'nine', 'ten' ),
                 ),
 
                 'wheel_pointer' => array(
@@ -683,6 +686,65 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                     'name'       => 'srwc_settings[text_color]',
                 ),
 
+                'not_display_wheel_again' => array(
+                    'title'      => esc_html__( 'Not Display Wheel Again', 'spin-rewards-for-woocommerce' ),
+                    'field_type' => 'srwcswitch',
+                    'default'    => 'no',
+                    'name'       => 'srwc_settings[not_display_wheel_again]',
+                    'desc'       => esc_html__( 'If enabled, the wheel will not be displayed again for the same user.', 'spin-rewards-for-woocommerce' ),
+                    'data_show'  => '.not-display-options',
+                ),
+
+                'not_display_option_never' => array(
+                    'title'      => esc_html__( 'Never Text', 'spin-rewards-for-woocommerce' ),
+                    'field_type' => 'srwctext',
+                    'default'    => esc_html__( 'Never', 'spin-rewards-for-woocommerce' ),
+                    'name'       => 'srwc_settings[not_display_option_never]',
+                    'desc'       => esc_html__( 'Text for the Never option.', 'spin-rewards-for-woocommerce' ),
+                    'style'      => 'not_display_wheel_again.yes',
+                    'extra_class'=> 'not-display-options',
+                ),
+
+                'not_display_option_remind_later' => array(
+                    'title'      => esc_html__( 'Remind Later Text', 'spin-rewards-for-woocommerce' ),
+                    'field_type' => 'srwctext',
+                    'default'    => esc_html__( 'Remind later', 'spin-rewards-for-woocommerce' ),
+                    'name'       => 'srwc_settings[not_display_option_remind_later]',
+                    'desc'       => esc_html__( 'Text for the Remind later option.', 'spin-rewards-for-woocommerce' ),
+                    'style'      => 'not_display_wheel_again.yes',
+                    'extra_class'=> 'not-display-options',
+                ),
+
+                'not_display_option_no_thanks' => array(
+                    'title'      => esc_html__( 'No Thanks Text', 'spin-rewards-for-woocommerce' ),
+                    'field_type' => 'srwctext',
+                    'default'    => esc_html__( 'No thanks', 'spin-rewards-for-woocommerce' ),
+                    'name'       => 'srwc_settings[not_display_option_no_thanks]',
+                    'desc'       => esc_html__( 'Text for the No thanks option.', 'spin-rewards-for-woocommerce' ),
+                    'style'      => 'not_display_wheel_again.yes',
+                    'extra_class'=> 'not-display-options',
+                ),
+
+                'not_display_option_color' => array(
+                    'title'      => esc_html__( 'Option Text Color', 'spin-rewards-for-woocommerce' ),
+                    'field_type' => 'srwccolor',
+                    'default'    => '#333333',
+                    'name'       => 'srwc_settings[not_display_option_color]',
+                    'desc'       => esc_html__( 'Color for the Option Text', 'spin-rewards-for-woocommerce' ),
+                    'style'      => 'not_display_wheel_again.yes',
+                    'extra_class'=> 'not-display-options',
+                ),
+
+                'not_display_option_hover_color' => array(
+                    'title'      => esc_html__( 'Option Hover Color', 'spin-rewards-for-woocommerce' ),
+                    'field_type' => 'srwccolor',
+                    'default'    => '#000000',
+                    'name'       => 'srwc_settings[not_display_option_hover_color]',
+                    'desc'       => esc_html__( 'Hover color for the Option Text', 'spin-rewards-for-woocommerce' ),
+                    'style'      => 'not_display_wheel_again.yes',
+                    'extra_class'=> 'not-display-options',
+                ),
+                
                 'rewards_title' => array(
                     'title'      => esc_html__( 'Rewards Title', 'spin-rewards-for-woocommerce' ),
                     'field_type' => 'srwceditor',
@@ -821,7 +883,7 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                     'name'       => 'srwc_settings[mailchimp_lists]',
                     'desc'       => esc_html__( 'The Audience ID to subscribe users to. Get your Audience ID ', 'spin-rewards-for-woocommerce' ) . '<a href="https://us16.admin.mailchimp.com/audience/settings/" target="_blank">' . esc_html__( 'here', 'spin-rewards-for-woocommerce' ) . '</a>.',
                     'multiple'   => true,
-                    'placeholder'=> esc_html__( 'Select lists...', 'spin-rewards-for-woocommerce' ),
+                    'placeholder'=> esc_html__( 'Enter Audience ID', 'spin-rewards-for-woocommerce' ),
                     'style'      => 'enable_mailchimp.yes',
                     'extra_class'=> 'enable_mailchimp',
                 ),
@@ -927,6 +989,38 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
             );
 
             return apply_filters( 'srwc_localization_fields', $fields );
+        }
+
+        /**
+         * Generates the custom CSS fields for spin rewards configuration.
+         *
+         * @return array The custom CSS fields for the custom CSS configuration.
+         */
+        public static function custom_css_field() {
+            $fields = array(
+
+                'custom_css_class' => array(
+                    'title'      => esc_html__( 'Custom CSS Class', 'spin-rewards-for-woocommerce' ),
+                    'field_type' => 'srwctext',
+                    'default'    => '',
+                    'name'       => 'srwc_settings[custom_css_class]',
+                    'placeholder' => 'my-custom-wheel',
+                    'desc'       => esc_html__( 'Add a custom CSS class to the wheel modal container. This class will be added to the .srwc-wheel-modal element.', 'spin-rewards-for-woocommerce' ),
+                ),
+
+                'custom_css' => array(
+                    'title'       => esc_html__( 'Custom CSS', 'spin-rewards-for-woocommerce' ),
+                    'field_type'  => 'srwctextarea',
+                    'default'     => '',
+                    'name'        => 'srwc_settings[custom_css]',
+                    'rows'        => 12,
+                    'placeholder' => esc_html__( '/* Add your custom CSS here */', 'spin-rewards-for-woocommerce' ),
+                    'desc'        => esc_html__( 'Add your custom CSS code here. This CSS will be applied to the spin wheel on the frontend.', 'spin-rewards-for-woocommerce' ),
+                ),
+
+            );
+
+            return apply_filters( 'srwc_custom_css_fields', $fields );
         }
     }
 

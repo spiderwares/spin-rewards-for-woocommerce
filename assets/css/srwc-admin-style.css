@@ -1,37 +1,3 @@
-  /*--------------------------- Settings Page ---------------------------*/
-
-.srwc-settings-page .form-table th {
-  width: 200px;
-  padding: 20px 10px 20px 0;
-  vertical-align: top;
-}
-
-.srwc-settings-page .form-table td {
-  padding: 15px 10px;
-}
-
-.srwc-settings-form .form-table td {
-  vertical-align: top;
-}
-
-.srwc-settings-page .form-table input[type="number"] {
-  width: 80px;
-}
-
-.srwc-settings-page .form-table select {
-  min-width: 200px;
-}
-
-.srwc-settings-page .description {
-  font-style: italic;
-  color: #666;
-  margin-top: 5px;
-}
-
-.srwc-settings-page .notice {
-  margin: 15px 0;
-}
-
 /*--------------------------- Popup Trigger Select ---------------------------*/
 
 .srwc-select, #popup_trigger {

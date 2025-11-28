@@ -88,6 +88,19 @@ foreach ( $fields as $field_Key => $field ) :
                         SRWC_TEMPLATE_PATH
                     );
                     break;
+
+                case "srwctextarea":
+                    wc_get_template(
+                        'fields/textarea-field.php', 
+                        array(
+                            'field'     => $field,
+                            'field_Val' => $field_Val,
+                            'field_Key' => $field_Key,
+                        ),
+                        'spin-rewards-for-woocommerce/',
+                        SRWC_TEMPLATE_PATH
+                    );
+                    break;
                 
                 case "srwceditor":
                     wc_get_template(

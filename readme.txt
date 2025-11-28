@@ -1,5 +1,5 @@
 === Spin Rewards for WooCommerce ===
-Contributors: cosmic
+Contributors: cosmicinfosoftware
 Requires at least: 5.2
 Tested up to: 6.8
 Requires PHP: 7.4

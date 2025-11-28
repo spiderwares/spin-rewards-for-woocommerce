@@ -75,6 +75,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
                 <?php esc_html_e( 'Localization', 'spin-rewards-for-woocommerce' ); ?>
             </a>
 
+            <!-- Custom CSS settings tab -->
+            <a href="<?php echo esc_url( admin_url( 'admin.php?page=cosmic-srwc&tab=custom-css' ) ); ?>" 
+               class="<?php echo esc_attr( $active_tab === 'custom-css' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">
+                <img src="<?php echo esc_url( SRWC_URL . 'assets/img/custom-css.svg'); ?>" />
+                <?php esc_html_e( 'Custom CSS', 'spin-rewards-for-woocommerce' ); ?>
+            </a>
+
             <?php  if( ! class_exists( 'SRWC_Pro' ) ): ?>
                 <a href="<?php echo esc_url( admin_url( 'admin.php?page=cosmic-srwc&tab=features' ) ); ?>" 
                 class="<?php echo esc_attr( $active_tab === 'features' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">

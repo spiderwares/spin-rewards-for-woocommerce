@@ -14,7 +14,6 @@ endif;
 
 $bg_color           = !empty($settings['background_color']) ? $settings['background_color'] : '#087988ff';
 $text_color         = !empty($settings['text_color']) ? $settings['text_color'] : '#ffffff';
-
 $bg_image           = !empty($settings['background_image']) ? $settings['background_image'] : 'default_img';
 $custom_bg_image    = !empty($settings['custom_background_image']) ? $settings['custom_background_image'] : '';
 $bg_blend_mode      = !empty($settings['background_blend_mode']) ? $settings['background_blend_mode'] : 'overlay';
@@ -32,7 +31,9 @@ $email_border               = !empty($settings['email_border']) ? $settings['ema
 $name_border                = !empty($settings['name_border']) ? $settings['name_border'] : '10px';
 $wheel_pointer_cutout_color = !empty($settings['wheel_pointer_cutout_color']) ? $settings['wheel_pointer_cutout_color'] : '#ffffff';
 $wheel_pointer_image        = !empty($settings['wheel_pointer_image']) ? $settings['wheel_pointer_image'] : '';
-$close_btn_text_color        = !empty($settings['close_btn_text_color']) ? $settings['close_btn_text_color'] : '#ff4444';
+$close_btn_text_color       = !empty($settings['close_btn_text_color']) ? $settings['close_btn_text_color'] : '#ff4444';
+$option_color               = !empty($settings['not_display_option_color']) ? $settings['not_display_option_color'] : '#333333';
+$option_hover_color         = !empty($settings['not_display_option_hover_color']) ? $settings['not_display_option_hover_color'] : '#000000';
 
 ?>
 .srwc-form-controls .srwc-email {
@@ -91,16 +92,16 @@ $close_btn_text_color        = !empty($settings['close_btn_text_color']) ? $sett
     <?php
     switch($icon_position) {
         case 'top-left':
-            echo 'top: 30px; left: 0px; right: auto; bottom: auto;';
+            echo 'top: 15px; left: 0px; right: auto; bottom: auto;';
             break;
         case 'top-right':
-            echo 'top: 30px; right: 0px; left: auto; bottom: auto;';
+            echo 'top: 15px; right: 0px; left: auto; bottom: auto;';
             break;
         case 'bottom-left':
-            echo 'bottom: 30px; left: 0px; right: auto; top: auto;';
+            echo 'bottom: 15px; left: 0px; right: auto; top: auto;';
             break;
         case 'bottom-right':
-            echo 'bottom: 30px; right: 0px; left: auto; top: auto;';
+            echo 'bottom: 15px; right: 0px; left: auto; top: auto;';
             break;
     }
     ?>
@@ -120,3 +121,19 @@ $close_btn_text_color        = !empty($settings['close_btn_text_color']) ? $sett
 .srwc-pointer::after {
     background: <?php echo esc_html( $wheel_pointer_color ); ?>;
 }
+
+.srwc-option-link {
+    color: <?php echo esc_html( $option_color ); ?>;
+}
+
+.srwc-option-link:hover {
+    color: <?php echo esc_html( $option_hover_color ); ?>;
+}
+
+<?php
+// Output custom CSS if provided
+$custom_css = !empty($settings['custom_css']) ? $settings['custom_css'] : '';
+if (!empty($custom_css)) :
+    echo wp_strip_all_tags($custom_css);
+endif;
+?>
