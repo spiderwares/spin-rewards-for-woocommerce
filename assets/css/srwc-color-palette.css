@@ -1,0 +1,137 @@
+/*----------------------------- Color Palette -----------------------------*/
+
+.srwc-color-picker-section {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.srwc-color-picker-wrapper {
+    min-width: 50px;
+    position: relative;
+    transition: all 0.3s ease;
+    margin-right: -28px;
+}
+
+.srwc-color-picker-grid {
+    display: flex;
+    flex-direction: column;
+    width: 50px;
+}
+
+.srwc-color-palette {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #fff;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
+    position: relative;
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    pointer-events: auto;
+    display: block;
+}
+
+.srwc-color-palette:nth-child(n+5) {
+    opacity: 0;
+    display: none;
+    pointer-events: none;
+}
+
+.srwc-color-picker-wrapper:hover {
+    min-width: 320px;
+}
+
+.srwc-color-picker-wrapper:hover .srwc-color-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    width: 320px;
+    margin-right: -27px;
+}
+
+.srwc-color-picker-wrapper:hover .srwc-color-palette {
+    opacity: 1;
+    transform: translateX(0) scale(1) !important;
+    pointer-events: auto;
+    position: relative;
+    display: block;
+    animation: slideIn 0.5s ease-in-out;
+}
+
+.srwc-color-picker-wrapper:hover .srwc-color-palette:nth-child(n+5) {
+    opacity: 0;
+    display: block;
+    animation: slideIn 0.5s ease-in-out forwards;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(0.5);
+    }
+}
+
+.srwc-color-palette::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.srwc-color-palette.active::after {
+    opacity: 1;
+}
+
+/*----------------------------- End Color Palette -----------------------------*/
+
+@media (max-width: 768px) {
+    .srwc-wheel-right {
+        padding-right: 0;
+    }
+
+    .srwc-color-picker-section {
+        position: relative;
+        right: auto;
+        top: auto;
+        margin-top: 15px;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .srwc-color-picker-wrapper {
+        max-width: 60px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .srwc-color-picker-section {
+        position: absolute;
+        right: 0;
+        top: 40%;
+        transform: none;
+        margin-top: 0;
+        width: auto;
+        display: block;
+    }
+
+    .srwc-color-picker-wrapper {
+        margin-right: 0;
+        min-width: 50px;
+    }
+}

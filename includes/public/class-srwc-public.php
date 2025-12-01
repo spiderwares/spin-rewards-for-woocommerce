@@ -44,10 +44,25 @@ if ( ! class_exists( 'SRWC_Public' ) ) :
                 SRWC_VERSION 
             );
 
+            wp_enqueue_style( 
+                'srwc-color-palette', 
+                SRWC_URL . 'assets/css/srwc-color-palette.css', 
+                array(), 
+                SRWC_VERSION 
+            );
+
             wp_enqueue_script( 
                 'srwc-frontend', 
                 SRWC_URL . 'assets/js/srwc-frontend.js', 
                 array( 'jquery', 'wp-hooks' ), 
+                SRWC_VERSION,
+                true
+            );
+
+            wp_enqueue_script( 
+                'srwc-color-palette', 
+                SRWC_URL . 'assets/js/srwc-color-palette.js', 
+                array( 'jquery' ), 
                 SRWC_VERSION,
                 true
             );
