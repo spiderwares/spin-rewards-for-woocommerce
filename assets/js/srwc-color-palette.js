@@ -18,12 +18,10 @@ jQuery(function ($) {
 
         handleColorSelection(e) {
             e.preventDefault();
-
             const __this = $(e.currentTarget),
                 selectedColor = __this.data('color');
 
             if (!selectedColor) return;
-
             // Update active state
             $('.srwc-color-palette').removeClass('active');
             __this.addClass('active');
@@ -31,11 +29,10 @@ jQuery(function ($) {
             this.selectedThemeColor = selectedColor;
 
             const isGradient = selectedColor.includes('gradient') || selectedColor.includes('linear-gradient'),
-                bgStyles = isGradient ? { 'background': selectedColor } : { 'background-color': selectedColor };
+                bgStyles     = isGradient ? { 'background': selectedColor } : { 'background-color': selectedColor };
             srwc_frontend.frontend.modal.find('.srwc-wheel-container').css(bgStyles);
 
             const slideColors = this.generateColorVariations(selectedColor, srwc_frontend.frontend.slides.length);
-
             srwc_frontend.frontend.slides.forEach((slide, index) => {
                 slide.color = slideColors[index];
             });
@@ -56,8 +53,8 @@ jQuery(function ($) {
             }
 
             for (let i = 0; i < count; i++) {
-                const factor = (i / count) * 0.6 + 0.4,
-                    brightness = (i % 3) * 0.2;
+                const factor   = (i / count) * 0.6 + 0.4,
+                    brightness = (i % 2.6) * 0.2;
 
                 let r = Math.min(255, Math.max(0, base.r * factor + brightness * 255)),
                     g = Math.min(255, Math.max(0, base.g * factor + brightness * 255)),

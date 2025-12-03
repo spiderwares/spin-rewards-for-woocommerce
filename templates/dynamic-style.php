@@ -65,7 +65,7 @@ $option_hover_color         = !empty($settings['not_display_option_hover_color']
         background-repeat: no-repeat;
         background-blend-mode: <?php echo esc_html( $bg_blend_mode ); ?>;
     <?php elseif($bg_image === 'default_img'): ?>
-        background: <?php echo esc_html( $bg_color ); ?> url('<?php echo esc_url(SRWC_URL . 'assets/img/2020.png'); ?>');
+        background: <?php echo esc_html( $bg_color ); ?> url('<?php echo esc_url(SRWC_URL . 'assets/img/bg_image.png'); ?>');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;

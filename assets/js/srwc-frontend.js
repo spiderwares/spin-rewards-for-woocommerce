@@ -8,14 +8,14 @@ jQuery(function ($) {
         }
 
         init() {
-            this.slides = [];
-            this.modal = $('.srwc-wheel-modal');
-            this.wheelInner = null;
-            this.floatingBtn = $('.srwc-floating-btn');
+            this.slides         = [];
+            this.modal          = $('.srwc-wheel-modal');
+            this.wheelInner     = null;
+            this.floatingBtn    = $('.srwc-floating-btn');
             this.miniWheelInner = $('.srwc-mini-wheel-inner');
-            this.afterspin = 'srwc_show_again_until';
-            this.afterclose = 'srwc_close_until';
-            this.cookieName = 'srwc_cookie';
+            this.afterspin      = 'srwc_show_again_until';
+            this.afterclose     = 'srwc_close_until';
+            this.cookieName     = 'srwc_cookie';
             this.loadslides();
             this.bindEvents();
             this.floatingButton();
@@ -29,8 +29,8 @@ jQuery(function ($) {
          * Get cookie value by name
          */
         getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
+            const value = `; ${document.cookie}`,
+                parts   = value.split(`; ${name}=`);
             if (parts.length === 2) {
                 return parts.pop().split(';').shift();
             }
@@ -43,7 +43,7 @@ jQuery(function ($) {
         setCookie(name, value, days) {
             const date = new Date();
             date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            const expires = `expires=${date.toUTCString()}`;
+            const expires   = `expires=${date.toUTCString()}`;
             document.cookie = `${name}=${value};${expires};path=/`;
         }
 
@@ -65,8 +65,8 @@ jQuery(function ($) {
         }
 
         popupTrigger() {
-            const settings = srwc_frontend?.settings || {},
-                trigger = settings.popup_trigger || 'show_wheel',
+            const settings   = srwc_frontend?.settings || {},
+                trigger      = settings.popup_trigger || 'show_wheel',
                 initialDelay = parseFloat(settings.initial_delay) || 0;
 
             switch (trigger) {
@@ -86,13 +86,13 @@ jQuery(function ($) {
                 settings = srwc_frontend?.settings || {};
 
             // Default base values
-            let baseSize = 550,
-                wheelSize = 100,
-                fontSize = 20,
-                textColor = "#fff",
+            let baseSize    = 550,
+                wheelSize   = 100,
+                fontSize    = 20,
+                textColor   = "#fff",
                 borderColor = '#d6d6d6',
-                dotColor = '#000000',
-                fontFamily = "Poppins";
+                dotColor    = '#000000',
+                fontFamily  = "Poppins";
 
             // Allow external filter hook
             if (typeof wp !== 'undefined' && wp.hooks) {
@@ -109,23 +109,23 @@ jQuery(function ($) {
                     },
                     (data) => {
                         if (data) {
-                            fontSize = parseInt(data.fontSize) || fontSize;
-                            textColor = data.color || textColor;
-                            fontFamily = data.fontFamily || fontFamily;
-                            wheelSize = parseInt(data.wheelSize) || wheelSize;
+                            fontSize    = parseInt(data.fontSize) || fontSize;
+                            textColor   = data.color || textColor;
+                            fontFamily  = data.fontFamily || fontFamily;
+                            wheelSize   = parseInt(data.wheelSize) || wheelSize;
                             borderColor = data.borderColor || borderColor;
-                            dotColor = data.dotColor || dotColor;
+                            dotColor    = data.dotColor || dotColor;
                         }
                     }
                 );
             }
 
             // Calculate scale
-            const scale = wheelSize / 100,
-                finalSize = baseSize * scale,
-                dpr = window.devicePixelRatio || 1;
-            canvas.width = finalSize * dpr;
-            canvas.height = finalSize * dpr;
+            const scale     = wheelSize / 100,
+                finalSize   = baseSize * scale,
+                dpr         = window.devicePixelRatio || 1;
+            canvas.width    = finalSize * dpr;
+            canvas.height   = finalSize * dpr;
 
             const ctx = canvas.getContext('2d');
             ctx.scale(dpr, dpr);
@@ -133,17 +133,17 @@ jQuery(function ($) {
             this.wheelInner = this.modal.find('.srwc-wheel-inner');
             this.wheelInner.empty().append(canvas);
 
-            const total = this.slides.length,
-                centerX = finalSize / 2,
-                centerY = finalSize / 2,
-                radius = (finalSize / 2) - (25 * scale),
-                textRadius = radius - (80 * scale),
+            const total     = this.slides.length,
+                centerX     = finalSize / 2,
+                centerY     = finalSize / 2,
+                radius      = (finalSize / 2) - (25 * scale),
+                textRadius  = radius - (80 * scale),
                 centerColor = settings.wheel_center_color || '#ffffff';
 
             // === Draw slides ===
             for (let i = 0; i < total; i++) {
                 const startAngle = (i * 2 * Math.PI) / total,
-                    endAngle = ((i + 1) * 2 * Math.PI) / total;
+                    endAngle     = ((i + 1) * 2 * Math.PI) / total;
 
                 // Slice background
                 ctx.beginPath();
@@ -172,7 +172,7 @@ jQuery(function ($) {
             const borderOffset = 5 * scale;
             ctx.beginPath();
             ctx.arc(centerX, centerY, radius + borderOffset, 0, Math.PI * 2);
-            ctx.lineWidth = 18 * scale;
+            ctx.lineWidth   = 18 * scale;
             ctx.strokeStyle = borderColor;
             ctx.stroke();
 
@@ -181,8 +181,8 @@ jQuery(function ($) {
                 dotBaseSize = Math.max(finalSize * 0.011 * scale, 0.8);
             this.slides.forEach((s, idx) => {
                 const start = (idx * 2 * Math.PI) / total,
-                    dotX = centerX + Math.cos(start) * (radius + dotOffset),
-                    dotY = centerY + Math.sin(start) * (radius + dotOffset);
+                    dotX    = centerX + Math.cos(start) * (radius + dotOffset),
+                    dotY    = centerY + Math.sin(start) * (radius + dotOffset);
 
                 ctx.beginPath();
                 ctx.arc(dotX, dotY, dotBaseSize, 0, 2 * Math.PI);
@@ -197,14 +197,14 @@ jQuery(function ($) {
             ctx.arc(centerX, centerY, centerRadius, 0, Math.PI * 2);
 
             ctx.shadowColor = 'rgba(0, 0, 0, 0.25)';
-            ctx.shadowBlur = 10 * scale;
-            ctx.fillStyle = centerColor;
+            ctx.shadowBlur  = 10 * scale;
+            ctx.fillStyle   = centerColor;
             ctx.fill();
 
             ctx.shadowColor = 'transparent';
-            ctx.shadowBlur = 0;
+            ctx.shadowBlur  = 0;
             ctx.strokeStyle = centerColor;
-            ctx.lineWidth = 1;
+            ctx.lineWidth   = 1;
             ctx.stroke();
             ctx.restore();
         }
@@ -217,17 +217,17 @@ jQuery(function ($) {
             const miniCanvas = document.getElementById('srwc-mini-wheel-canvas');
             if (!miniCanvas) return;
 
-            const settings = srwc_frontend?.settings || {},
+            const settings  = srwc_frontend?.settings || {},
                 borderColor = settings.wheel_border_color || '#d32f2f',
                 centerColor = settings.wheel_center_color || '#ffffff',
-                dotColor = settings.wheel_dot_color || '#000000',
-                ctx = miniCanvas.getContext('2d'),
-                size = miniCanvas.width,
-                total = this.slides.length,
-                centerX = size / 2,
-                centerY = size / 2,
-                radius = (size / 2) - 6,
-                anglePer = (Math.PI * 2) / total;
+                dotColor    = settings.wheel_dot_color || '#000000',
+                ctx         = miniCanvas.getContext('2d'),
+                size        = miniCanvas.width,
+                total       = this.slides.length,
+                centerX     = size / 2,
+                centerY     = size / 2,
+                radius      = (size / 2) - 6,
+                anglePer    = (Math.PI * 2) / total;
 
             for (let i = 0; i < total; i++) {
                 const start = i * anglePer,
@@ -243,17 +243,17 @@ jQuery(function ($) {
             // Outer border
             ctx.beginPath();
             ctx.arc(centerX, centerY, radius + 2, 0, Math.PI * 2);
-            ctx.lineWidth = 5;
+            ctx.lineWidth   = 5;
             ctx.strokeStyle = borderColor;
             ctx.stroke();
 
             this.slides.forEach((s, idx) => {
                 const start = (idx * 2 * Math.PI) / total,
-                    dotX = centerX + Math.cos(start) * (radius + 3),
-                    dotY = centerY + Math.sin(start) * (radius + 3);
+                    dotX    = centerX + Math.cos(start) * (radius + 3),
+                    dotY    = centerY + Math.sin(start) * (radius + 3);
 
                 ctx.beginPath();
-                ctx.arc(dotX, dotY, 2, 0, 2 * Math.PI);
+                ctx.arc(dotX, dotY, 1.2, 0, 1.2 * Math.PI);
                 ctx.fillStyle = dotColor;
                 ctx.fill();
             });
@@ -277,9 +277,8 @@ jQuery(function ($) {
             }
 
             let delay = 0;
-
-            const settings = srwc_frontend?.settings || {},
-                showAgain = parseInt(settings.show_again, 10) || 0,
+            const settings  = srwc_frontend?.settings || {},
+                showAgain   = parseInt(settings.show_again, 10) || 0,
                 timeOnClose = parseInt(settings.time_on_close, 10) || 0;
 
             let spinagain = 0, closeagain = 0;
@@ -328,7 +327,7 @@ jQuery(function ($) {
 
         closeWheel(e) {
             const settings = srwc_frontend?.settings || {},
-                target = $(e.target);
+                target     = $(e.target);
 
             if (
                 e.target.id === 'srwc-wheel-modal' ||
@@ -343,7 +342,7 @@ jQuery(function ($) {
         handleNotDisplayOption(e) {
             e.preventDefault();
             const target = $(e.currentTarget),
-                option = target.data('option'),
+                option   = target.data('option'),
                 settings = srwc_frontend?.settings || {};
 
             if (!option) {
@@ -356,24 +355,22 @@ jQuery(function ($) {
                 case 'never':
                     // Set cookie "never_show_again" with 30 days expiry
                     this.setCookie(this.cookieName, 'never_show_again', 30);
-                    this.floatingBtn.addClass('srwc-hidden');
-                    localStorage.setItem('srwc_icon_hidden', 'true');
+                    this.floatingBtn.addClass('srwc-hidden').hide();
                     this.performWheelClose(settings, false);
                     break;
 
                 case 'remind_later':
                     // Set cookie "reminder_later" with 1 day expiry
                     this.setCookie(this.cookieName, 'reminder_later', 1);
-                    this.floatingBtn.addClass('srwc-hidden');
-                    localStorage.setItem('srwc_icon_hidden', 'true');
+                    this.floatingBtn.addClass('srwc-hidden').hide();
                     this.performWheelClose(settings, false);
                     break;
 
                 case 'no_thanks':
                     // Set cookie "closed" with expiry from time_on_close setting
                     let timeOnClose = parseInt(settings.time_on_close, 10) || 1,
-                        unit = (settings.time_on_close_unit || 'days').toLowerCase(),
-                        days = 1; // Default to 1 day
+                        unit        = (settings.time_on_close_unit || 'days').toLowerCase(),
+                        days        = 1; // Default to 1 day
 
                     // Convert to days
                     if (unit === 'minutes') days = timeOnClose / (24 * 60);
@@ -384,8 +381,7 @@ jQuery(function ($) {
                     days = Math.max(days, 1);
 
                     this.setCookie(this.cookieName, 'closed', days);
-                    this.floatingBtn.addClass('srwc-hidden');
-                    localStorage.setItem('srwc_icon_hidden', 'true');
+                    this.floatingBtn.addClass('srwc-hidden').hide();
                     this.performWheelClose(settings, false);
                     break;
 
@@ -405,8 +401,8 @@ jQuery(function ($) {
 
                 if (!this.hasSpin) {
                     let timeOnClose = parseInt(settings.time_on_close, 10),
-                        unit = (settings.time_on_close_unit || 'minutes').toLowerCase(),
-                        multiplier = 1000;
+                        unit        = (settings.time_on_close_unit || 'minutes').toLowerCase(),
+                        multiplier  = 1000;
 
                     if (unit === 'minutes') multiplier = 60 * 1000;
                     else if (unit === 'hours') multiplier = 60 * 60 * 1000;
@@ -434,11 +430,11 @@ jQuery(function ($) {
             e.preventDefault();
             if (!this.wheelInner || !this.slides.length || !srwc_frontend.form.validateForm()) return;
 
-            const settings = srwc_frontend?.settings || {},
+            const settings  = srwc_frontend?.settings || {},
                 lastSpinKey = 'srwc_last_spin_time',
-                now = Date.now(),
-                lastSpin = parseInt(localStorage.getItem(lastSpinKey)) || 0,
-                waitTime = srwc_frontend.waitTime || 0;
+                now         = Date.now(),
+                lastSpin    = parseInt(localStorage.getItem(lastSpinKey)) || 0,
+                waitTime    = srwc_frontend.waitTime || 0;
 
             const customerEmail = $('.srwc-email').val().trim();
             if (customerEmail) {
@@ -447,7 +443,6 @@ jQuery(function ($) {
                 });
                 return;
             }
-
             this.proceedWithSpin(settings, lastSpinKey, now, lastSpin, waitTime);
         }
 
@@ -455,7 +450,7 @@ jQuery(function ($) {
 
             if (waitTime > 0 && now - lastSpin < waitTime) {
                 const remainingTime = waitTime - (now - lastSpin),
-                    unit = settings.time_spin_between_unit || 'hours';
+                    unit            = settings.time_spin_between_unit || 'hours';
                 let remaining;
 
                 switch (unit) {
@@ -473,32 +468,28 @@ jQuery(function ($) {
             }
 
             localStorage.setItem(lastSpinKey, now);
-
             srwc_frontend.form.klaviyoSubscribe();
             srwc_frontend.form.mailchimpSubscribe();
 
-
-            const spinBtn = this.modal.find('.srwc-spin-btn'),
-                total = this.slides.length,
-                degreesPer = 360 / total,
-                speedMap = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10 },
-                speed = speedMap[settings.wheel_speed_spin || 'three'] || 3,
-                duration = settings.wheel_time_duration || 4,
-                selectedslide = srwc_frontend.form.slideProbability(),
-                slideCenter = (selectedslide * degreesPer) + (degreesPer / 2);
+            const spinBtn       = this.modal.find('.srwc-spin-btn'),
+                total           = this.slides.length,
+                degreesPer      = 360 / total,
+                speedMap        = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10 },
+                speed           = speedMap[settings.wheel_speed_spin || 'three'] || 3,
+                duration        = settings.wheel_time_duration || 4,
+                selectedslide   = srwc_frontend.form.slideProbability(),
+                slideCenter     = (selectedslide * degreesPer) + (degreesPer / 2);
 
             let pointerAngle = 0;
-
             if (typeof wp !== 'undefined' && wp.hooks) {
                 wp.hooks.doAction('srwcWheelPointer', { settings, selected: selectedslide, slideCenter: slideCenter }, (data) => {
                     pointerAngle = parseInt(data.pointerAngle) || 0;
                 });
             }
 
-            const rotateTo = (360 * speed) + (360 - slideCenter) - pointerAngle,
-                loader = $('.srwc-loader:first').clone().removeAttr('style').show();
+            const rotateTo  = (360 * speed) + (360 - slideCenter) - pointerAngle,
+                loader      = $('.srwc-loader:first').clone().removeAttr('style').show();
             spinBtn.prop('disabled', true).html(loader);
-
 
             this.wheelInner.css({
                 transition: `transform ${duration}s cubic-bezier(0.33,1,0.68,1)`,
@@ -529,9 +520,8 @@ jQuery(function ($) {
         }
 
         showWinMessage(chosen, label) {
-
-            const settings = srwc_frontend?.settings || {},
-                isWin = chosen.coupon_type !== 'none';
+            const settings  = srwc_frontend?.settings || {},
+                isWin       = chosen.coupon_type !== 'none';
 
             let message;
             if (isWin) {
@@ -549,7 +539,6 @@ jQuery(function ($) {
             this.modal.find('.srwc-win-message').show();
 
             srwc_frontend.form.autoHideWheel(settings);
-
             if (typeof wp !== 'undefined' && wp.hooks) {
                 wp.hooks.doAction('srwcApplyCoupon', chosen, label, this);
             }
@@ -579,16 +568,16 @@ jQuery(function ($) {
         }
 
         generateCoupon(chosen, callback) {
-            const countryCode = $('#srwc_country_code option:selected').data('phone-code') || '',
-                phoneNumber = $('.srwc-mobile').val() || '',
-                fullMobile = countryCode && phoneNumber ? countryCode + ' ' + phoneNumber : phoneNumber;
+            const countryCode   = $('#srwc_country_code option:selected').data('phone-code') || '',
+                phoneNumber     = $('.srwc-mobile').val() || '',
+                fullMobile      = countryCode && phoneNumber ? countryCode + ' ' + phoneNumber : phoneNumber;
 
             $.ajax({
                 type: 'POST',
                 url: srwc_frontend.ajax_url,
                 data: {
                     action: 'srwc_generate_coupon',
-                    nonce: srwc_frontend.nonce,
+                    nonce:  srwc_frontend.nonce,
                     coupon_type: chosen.coupon_type,
                     coupon_code: chosen.coupon_code || '',
                     customer_email: $('.srwc-email').val(),
@@ -611,11 +600,13 @@ jQuery(function ($) {
         }
 
         floatingButton() {
-
-            const isHidden = localStorage.getItem('srwc_icon_hidden');
-            if (isHidden === 'true') {
-                this.floatingBtn.addClass('srwc-hidden');
+            const cookieValue = this.getCookie(this.cookieName);
+            if (cookieValue) {
+                this.floatingBtn.addClass('srwc-hidden').hide();
+                return;
             }
+            // Show button if no cookie is set
+            this.floatingBtn.removeClass('srwc-hidden').show();
         }
 
         handleIconHide() {
