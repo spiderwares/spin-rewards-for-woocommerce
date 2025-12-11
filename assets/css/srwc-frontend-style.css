@@ -363,9 +363,9 @@
 
 @media (max-width: 1024px) {
     .srwc-close {
-        top: -35rem;
+        top: -45rem;
         right: -10px;
-        font-size: 45px;
+        font-size: 70px;
     }
 
     .srwc-wheel-left {
@@ -375,5 +375,37 @@
     .srwc-wheel-right {
         width: 100% !important;
         position: relative;
+    }
+}
+
+@media (max-width: 768px) {
+    .srwc-close {
+        top: -36rem;
+        right: -10px;
+        font-size: 45px;
+    }
+}
+
+@media (max-width: 575px) {
+    .srwc-close {
+        top: -27rem;
+        right: -26px;
+        font-size: 45px;
+    }
+}
+
+@media (max-width: 425px) {
+    .srwc-close {
+        top: -23rem;
+        right: -25px;
+        font-size: 45px;
+    }
+}
+
+@media (max-width: 375px) {
+    .srwc-close {
+        top: -21rem;
+        right: -26px;
+        font-size: 45px;
     }
 }

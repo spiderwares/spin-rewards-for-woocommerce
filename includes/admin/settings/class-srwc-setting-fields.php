@@ -266,6 +266,14 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                     'extra_class'=> 'name_option',
                 ),
 
+                'user_email_require' => array(
+                    'title'      => esc_html__( 'Email Required', 'spin-rewards-for-woocommerce' ),
+                    'field_type' => 'srwcswitch',
+                    'default'    => 'yes',
+                    'name'       => 'srwc_settings[user_email_require]',
+                    'extra_class'=> 'name_option',
+                ),
+
                 'email_border' => array(
                     'title'      => esc_html__( 'Email Border Radius', 'spin-rewards-for-woocommerce' ),
                     'field_type' => 'srwcnumber',
@@ -329,6 +337,16 @@ if ( ! class_exists( 'SRWC_Rewards_Fields' ) ) :
                     'name'       => 'srwc_settings[gdpr_checkbox]',
                     'desc'       => esc_html__( 'Enable GDPR consent checkbox on the spin wheel form.', 'spin-rewards-for-woocommerce' ),
                     'data_show'  => '.gdpr_option',
+                ),
+
+                'gdpr_required' => array(
+                    'title'      => esc_html__( 'GDPR Required', 'spin-rewards-for-woocommerce' ),
+                    'field_type' => 'srwcswitch',
+                    'default'    => 'yes',
+                    'name'       => 'srwc_settings[gdpr_required]',
+                    'desc'       => esc_html__( 'Make the GDPR consent checkbox mandatory.', 'spin-rewards-for-woocommerce' ),
+                    'style'      => 'gdpr_checkbox.yes',
+                    'extra_class'=> 'gdpr_option',
                 ),
 
                 'gdpr_message' => array(

@@ -26,7 +26,7 @@ if ( ! defined( 'SRWC_BASENAME' ) ) :
 endif;
 
 if ( ! defined( 'SRWC_VERSION' ) ) :
-    define( 'SRWC_VERSION', '1.0.0' ); // Define the plugin version.
+    define( 'SRWC_VERSION', time() ); // Define the plugin version.
 endif;
 
 if ( ! defined( 'SRWC_PATH' ) ) :
